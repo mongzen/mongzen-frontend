@@ -7,14 +7,20 @@ import {
   CardHeader,
   CardTitle,
   LoadingSpinner,
+  TypographyShowcase,
 } from '@/components/ui';
+import ColorShowcase from '@/components/ui/ColorShowcase';
 import { useHomePage } from '@/hooks/useApi';
 import { getImageUrl } from '@/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Home() {
   const { data: homeData, loading, error } = useHomePage();
+  const [activeTab, setActiveTab] = useState<'home' | 'typography' | 'colors'>(
+    'home'
+  );
 
   if (loading) {
     return (
@@ -257,6 +263,62 @@ export default function Home() {
         >
           {homeData ? '🟢 Strapi Connected' : '🟡 Using Fallback Data'}
         </div>
+      </div>
+
+      {/* Navigation Links Section */}
+      <div className="bg-white py-4 shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex gap-4">
+            <Button
+              variant={activeTab === 'home' ? 'primary' : 'outline'}
+              className="flex-1"
+              onClick={() => setActiveTab('home')}
+            >
+              Home Content
+            </Button>
+            <Button
+              variant={activeTab === 'typography' ? 'secondary' : 'outline'}
+              className="flex-1"
+              onClick={() => setActiveTab('typography')}
+            >
+              Typography & Icons
+            </Button>
+            <Button
+              variant={activeTab === 'colors' ? 'accent' : 'outline'}
+              className="flex-1"
+              onClick={() => setActiveTab('colors')}
+            >
+              Color Palette
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Content based on active tab */}
+      <div className="min-h-screen">
+        {activeTab === 'home' && (
+          <>
+            {/* Hero Section */}
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-24">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 className="text-heading mb-6">
+                  Transform Your Digital Presence
+                </h1>
+                <p className="text-paragraph mb-8">
+                  {homeData?.attributes?.hero_description ||
+                    'We create digital experiences that help businesses grow and connect with their audience in meaningful ways.'}
+                </p>
+                <Button variant="primary" size="lg">
+                  Get Started Today
+                </Button>
+              </div>
+            </div>
+            {/* Add more home content here */}
+          </>
+        )}
+
+        {activeTab === 'typography' && <TypographyShowcase />}
+        {activeTab === 'colors' && <ColorShowcase />}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { Footer, Header } from '@/components/layout';
+import { barlow } from '@/lib/fonts';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -48,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${barlow.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
         <main>{children}</main>

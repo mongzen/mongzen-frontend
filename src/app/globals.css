@@ -27,7 +27,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-barlow);
   --font-mono: var(--font-geist-mono);
 
   /* Absolute colors */
@@ -170,5 +170,56 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    var(--font-barlow),
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Typography Scale */
+.text-heading {
+  font-size: 48px;
+  font-weight: 700; /* Bold */
+  line-height: 1.2;
+}
+
+.text-paragraph {
+  font-size: 20px;
+  font-weight: 400; /* Regular */
+  line-height: 1.6;
+}
+
+.text-button {
+  font-size: 18px;
+  font-weight: 600; /* Semi Bold */
+  line-height: 1.4;
+}
+
+/* Mobile Typography */
+@media (max-width: 768px) {
+  .text-paragraph {
+    font-size: 14px;
+  }
+}
+
+/* Font Weight Classes */
+.font-regular {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
 }
