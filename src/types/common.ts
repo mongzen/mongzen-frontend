@@ -18,7 +18,16 @@ export interface SocialLink {
 }
 
 export interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'warning'
+    | 'danger'
+    | 'success'
+    | 'info'
+    | 'outline'
+    | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   loading?: boolean;

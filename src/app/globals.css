@@ -2,7 +2,26 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #191919;
+  --primary: #9eff00;
+  --primary-foreground: #191919;
+  --secondary: #00d4ff;
+  --secondary-foreground: #ffffff;
+  --accent: #9d00ff;
+  --accent-foreground: #ffffff;
+  --warning: #ffe500;
+  --warning-foreground: #191919;
+  --danger: #ff3d00;
+  --danger-foreground: #ffffff;
+  --success: #00ff7a;
+  --success-foreground: #191919;
+  --info: #00ffff;
+  --info-foreground: #191919;
+  --muted: #f5ffe5;
+  --muted-foreground: #4c4c4d;
+  --border: #e6e6e6;
+  --input: #e6e6e6;
+  --ring: #9eff00;
 }
 
 @theme inline {
@@ -10,12 +29,141 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Absolute colors */
+  --color-absolute-white: #ffffff;
+  --color-absolute-black: #000000;
+
+  /* Primary colors (Electric Green) */
+  --color-primary-50: #9eff00;
+  --color-primary-60: #b1ff33;
+  --color-primary-70: #c5ff66;
+  --color-primary-80: #d8ff99;
+  --color-primary-90: #ecffcc;
+  --color-primary-95: #f5ffe5;
+  --color-primary-97: #f9fff0;
+  --color-primary-99: #fdfffa;
+
+  /* Secondary colors (Electric Blue) */
+  --color-secondary-50: #00d4ff;
+  --color-secondary-60: #33ddff;
+  --color-secondary-70: #66e6ff;
+  --color-secondary-80: #99efff;
+  --color-secondary-90: #ccf7ff;
+  --color-secondary-95: #e5fbff;
+  --color-secondary-97: #f0fdff;
+  --color-secondary-99: #fafdff;
+
+  /* Accent colors (Electric Purple) */
+  --color-accent-50: #9d00ff;
+  --color-accent-60: #b133ff;
+  --color-accent-70: #c566ff;
+  --color-accent-80: #d999ff;
+  --color-accent-90: #ecccff;
+  --color-accent-95: #f5e5ff;
+  --color-accent-97: #f9f0ff;
+  --color-accent-99: #fdfdff;
+
+  /* Warning colors (Electric Yellow) */
+  --color-warning-50: #ffe500;
+  --color-warning-60: #ffea33;
+  --color-warning-70: #ffef66;
+  --color-warning-80: #fff499;
+  --color-warning-90: #fff9cc;
+  --color-warning-95: #fffce5;
+  --color-warning-97: #fffef0;
+  --color-warning-99: #fffffa;
+
+  /* Danger colors (Electric Red) */
+  --color-danger-50: #ff3d00;
+  --color-danger-60: #ff6433;
+  --color-danger-70: #ff8a66;
+  --color-danger-80: #ffb199;
+  --color-danger-90: #ffd7cc;
+  --color-danger-95: #ffebe5;
+  --color-danger-97: #fff5f0;
+  --color-danger-99: #fffcfa;
+
+  /* Success colors (Electric Green variants) */
+  --color-success-50: #00ff7a;
+  --color-success-60: #33ff95;
+  --color-success-70: #66ffaf;
+  --color-success-80: #99ffca;
+  --color-success-90: #ccffe4;
+  --color-success-95: #e5fff2;
+  --color-success-97: #f0fff8;
+  --color-success-99: #fafffb;
+
+  /* Info colors (Electric Cyan) */
+  --color-info-50: #00ffff;
+  --color-info-60: #33ffff;
+  --color-info-70: #66ffff;
+  --color-info-80: #99ffff;
+  --color-info-90: #ccffff;
+  --color-info-95: #e5ffff;
+  --color-info-97: #f0ffff;
+  --color-info-99: #faffff;
+
+  /* Neutral colors (Grey shades) */
+  --color-neutral-0: #ffffff;
+  --color-neutral-5: #f9f9f9;
+  --color-neutral-10: #f2f2f2;
+  --color-neutral-15: #e6e6e6;
+  --color-neutral-20: #cccccc;
+  --color-neutral-25: #b3b3b3;
+  --color-neutral-30: #999999;
+  --color-neutral-35: #808080;
+  --color-neutral-40: #666666;
+  --color-neutral-45: #4d4d4d;
+  --color-neutral-50: #333333;
+  --color-neutral-55: #262626;
+  --color-neutral-60: #1a1a1a;
+  --color-neutral-65: #0d0d0d;
+  --color-neutral-70: #000000;
+
+  /* Dark theme neutral colors */
+  --color-dark-10: #191919;
+  --color-dark-15: #262626;
+  --color-dark-20: #333333;
+  --color-dark-30: #4c4c4d;
+  --color-dark-35: #59595a;
+  --color-dark-40: #656567;
+  --color-dark-60: #98989a;
+  --color-dark-90: #e6e6e6;
+
+  /* Color aliases for easy usage */
+  --color-primary: var(--color-primary-50);
+  --color-secondary: var(--color-secondary-50);
+  --color-accent: var(--color-accent-50);
+  --color-warning: var(--color-warning-50);
+  --color-danger: var(--color-danger-50);
+  --color-success: var(--color-success-50);
+  --color-info: var(--color-info-50);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #191919;
+    --foreground: #e6e6e6;
+    --primary: #9eff00;
+    --primary-foreground: #191919;
+    --secondary: #00d4ff;
+    --secondary-foreground: #191919;
+    --accent: #9d00ff;
+    --accent-foreground: #ffffff;
+    --warning: #ffe500;
+    --warning-foreground: #191919;
+    --danger: #ff3d00;
+    --danger-foreground: #ffffff;
+    --success: #00ff7a;
+    --success-foreground: #191919;
+    --info: #00ffff;
+    --info-foreground: #191919;
+    --muted: #262626;
+    --muted-foreground: #98989a;
+    --border: #333333;
+    --input: #333333;
+    --ring: #9eff00;
   }
 }
 

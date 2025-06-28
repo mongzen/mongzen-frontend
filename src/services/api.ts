@@ -126,7 +126,7 @@ class ApiService {
   }
 
   async getHomePage(): Promise<StrapiResponse<any>> {
-    return this.get('/home?populate=*');
+    return this.get('/homepage?populate=*');
   }
 
   async getProjects(params?: {

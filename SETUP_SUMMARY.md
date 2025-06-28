@@ -3,12 +3,14 @@
 ## ✅ Completed Setup
 
 ### 1. Dependencies Installed
+
 - **axios** - HTTP client for API calls
 - **prettier** - Code formatting
 - **eslint** - Code linting (already configured)
 - **clsx** & **tailwind-merge** - Utility class management
 
 ### 2. Environment Configuration
+
 - ✅ `.env.local` - Environment variables
 - ✅ `.env.example` - Template for environment variables
 - ✅ `.prettierrc` - Prettier configuration
@@ -16,6 +18,7 @@
 - ✅ Updated `eslint.config.mjs` - ESLint with Prettier integration
 
 ### 3. Project Structure Created
+
 ```
 src/
 ├── app/                 # Next.js App Router
@@ -39,6 +42,7 @@ src/
 ```
 
 ### 4. API Integration
+
 - ✅ **Strapi API Service** - Complete API client with error handling
 - ✅ **Custom Hooks** - useHomePage, useAboutPage, useProjects, etc.
 - ✅ **TypeScript Types** - Full type definitions for Strapi responses
@@ -46,6 +50,7 @@ src/
 - ✅ **API Status Indicator** - Shows connection status
 
 ### 5. UI Components
+
 - ✅ **Button** - Multiple variants and sizes
 - ✅ **Card** - Content containers with header/footer
 - ✅ **Loading** - Spinner and overlay components
@@ -53,11 +58,13 @@ src/
 - ✅ **Footer** - Site footer with links
 
 ### 6. Pages Implemented
+
 - ✅ **Home Page** - Hero section, services, CTA with API integration
 - ✅ **About Page** - Team section, values with API integration
 - ✅ **Layout** - Header and Footer integration
 
 ### 7. CI/CD Configuration
+
 - ✅ **GitHub Actions** - `.github/workflows/deploy.yml` for Vercel
 - ✅ **Strapi Deployment** - `.github/workflows/deploy-strapi.yml` for Heroku/DigitalOcean
 - ✅ **Code Quality** - ESLint, Prettier, and build checks
@@ -65,20 +72,24 @@ src/
 ## 🚀 How to Run
 
 ### Development
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
 Visit: http://localhost:3000
 
 ### Production Build
+
 ```bash
 npm run build
 npm run start
 ```
 
 ### Code Quality
+
 ```bash
 npm run lint          # Check for linting errors
 npm run lint:fix      # Fix linting errors
@@ -89,6 +100,7 @@ npm run format:check  # Check code formatting
 ## 🔧 Environment Variables
 
 Create `.env.local` with:
+
 ```env
 NEXT_PUBLIC_STRAPI_URL=http://localhost:1337
 NEXT_PUBLIC_API_URL=http://localhost:1337/api
@@ -98,6 +110,7 @@ NODE_ENV=development
 ## 📡 API Endpoints Expected
 
 The application expects these Strapi endpoints:
+
 - `GET /api/home?populate=*` - Homepage content
 - `GET /api/about?populate=*` - About page content
 - `GET /api/projects?populate=*` - Projects listing
@@ -107,27 +120,32 @@ The application expects these Strapi endpoints:
 ## 🎨 Features
 
 ### ✅ Responsive Design
+
 - Mobile-first approach
 - Modern UI with Tailwind CSS
 - Accessible components
 
 ### ✅ API Integration
+
 - Axios HTTP client
 - Custom React hooks
 - Error handling and fallbacks
 - Loading states
 
 ### ✅ Type Safety
+
 - Full TypeScript integration
 - API response types
 - Component prop types
 
 ### ✅ Code Quality
+
 - ESLint configuration
 - Prettier formatting
 - GitHub Actions CI/CD
 
 ### ✅ SEO Ready
+
 - Meta tags configuration
 - OpenGraph support
 - Twitter cards
@@ -135,6 +153,7 @@ The application expects these Strapi endpoints:
 ## 🚀 Deployment
 
 ### Vercel (Frontend)
+
 1. Connect repository to Vercel
 2. Set environment variables:
    - `VERCEL_TOKEN`
@@ -145,9 +164,11 @@ The application expects these Strapi endpoints:
 3. Deploy automatically on push to main
 
 ### Heroku/DigitalOcean (Strapi)
+
 GitHub Actions workflow is configured for both platforms.
 
 Required secrets:
+
 - `HEROKU_EMAIL`, `HEROKU_API_KEY`, `HEROKU_APP_NAME`
 - `DIGITALOCEAN_ACCESS_TOKEN`, `DIGITALOCEAN_REGISTRY_NAME`, `DIGITALOCEAN_APP_NAME`
 

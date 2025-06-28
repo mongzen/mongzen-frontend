@@ -13,14 +13,20 @@ export function Button({
   ...props
 }: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const baseStyles =
-    'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
+    'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none hover:scale-105 active:scale-95';
 
   const variants = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-    secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
+    primary: 'text-neutral-70 focus:ring-primary-50',
+    secondary: 'text-neutral-0 focus:ring-secondary-50',
+    accent: 'text-neutral-0 focus:ring-accent-50',
+    warning: 'text-neutral-70 focus:ring-warning-50',
+    danger: 'text-neutral-0 focus:ring-danger-50',
+    success: 'text-neutral-70 focus:ring-success-50',
+    info: 'text-neutral-70 focus:ring-info-50',
     outline:
-      'border border-gray-300 bg-transparent hover:bg-gray-50 focus:ring-gray-500',
-    ghost: 'bg-transparent hover:bg-gray-100 focus:ring-gray-500',
+      'border-2 bg-transparent text-neutral-50 hover:text-neutral-0 focus:ring-primary-50',
+    ghost:
+      'bg-transparent text-neutral-50 hover:text-neutral-70 focus:ring-neutral-30',
   };
 
   const sizes = {
@@ -29,10 +35,50 @@ export function Button({
     lg: 'h-12 px-6 text-base',
   };
 
+  // Use CSS variables for colors that can change with theme
+  const getVariantStyles = (variant: string) => {
+    const styles: Record<string, React.CSSProperties> = {
+      primary: {
+        backgroundColor: 'var(--color-primary)',
+        borderColor: 'var(--color-primary)',
+      },
+      secondary: {
+        backgroundColor: 'var(--color-secondary)',
+        borderColor: 'var(--color-secondary)',
+      },
+      accent: {
+        backgroundColor: 'var(--color-accent)',
+        borderColor: 'var(--color-accent)',
+      },
+      warning: {
+        backgroundColor: 'var(--color-warning)',
+        borderColor: 'var(--color-warning)',
+      },
+      danger: {
+        backgroundColor: 'var(--color-danger)',
+        borderColor: 'var(--color-danger)',
+      },
+      success: {
+        backgroundColor: 'var(--color-success)',
+        borderColor: 'var(--color-success)',
+      },
+      info: {
+        backgroundColor: 'var(--color-info)',
+        borderColor: 'var(--color-info)',
+      },
+      outline: {
+        borderColor: 'var(--color-primary)',
+      },
+      ghost: {},
+    };
+    return styles[variant] || styles.primary;
+  };
+
   return (
     <button
       type={type}
       className={cn(baseStyles, variants[variant], sizes[size], className)}
+      style={getVariantStyles(variant)}
       disabled={disabled || loading}
       onClick={onClick}
       {...props}
