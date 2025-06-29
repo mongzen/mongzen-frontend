@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #191919;
+  --background: #1a1a1a; /* color-neutral-60 for dark mode */
+  --foreground: #e6e6e6; /* Light text for dark background */
   --primary: #9eff00;
   --primary-foreground: #191919;
   --secondary: #00d4ff;
@@ -17,10 +17,10 @@
   --success-foreground: #191919;
   --info: #00ffff;
   --info-foreground: #191919;
-  --muted: #f5ffe5;
-  --muted-foreground: #4c4c4d;
-  --border: #e6e6e6;
-  --input: #e6e6e6;
+  --muted: #262626; /* Darker muted for dark theme */
+  --muted-foreground: #98989a;
+  --border: #333333; /* Darker border for dark theme */
+  --input: #333333; /* Darker input for dark theme */
   --ring: #9eff00;
 }
 

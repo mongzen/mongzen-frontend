@@ -24,10 +24,10 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-neutral-60">
         <div className="text-center">
           <LoadingSpinner size="lg" />
-          <p className="mt-4 text-gray-600">Loading homepage content...</p>
+          <p className="mt-4 text-neutral-20">Loading homepage content...</p>
         </div>
       </div>
     );
@@ -35,16 +35,21 @@ export default function Home() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-neutral-60">
         <div className="text-center">
-          <p className="text-red-600 mb-4">Error loading homepage: {error}</p>
-          <p className="text-gray-600 mb-4">
+          <p className="text-danger-50 mb-4">Error loading homepage: {error}</p>
+          <p className="text-neutral-20 mb-4">
             Make sure your Strapi backend is running on{' '}
-            <code className="bg-gray-100 px-2 py-1 rounded">
+            <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
               http://localhost:1337
             </code>
           </p>
-          <Button onClick={() => window.location.reload()}>Try Again</Button>
+          <Button
+            onClick={() => window.location.reload()}
+            className="bg-gradient-to-r from-primary-50 to-secondary-50 text-neutral-60 hover:from-primary-60 hover:to-secondary-60 font-semibold shadow-xl shadow-primary-50/30"
+          >
+            Try Again
+          </Button>
         </div>
       </div>
     );
@@ -66,26 +71,30 @@ export default function Home() {
   const displayData = homeData?.attributes || fallbackData;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-neutral-60">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <section className="bg-gradient-to-br from-neutral-60 via-neutral-55 to-neutral-50 text-neutral-0 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-50/5 to-secondary-50/5"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(158,255,0,0.1),transparent_50%)]"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-50 to-secondary-50 bg-clip-text text-transparent">
                 {displayData.hero_title}
               </h1>
-              <h2 className="text-xl md:text-2xl mb-6 text-blue-100">
+              <h2 className="text-xl md:text-2xl mb-6 text-neutral-15">
                 {displayData.hero_subtitle}
               </h2>
-              <p className="text-lg mb-8 text-blue-100">
+              <p className="text-lg mb-8 text-neutral-20">
                 {displayData.hero_description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href={displayData.hero_cta_link || '/contact'}>
                   <Button
                     size="lg"
-                    className="bg-white text-blue-600 hover:bg-gray-100"
+                    className="bg-gradient-to-r from-primary-50 to-secondary-50 text-neutral-60 hover:from-primary-60 hover:to-secondary-60 font-semibold shadow-xl shadow-primary-50/30 transform hover:scale-105 transition-all duration-300"
                   >
                     {displayData.hero_cta_text || 'Get Started'}
                   </Button>
@@ -94,7 +103,7 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="border-white text-white hover:bg-white hover:text-blue-600"
+                    className="border-neutral-30 text-neutral-15 hover:border-primary-50 hover:text-primary-50 hover:bg-primary-50/5 transition-all duration-300"
                   >
                     View Our Work
                   </Button>
@@ -114,12 +123,12 @@ export default function Home() {
                   }
                   width={600}
                   height={400}
-                  className="rounded-lg shadow-xl"
+                  className="rounded-xl shadow-2xl"
                 />
               ) : (
-                <div className="bg-white/10 rounded-lg p-12 text-center">
-                  <div className="w-full h-64 bg-white/20 rounded-lg flex items-center justify-center">
-                    <p className="text-white/80">Hero Image Placeholder</p>
+                <div className="bg-gradient-to-br from-neutral-50/20 to-neutral-40/20 rounded-xl p-12 text-center backdrop-blur-sm border border-neutral-40/20">
+                  <div className="w-full h-64 bg-gradient-to-br from-primary-50/10 to-secondary-50/10 rounded-xl flex items-center justify-center border border-neutral-40/20">
+                    <p className="text-neutral-20">Hero Image Placeholder</p>
                   </div>
                 </div>
               )}
@@ -129,24 +138,24 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gradient-to-b from-neutral-60 to-neutral-55">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-0 mb-4">
               {displayData.services_section_title}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-neutral-20 max-w-3xl mx-auto">
               {displayData.services_section_description}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Service Cards - These would come from Strapi in a real implementation */}
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-xl transition-all duration-300 bg-neutral-50/50 border-neutral-40/20 backdrop-blur-sm hover:bg-neutral-50/70 transform hover:scale-105">
               <CardHeader>
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-50/20 to-secondary-50/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-primary-50/30">
                   <svg
-                    className="w-8 h-8 text-blue-600"
+                    className="w-8 h-8 text-primary-50"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -159,21 +168,23 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <CardTitle>Web Development</CardTitle>
+                <CardTitle className="text-neutral-0">
+                  Web Development
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-neutral-20">
                   Custom web applications built with modern technologies and
                   best practices.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-xl transition-all duration-300 bg-neutral-50/50 border-neutral-40/20 backdrop-blur-sm hover:bg-neutral-50/70 transform hover:scale-105">
               <CardHeader>
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-success-50/20 to-info-50/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-success-50/30">
                   <svg
-                    className="w-8 h-8 text-green-600"
+                    className="w-8 h-8 text-success-50"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -186,21 +197,21 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <CardTitle>Mobile Apps</CardTitle>
+                <CardTitle className="text-neutral-0">Mobile Apps</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-neutral-20">
                   Native and cross-platform mobile applications for iOS and
                   Android.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-xl transition-all duration-300 bg-neutral-50/50 border-neutral-40/20 backdrop-blur-sm hover:bg-neutral-50/70 transform hover:scale-105">
               <CardHeader>
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-accent-50/20 to-danger-50/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-accent-50/30">
                   <svg
-                    className="w-8 h-8 text-purple-600"
+                    className="w-8 h-8 text-accent-50"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -213,10 +224,10 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <CardTitle>UI/UX Design</CardTitle>
+                <CardTitle className="text-neutral-0">UI/UX Design</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
+                <p className="text-neutral-20">
                   Beautiful and intuitive user interfaces that enhance user
                   experience.
                 </p>
@@ -226,25 +237,31 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link href="/services">
-              <Button size="lg">View All Services</Button>
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-primary-50 to-secondary-50 text-neutral-60 hover:from-primary-60 hover:to-secondary-60 font-semibold shadow-xl shadow-primary-50/30 transform hover:scale-105 transition-all duration-300"
+              >
+                View All Services
+              </Button>
             </Link>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-gradient-to-r from-neutral-55 to-neutral-50 text-neutral-0 py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-50/10 to-secondary-50/10"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Start Your Project?
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
+          <p className="text-xl mb-8 text-neutral-20">
             Let&apos;s work together to bring your digital vision to life.
           </p>
           <Link href="/contact">
             <Button
               size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100"
+              className="bg-gradient-to-r from-primary-50 to-secondary-50 text-neutral-60 hover:from-primary-60 hover:to-secondary-60 font-semibold shadow-xl shadow-primary-50/30 transform hover:scale-105 transition-all duration-300"
             >
               Get In Touch
             </Button>
@@ -255,10 +272,10 @@ export default function Home() {
       {/* API Status Indicator */}
       <div className="fixed bottom-4 right-4 z-50">
         <div
-          className={`px-3 py-2 rounded-full text-sm font-medium ${
+          className={`px-3 py-2 rounded-full text-sm font-medium backdrop-blur-sm ${
             homeData
-              ? 'bg-green-100 text-green-800'
-              : 'bg-yellow-100 text-yellow-800'
+              ? 'bg-success-50/20 text-success-50 border border-success-50/30'
+              : 'bg-warning-50/20 text-warning-50 border border-warning-50/30'
           }`}
         >
           {homeData ? '🟢 Strapi Connected' : '🟡 Using Fallback Data'}
@@ -266,26 +283,38 @@ export default function Home() {
       </div>
 
       {/* Navigation Links Section */}
-      <div className="bg-white py-4 shadow-md">
+      <div className="bg-neutral-55 border-b border-neutral-50/20 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-4">
             <Button
               variant={activeTab === 'home' ? 'primary' : 'outline'}
-              className="flex-1"
+              className={`flex-1 ${
+                activeTab === 'home'
+                  ? 'bg-gradient-to-r from-primary-50 to-secondary-50 text-neutral-60'
+                  : 'border-neutral-30 text-neutral-15 hover:border-primary-50 hover:text-primary-50'
+              }`}
               onClick={() => setActiveTab('home')}
             >
               Home Content
             </Button>
             <Button
-              variant={activeTab === 'typography' ? 'secondary' : 'outline'}
-              className="flex-1"
+              variant={activeTab === 'typography' ? 'primary' : 'outline'}
+              className={`flex-1 ${
+                activeTab === 'typography'
+                  ? 'bg-gradient-to-r from-secondary-50 to-accent-50 text-neutral-60'
+                  : 'border-neutral-30 text-neutral-15 hover:border-secondary-50 hover:text-secondary-50'
+              }`}
               onClick={() => setActiveTab('typography')}
             >
               Typography & Icons
             </Button>
             <Button
-              variant={activeTab === 'colors' ? 'accent' : 'outline'}
-              className="flex-1"
+              variant={activeTab === 'colors' ? 'primary' : 'outline'}
+              className={`flex-1 ${
+                activeTab === 'colors'
+                  ? 'bg-gradient-to-r from-accent-50 to-primary-50 text-neutral-60'
+                  : 'border-neutral-30 text-neutral-15 hover:border-accent-50 hover:text-accent-50'
+              }`}
               onClick={() => setActiveTab('colors')}
             >
               Color Palette
@@ -295,20 +324,23 @@ export default function Home() {
       </div>
 
       {/* Content based on active tab */}
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-neutral-60">
         {activeTab === 'home' && (
           <>
             {/* Hero Section */}
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-24">
+            <div className="bg-gradient-to-br from-neutral-55 to-neutral-50 py-24">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 className="text-heading mb-6">
+                <h1 className="text-heading mb-6 bg-gradient-to-r from-primary-50 to-secondary-50 bg-clip-text text-transparent">
                   Transform Your Digital Presence
                 </h1>
-                <p className="text-paragraph mb-8">
+                <p className="text-paragraph mb-8 text-neutral-20">
                   {homeData?.attributes?.hero_description ||
                     'We create digital experiences that help businesses grow and connect with their audience in meaningful ways.'}
                 </p>
-                <Button variant="primary" size="lg">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-primary-50 to-secondary-50 text-neutral-60 hover:from-primary-60 hover:to-secondary-60 font-semibold shadow-xl shadow-primary-50/30 transform hover:scale-105 transition-all duration-300"
+                >
                   Get Started Today
                 </Button>
               </div>

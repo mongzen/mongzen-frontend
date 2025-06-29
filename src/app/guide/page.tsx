@@ -3,13 +3,9 @@
 import { Button, LoadingSpinner, TypographyShowcase } from '@/components/ui';
 import ColorShowcase from '@/components/ui/ColorShowcase';
 import { useHomePage } from '@/hooks/useApi';
-import { useState } from 'react';
 
 export default function Home() {
-  const { data: homeData, loading, error } = useHomePage();
-  const [activeTab, setActiveTab] = useState<'home' | 'typography' | 'colors'>(
-    'home'
-  );
+  const { loading, error } = useHomePage();
 
   if (loading) {
     return (

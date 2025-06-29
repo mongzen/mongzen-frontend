@@ -219,7 +219,7 @@ const ColorShowcase: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-8 p-6 bg-white min-h-screen">
+    <div className="space-y-8 p-6 bg-neutral-60 min-h-screen">
       <div className="text-center mb-8">
         <h2
           className="text-4xl font-bold mb-4"

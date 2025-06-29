@@ -3,7 +3,7 @@ import { Icon } from './Icon';
 
 const TypographyShowcase: React.FC = () => {
   return (
-    <div className="space-y-12 p-6 bg-white min-h-screen">
+    <div className="space-y-12 p-6 bg-neutral-60 min-h-screen">
       <div className="text-center mb-8">
         <h1
           className="text-heading mb-4"

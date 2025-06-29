@@ -37,9 +37,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${barlow.variable} antialiased`}>
+      <body
+        className={`${barlow.variable} antialiased bg-neutral-60 text-neutral-0`}
+      >
         <Header />
-        <main>{children}</main>
+        <main className="bg-neutral-60">{children}</main>
         <Footer />
       </body>
     </html>
