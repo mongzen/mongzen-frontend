@@ -8,6 +8,7 @@ import {
   CardTitle,
   LoadingSpinner,
   TypographyShowcase,
+  WipeButton,
 } from '@/components/ui';
 import ColorShowcase from '@/components/ui/ColorShowcase';
 import { useHomePage } from '@/hooks/useApi';
@@ -18,9 +19,9 @@ import { useState } from 'react';
 
 export default function Home() {
   const { data: homeData, loading, error } = useHomePage();
-  const [activeTab, setActiveTab] = useState<'home' | 'typography' | 'colors'>(
-    'home'
-  );
+  const [activeTab, setActiveTab] = useState<
+    'home' | 'typography' | 'colors' | 'wipe-buttons'
+  >('home');
 
   if (loading) {
     return (
@@ -319,6 +320,17 @@ export default function Home() {
             >
               Color Palette
             </Button>
+            <Button
+              variant={activeTab === 'wipe-buttons' ? 'primary' : 'outline'}
+              className={`flex-1 ${
+                activeTab === 'wipe-buttons'
+                  ? 'bg-gradient-to-r from-secondary-50 to-accent-50 text-neutral-60'
+                  : 'border-neutral-30 text-neutral-15 hover:border-secondary-50 hover:text-secondary-50'
+              }`}
+              onClick={() => setActiveTab('wipe-buttons')}
+            >
+              Wipe Buttons
+            </Button>
           </div>
         </div>
       </div>
@@ -351,6 +363,165 @@ export default function Home() {
 
         {activeTab === 'typography' && <TypographyShowcase />}
         {activeTab === 'colors' && <ColorShowcase />}
+        {activeTab === 'wipe-buttons' && (
+          <div className="py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-neutral-0 mb-4">
+                  Wipe Button Components
+                </h2>
+                <p className="text-xl text-neutral-20 max-w-3xl mx-auto">
+                  Interactive buttons with smooth left-to-right wipe animations
+                  using Framer Motion
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Outline Variant */}
+                <Card className="bg-neutral-50/50 border-neutral-40/20 backdrop-blur-sm p-8 text-center">
+                  <CardHeader>
+                    <CardTitle className="text-neutral-0 mb-4">
+                      Outline Style
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <WipeButton variant="outline" size="sm">
+                      Small
+                    </WipeButton>
+                    <WipeButton variant="outline" size="md">
+                      Medium
+                    </WipeButton>
+                    <WipeButton variant="outline" size="lg">
+                      Large
+                    </WipeButton>
+                  </CardContent>
+                </Card>
+
+                {/* Primary Variant */}
+                <Card className="bg-neutral-50/50 border-neutral-40/20 backdrop-blur-sm p-8 text-center">
+                  <CardHeader>
+                    <CardTitle className="text-neutral-0 mb-4">
+                      Primary Style
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <WipeButton variant="primary" size="sm">
+                      Contact
+                    </WipeButton>
+                    <WipeButton variant="primary" size="md">
+                      Get Started
+                    </WipeButton>
+                    <WipeButton variant="primary" size="lg">
+                      Inquire Now
+                    </WipeButton>
+                  </CardContent>
+                </Card>
+
+                {/* Secondary Variant */}
+                <Card className="bg-neutral-50/50 border-neutral-40/20 backdrop-blur-sm p-8 text-center">
+                  <CardHeader>
+                    <CardTitle className="text-neutral-0 mb-4">
+                      Secondary Style
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <WipeButton variant="secondary" size="sm">
+                      Learn More
+                    </WipeButton>
+                    <WipeButton variant="secondary" size="md">
+                      View Portfolio
+                    </WipeButton>
+                    <WipeButton variant="secondary" size="lg">
+                      Book Meeting
+                    </WipeButton>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="text-center mt-16">
+                <h3 className="text-2xl font-semibold text-neutral-0 mb-8">
+                  Custom Examples
+                </h3>
+                <div className="flex flex-wrap justify-center gap-6">
+                  <WipeButton
+                    variant="outline"
+                    onClick={() => alert('Inquire clicked!')}
+                  >
+                    Inquire
+                  </WipeButton>
+                  <WipeButton
+                    variant="primary"
+                    onClick={() => alert('Get Quote clicked!')}
+                  >
+                    Get Quote
+                  </WipeButton>
+                  <WipeButton
+                    variant="secondary"
+                    onClick={() => alert('Schedule Call clicked!')}
+                  >
+                    Schedule Call
+                  </WipeButton>
+                </div>
+              </div>
+
+              <div className="text-center mt-16">
+                <h3 className="text-2xl font-semibold text-neutral-0 mb-8">
+                  Character Animation Demo
+                </h3>
+                <p className="text-neutral-30 mb-8 max-w-2xl mx-auto">
+                  Each character animates individually with staggered timing.
+                  Hover over the buttons to see the character-by-character wipe
+                  effect.
+                </p>
+                <div className="flex flex-wrap justify-center gap-6">
+                  <WipeButton variant="outline" size="sm">
+                    Hi
+                  </WipeButton>
+                  <WipeButton variant="outline" size="md">
+                    Hello
+                  </WipeButton>
+                  <WipeButton variant="outline" size="lg">
+                    Welcome
+                  </WipeButton>
+                  <WipeButton variant="primary" size="md">
+                    Contact Us
+                  </WipeButton>
+                  <WipeButton variant="secondary" size="md">
+                    Let&apos;s Talk
+                  </WipeButton>
+                  <WipeButton variant="outline" size="lg">
+                    Get Started Today
+                  </WipeButton>
+                </div>
+              </div>
+
+              <div className="text-center mt-16">
+                <h3 className="text-2xl font-semibold text-neutral-0 mb-8">
+                  Left-to-Right Reveal Effect
+                </h3>
+                <p className="text-neutral-30 mb-8 max-w-2xl mx-auto">
+                  Background wipes left-to-right, characters reveal with 100ms
+                  delay from bottom-to-top. Original text moves up while new
+                  text slides up from below.
+                </p>
+                <div className="flex flex-wrap justify-center gap-6">
+                  <WipeButton variant="outline" size="md">
+                    INQUIRE
+                  </WipeButton>
+                  <WipeButton variant="primary" size="md">
+                    DISCOVER
+                  </WipeButton>
+                  <WipeButton variant="secondary" size="md">
+                    EXPLORE
+                  </WipeButton>
+                  <WipeButton variant="outline" size="lg">
+                    INNOVATION
+                  </WipeButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
