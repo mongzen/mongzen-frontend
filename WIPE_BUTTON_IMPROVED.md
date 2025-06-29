@@ -20,7 +20,14 @@ interface WipeButtonProps {
   onClick?: () => void;
   className?: string;
   variant?: 'outline' | 'ghost' | 'filled';
-  color?: 'primary' | 'secondary' | 'accent' | 'warning' | 'danger' | 'success' | 'info';
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'warning'
+    | 'danger'
+    | 'success'
+    | 'info';
   size?: 'sm' | 'md' | 'lg';
 }
 ```
@@ -28,6 +35,7 @@ interface WipeButtonProps {
 ## Variant Behaviors
 
 ### Outline Variant
+
 - **Initial State**: Transparent background, colored border and text
 - **Hover State**: Background fills with color, text changes to contrast color
 - **Use Case**: Secondary actions, call-to-action buttons
@@ -39,6 +47,7 @@ interface WipeButtonProps {
 ```
 
 ### Ghost Variant
+
 - **Initial State**: No border, transparent background, colored text
 - **Hover State**: Background fills with color, text changes to contrast color
 - **Use Case**: Subtle actions, navigation links
@@ -50,6 +59,7 @@ interface WipeButtonProps {
 ```
 
 ### Filled Variant
+
 - **Initial State**: Filled background with color, contrast text
 - **Hover State**: Background inverts to contrast color, text changes to main color
 - **Use Case**: Primary actions, emphasized buttons
@@ -62,24 +72,26 @@ interface WipeButtonProps {
 
 ## Color Palette
 
-| Color | Main Color | Contrast Color | Usage |
-|-------|------------|----------------|-------|
-| `primary` | `#9eff00` (Bright Green) | `#000000` (Black) | Main brand actions |
-| `secondary` | `#00d4ff` (Cyan Blue) | `#000000` (Black) | Secondary actions |
-| `accent` | `#ff6b00` (Orange) | `#ffffff` (White) | Accent elements |
-| `warning` | `#ffeb3b` (Yellow) | `#000000` (Black) | Warning states |
-| `danger` | `#f44336` (Red) | `#ffffff` (White) | Destructive actions |
-| `success` | `#4caf50` (Green) | `#ffffff` (White) | Success states |
-| `info` | `#2196f3` (Blue) | `#ffffff` (White) | Informational |
+| Color       | Main Color               | Contrast Color    | Usage               |
+| ----------- | ------------------------ | ----------------- | ------------------- |
+| `primary`   | `#9eff00` (Bright Green) | `#000000` (Black) | Main brand actions  |
+| `secondary` | `#00d4ff` (Cyan Blue)    | `#000000` (Black) | Secondary actions   |
+| `accent`    | `#ff6b00` (Orange)       | `#ffffff` (White) | Accent elements     |
+| `warning`   | `#ffeb3b` (Yellow)       | `#000000` (Black) | Warning states      |
+| `danger`    | `#f44336` (Red)          | `#ffffff` (White) | Destructive actions |
+| `success`   | `#4caf50` (Green)        | `#ffffff` (White) | Success states      |
+| `info`      | `#2196f3` (Blue)         | `#ffffff` (White) | Informational       |
 
 ## Animation Details
 
 ### Background Wipe
+
 - **Direction**: Left to right
 - **Duration**: 400ms
 - **Easing**: Smooth cubic-bezier(0.25, 0.46, 0.45, 0.94)
 
 ### Character Animation
+
 - **Effect**: Bottom-to-top reveal
 - **Stagger**: 100ms delay between characters
 - **Duration**: 300ms per character
@@ -88,6 +100,7 @@ interface WipeButtonProps {
 ## Usage Examples
 
 ### Basic Usage
+
 ```tsx
 import { WipeButton } from '@/components/ui';
 
@@ -103,6 +116,7 @@ import { WipeButton } from '@/components/ui';
 ```
 
 ### Size Variations
+
 ```tsx
 <WipeButton variant="outline" color="primary" size="sm">Small</WipeButton>
 <WipeButton variant="outline" color="primary" size="md">Medium</WipeButton>
@@ -110,6 +124,7 @@ import { WipeButton } from '@/components/ui';
 ```
 
 ### Color Combinations
+
 ```tsx
 {/* All colors with outline variant */}
 <WipeButton variant="outline" color="primary">Primary</WipeButton>
@@ -124,16 +139,19 @@ import { WipeButton } from '@/components/ui';
 ## Implementation Notes
 
 ### Color System
+
 - Colors are defined in a centralized `colorMap` object
 - Each color has a `main` value and `contrast` value for accessibility
 - Contrast colors are automatically applied for text readability
 
 ### Animation Performance
+
 - Uses Framer Motion for smooth, optimized animations
 - Individual character elements for granular control
 - Professional easing curves for polished feel
 
 ### Accessibility
+
 - Proper contrast ratios between background and text colors
 - Semantic button element with full keyboard support
 - ARIA attributes for screen reader compatibility

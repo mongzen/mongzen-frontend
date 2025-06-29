@@ -53,13 +53,13 @@ export function WipeButton({
 
     // Color definitions
     const colorMap = {
-      primary: { main: '#9eff00', contrast: '#000000' },
-      secondary: { main: '#00d4ff', contrast: '#000000' },
-      accent: { main: '#ff6b00', contrast: '#ffffff' },
-      warning: { main: '#ffeb3b', contrast: '#000000' },
-      danger: { main: '#f44336', contrast: '#ffffff' },
-      success: { main: '#4caf50', contrast: '#ffffff' },
-      info: { main: '#2196f3', contrast: '#ffffff' },
+      primary: { main: '#9eff00', contrast: '#262626' },
+      secondary: { main: '#00d4ff', contrast: '#262626' },
+      accent: { main: '#ff6b00', contrast: '#262626' },
+      warning: { main: '#ffeb3b', contrast: '#262626' },
+      danger: { main: '#f44336', contrast: '#262626' },
+      success: { main: '#4caf50', contrast: '#262626' },
+      info: { main: '#2196f3', contrast: '#262626' },
     };
 
     const selectedColor = colorMap[color];
@@ -93,13 +93,13 @@ export function WipeButton({
   const getHoverColors = () => {
     // Color definitions (same as above for consistency)
     const colorMap = {
-      primary: { main: '#9eff00', contrast: '#000000' },
-      secondary: { main: '#00d4ff', contrast: '#000000' },
-      accent: { main: '#ff6b00', contrast: '#ffffff' },
-      warning: { main: '#ffeb3b', contrast: '#000000' },
-      danger: { main: '#f44336', contrast: '#ffffff' },
-      success: { main: '#4caf50', contrast: '#ffffff' },
-      info: { main: '#2196f3', contrast: '#ffffff' },
+      primary: { main: '#9eff00', contrast: '#9eff00' },
+      secondary: { main: '#00d4ff', contrast: '#00d4ff' },
+      accent: { main: '#ff6b00', contrast: '#ff6b00' },
+      warning: { main: '#ffeb3b', contrast: '#ffeb3b' },
+      danger: { main: '#f44336', contrast: '#f44336' },
+      success: { main: '#4caf50', contrast: '#4caf50' },
+      info: { main: '#2196f3', contrast: '#2196f3' },
     };
 
     const selectedColor = colorMap[color];
@@ -150,7 +150,7 @@ export function WipeButton({
       whileHover="hover"
     >
       {/* Background wipe overlay - fills on hover for outline and ghost variants */}
-      <motion.div
+      {/* <motion.div
         initial={{ x: '-100%' }}
         whileHover={{
           x: '0%',
@@ -168,7 +168,7 @@ export function WipeButton({
           backgroundColor: hoverColors.bg,
           zIndex: 1,
         }}
-      />
+      /> */}
 
       {/* Content container */}
       <div className="relative z-[2] overflow-hidden h-full flex items-center justify-center">
@@ -210,7 +210,7 @@ export function WipeButton({
             hover: {},
           }}
           style={{
-            color: hoverColors.text,
+            color: variant === 'filled' ? '#262626' : hoverColors.text,
           }}
           className={clsx('absolute inset-0 flex items-center justify-center')}
           aria-hidden="true"
