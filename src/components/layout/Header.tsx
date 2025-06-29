@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Icon } from '@/components/ui';
+import { Button, Icon, WipeButton } from '@/components/ui';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -61,10 +61,9 @@ export function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="primary">
-              <Icon name="RocketLaunchIcon" size="sm" className="mr-2" />
-              Get Started
-            </Button>
+            <WipeButton variant="filled" color="primary" size="md">
+              Contact
+            </WipeButton>
           </div>
 
           {/* Mobile menu button */}

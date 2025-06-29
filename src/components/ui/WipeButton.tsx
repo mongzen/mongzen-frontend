@@ -6,7 +6,15 @@ interface WipeButtonProps {
   children?: ReactNode;
   onClick?: () => void;
   className?: string;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'outline' | 'ghost' | 'filled';
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'warning'
+    | 'danger'
+    | 'success'
+    | 'info';
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -15,6 +23,7 @@ export function WipeButton({
   onClick,
   className = '',
   variant = 'outline',
+  color = 'primary',
   size = 'md',
 }: WipeButtonProps) {
   // Split text into individual characters for animation
@@ -28,7 +37,6 @@ export function WipeButton({
       borderRadius: '8px',
       cursor: 'pointer',
       fontWeight: 600,
-      textTransform: 'uppercase' as const,
       letterSpacing: '0.05em',
       transition: 'all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)',
       border: '1px solid',
@@ -43,21 +51,35 @@ export function WipeButton({
       lg: { padding: '1rem 2rem', fontSize: '1.125rem', height: '3.5rem' },
     };
 
+    // Color definitions
+    const colorMap = {
+      primary: { main: '#9eff00', contrast: '#000000' },
+      secondary: { main: '#00d4ff', contrast: '#000000' },
+      accent: { main: '#ff6b00', contrast: '#ffffff' },
+      warning: { main: '#ffeb3b', contrast: '#000000' },
+      danger: { main: '#f44336', contrast: '#ffffff' },
+      success: { main: '#4caf50', contrast: '#ffffff' },
+      info: { main: '#2196f3', contrast: '#ffffff' },
+    };
+
+    const selectedColor = colorMap[color];
+
+    // Variant-specific styles
     const variantStyles = {
-      primary: {
-        borderColor: '#9eff00',
-        backgroundColor: 'transparent',
-        color: '#9eff00',
-      },
-      secondary: {
-        borderColor: '#00d4ff',
-        backgroundColor: 'transparent',
-        color: '#00d4ff',
-      },
       outline: {
-        borderColor: '#e6e6e6',
+        borderColor: selectedColor.main,
         backgroundColor: 'transparent',
-        color: '#e6e6e6',
+        color: selectedColor.main,
+      },
+      ghost: {
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        color: selectedColor.main,
+      },
+      filled: {
+        borderColor: selectedColor.main,
+        backgroundColor: selectedColor.main,
+        color: selectedColor.contrast,
       },
     };
 
@@ -69,15 +91,40 @@ export function WipeButton({
   };
 
   const getHoverColors = () => {
+    // Color definitions (same as above for consistency)
+    const colorMap = {
+      primary: { main: '#9eff00', contrast: '#000000' },
+      secondary: { main: '#00d4ff', contrast: '#000000' },
+      accent: { main: '#ff6b00', contrast: '#ffffff' },
+      warning: { main: '#ffeb3b', contrast: '#000000' },
+      danger: { main: '#f44336', contrast: '#ffffff' },
+      success: { main: '#4caf50', contrast: '#ffffff' },
+      info: { main: '#2196f3', contrast: '#ffffff' },
+    };
+
+    const selectedColor = colorMap[color];
+
     switch (variant) {
-      case 'primary':
-        return { bg: '#9eff00', text: '#9eff00' };
-      case 'secondary':
-        return { bg: '#00d4ff', text: '#ffffff' };
       case 'outline':
-        return { bg: '#e6e6e6', text: '#ffffff' };
+        return {
+          bg: selectedColor.main,
+          text: selectedColor.contrast,
+        }; // Filled background on hover
+      case 'ghost':
+        return {
+          bg: selectedColor.main,
+          text: selectedColor.contrast,
+        }; // Filled background on hover
+      case 'filled':
+        return {
+          bg: selectedColor.contrast,
+          text: selectedColor.main,
+        }; // Inverted colors on hover
       default:
-        return { bg: '#e6e6e6', text: '#ffffff' };
+        return {
+          bg: selectedColor.main,
+          text: selectedColor.contrast,
+        };
     }
   };
 
@@ -92,8 +139,6 @@ export function WipeButton({
 
   return (
     <motion.button
-      // initial={{ scale: 1 }}
-      // whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       style={getButtonStyles()}
       onClick={onClick}
@@ -104,7 +149,7 @@ export function WipeButton({
       initial="rest"
       whileHover="hover"
     >
-      {/* Background wipe overlay */}
+      {/* Background wipe overlay - fills on hover for outline and ghost variants */}
       <motion.div
         initial={{ x: '-100%' }}
         whileHover={{
@@ -129,8 +174,10 @@ export function WipeButton({
       <div className="relative z-[2] overflow-hidden h-full flex items-center justify-center">
         {/* Original text layer */}
         <motion.div
-          initial="rest"
-          whileHover="hover"
+          variants={{
+            rest: {},
+            hover: {},
+          }}
           className="relative inline-block"
         >
           <div className="relative inline-block">
@@ -138,13 +185,13 @@ export function WipeButton({
               <motion.div
                 key={`original-${index}`}
                 variants={{
-                  rest: { y: 0 },
+                  rest: { y: '0%' },
                   hover: {
                     y: '-100%',
                     transition: {
                       duration: 0.3,
                       ease: easings.smooth,
-                      delay: index * 0.05,
+                      delay: index * 0.1, // 100ms delay
                     },
                   },
                 }}
@@ -158,18 +205,17 @@ export function WipeButton({
 
         {/* Hover text layer */}
         <motion.div
+          variants={{
+            rest: {},
+            hover: {},
+          }}
           style={{
             color: hoverColors.text,
           }}
           className={clsx('absolute inset-0 flex items-center justify-center')}
           aria-hidden="true"
         >
-          <div
-            style={{
-              position: 'relative',
-              display: 'inline-block',
-            }}
-          >
+          <div className="relative inline-block">
             {characters.map((char, index) => (
               <motion.div
                 key={`hover-${index}`}
@@ -180,7 +226,7 @@ export function WipeButton({
                     transition: {
                       duration: 0.3,
                       ease: easings.smooth,
-                      delay: index * 0.05,
+                      delay: index * 0.1, // 100ms delay
                     },
                   },
                 }}
