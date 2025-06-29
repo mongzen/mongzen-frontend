@@ -46,9 +46,7 @@ export default function RootLayout({
         className={`${barlow.variable} antialiased bg-dark-10 text-neutral-0`}
       >
         <Header />
-        <main className="bg-dark-10 max-w-[1596px] flex flex-col mx-auto">
-          {children}
-        </main>
+        <main className="max-w-[1596px] flex flex-col mx-auto">{children}</main>
         <Footer />
       </body>
     </html>
