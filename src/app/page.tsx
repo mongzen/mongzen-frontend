@@ -2,11 +2,13 @@
 
 import {
   Button,
+  ButtonBlur,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   LoadingSpinner,
+  WipeButton,
 } from '@/components/ui';
 import { useHomePage } from '@/hooks/useApi';
 import Link from 'next/link';
@@ -65,41 +67,39 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-60">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-neutral-60 via-neutral-55 to-neutral-50 text-neutral-0 relative overflow-hidden">
-        {/* <div className="max-w-[1596px] mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-50 to-secondary-50 bg-clip-text text-transparent">
-                {displayData.hero_title}
-              </h1>
-              <h2 className="text-xl md:text-2xl mb-6 text-neutral-15">
-                {displayData.hero_subtitle}
-              </h2>
-              <p className="text-lg mb-8 text-neutral-20">
-                {displayData.hero_description}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href={displayData.hero_cta_link || '/contact'}>
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-primary-50 to-secondary-50 text-neutral-60 hover:from-primary-60 hover:to-secondary-60 font-semibold shadow-xl shadow-primary-50/30 transform hover:scale-105 transition-all duration-300"
-                  >
-                    {displayData.hero_cta_text || 'Get Started'}
-                  </Button>
-                </Link>
-                <Link href="/projects">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-neutral-30 text-neutral-15 hover:border-primary-50 hover:text-primary-50 hover:bg-primary-50/5 transition-all duration-300"
-                  >
-                    View Our Work
-                  </Button>
-                </Link>
-              </div>
-            </div>
+      <section
+        className="flex w-full max-w-[1596px] mx-auto pt-28 flex-col items-center border-r border-l border-b border-dark-15 relative min-h-[790px]"
+        style={{
+          gap: '-174px',
+          background: 'url(/images/squares.png) 0% 0% / 20px 20px repeat',
+        }}
+      >
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 py-20">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-neutral-0 mb-6 leading-tight whitespace-nowrap">
+            {displayData.hero_title}
+          </h1>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-primary-50 mb-6">
+            {displayData.hero_subtitle}
+          </h2>
+          <p className="text-xl md:text-2xl text-neutral-20 mb-8 max-w-2xl mx-auto leading-relaxed">
+            {displayData.hero_description}
+          </p>
+          <div className="flex gap-3 justify-center">
+            <ButtonBlur size="lg" href="/works">
+              Our Works
+            </ButtonBlur>
+            <Link href={displayData.hero_cta_link}>
+              <WipeButton
+                variant="filled"
+                color="primary"
+                size="lg"
+                className="px-8 py-4 text-lg"
+              >
+                Contact
+              </WipeButton>
+            </Link>
           </div>
-        </div> */}
+        </div>
       </section>
 
       {/* Services Section */}
