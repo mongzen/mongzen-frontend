@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { HomePage } from '../types';
 
 export interface StrapiResponse<T> {
   data: T;
@@ -92,75 +93,27 @@ class ApiService {
   }
 
   // Generic POST request
-  async post<T>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<StrapiResponse<T>> {
-    const response = await this.api.post<StrapiResponse<T>>(url, data, config);
-    return response.data;
-  }
+  // async post<T>(
+  //   url: string,
+  //   data?: any,
+  //   config?: AxiosRequestConfig
+  // ): Promise<StrapiResponse<T>> {
+  //   const response = await this.api.post<StrapiResponse<T>>(url, data, config);
+  //   return response.data;
+  // }
 
-  // Generic PUT request
-  async put<T>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<StrapiResponse<T>> {
-    const response = await this.api.put<StrapiResponse<T>>(url, data, config);
-    return response.data;
-  }
-
-  // Generic DELETE request
-  async delete<T>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<StrapiResponse<T>> {
-    const response = await this.api.delete<StrapiResponse<T>>(url, config);
-    return response.data;
-  }
-
-  // Specific methods for common endpoints
-  async getAboutPage(): Promise<StrapiResponse<any>> {
-    return this.get('/about?populate=*');
-  }
-
-  async getHomePage(): Promise<StrapiResponse<any>> {
+  async getHomePage(): Promise<StrapiResponse<HomePage>> {
     return this.get('/homepage?populate=*');
   }
 
-  async getProjects(params?: {
-    page?: number;
-    pageSize?: number;
-    sort?: string;
-  }): Promise<StrapiResponse<any[]>> {
-    const queryParams = new URLSearchParams();
-    if (params?.page)
-      queryParams.append('pagination[page]', params.page.toString());
-    if (params?.pageSize)
-      queryParams.append('pagination[pageSize]', params.pageSize.toString());
-    if (params?.sort) queryParams.append('sort', params.sort);
-
-    const url = `/projects?populate=*${queryParams.toString() ? '&' + queryParams.toString() : ''}`;
-    return this.get(url);
-  }
-
-  async getProject(id: string): Promise<StrapiResponse<any>> {
-    return this.get(`/projects/${id}?populate=*`);
-  }
-
-  async getServices(): Promise<StrapiResponse<any[]>> {
-    return this.get('/services?populate=*');
-  }
-
-  async submitContactForm(data: {
-    name: string;
-    email: string;
-    message: string;
-    phone?: string;
-  }): Promise<StrapiResponse<any>> {
-    return this.post('/contact-forms', { data });
-  }
+  // async submitContactForm(data: {
+  //   name: string;
+  //   email: string;
+  //   message: string;
+  //   phone?: string;
+  // }): Promise<StrapiResponse<string>> {
+  //   return this.post('/contact-forms', { data });
+  // }
 }
 
 // Export a singleton instance
