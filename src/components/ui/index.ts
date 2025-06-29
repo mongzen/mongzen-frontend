@@ -1,4 +1,3 @@
-export { AbstractAnimation } from './AbstractAnimation';
 export { Button } from './Button';
 export { ButtonBlur } from './ButtonBlur';
 export { ButtonSquareLinear } from './ButtonSquareLinear';
@@ -11,4 +10,3 @@ export { Social } from './Social';
 export { TrustedByCompanies } from './TrustedByCompanies';
 export { default as TypographyShowcase } from './TypographyShowcase';
 export { WipeButton } from './WipeButton';
-

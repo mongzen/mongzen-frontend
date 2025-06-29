@@ -101,7 +101,7 @@ export function Header() {
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     <Icon
-                      name={item.icon as any}
+                      name={item.icon as keyof typeof Icon}
                       size="sm"
                       className="opacity-70 group-hover:opacity-100 transition-all duration-300 relative z-10"
                     />

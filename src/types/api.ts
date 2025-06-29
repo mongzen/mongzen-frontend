@@ -12,7 +12,6 @@ export interface UploadFile {
   caption: string | null;
   width: number;
   height: number;
-  formats: Record<string, any> | null;
   hash: string;
   ext: string;
   mime: string;
@@ -20,7 +19,6 @@ export interface UploadFile {
   url: string;
   previewUrl: string | null;
   provider: string;
-  provider_metadata: any | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -66,7 +64,7 @@ export interface HomePage {
   ctaSection: CTASection;
   contactForm: ContactForm;
 
-  localizations: any[];
+  localizations: string[];
 }
 
 export interface TrustedByCompany {
@@ -89,12 +87,12 @@ export interface FeatureItem {
   id: number;
   icon: Icon;
   title: string;
-  description: any[];
+  description: string[];
 }
 
 export interface TestimonialItem {
   id: number;
-  quote: any[];
+  quote: string[];
   authorName: string;
   authorRole: string;
   authorPhoto?: Icon;
@@ -129,6 +127,6 @@ export interface ContactForm {
   budgetMax: number;
   budgetMinLabel: string;
   budgetMaxLabel: string;
-  messagePlaceholder: any[];
+  messagePlaceholder: string[];
   submitButtonText: string;
 }
