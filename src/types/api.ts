@@ -1,277 +1,134 @@
-// Common Strapi types
-export interface StrapiImage {
-  id: number;
-  attributes: {
-    name: string;
-    alternativeText: string | null;
-    caption: string | null;
-    width: number;
-    height: number;
-    formats: {
-      thumbnail?: StrapiImageFormat;
-      small?: StrapiImageFormat;
-      medium?: StrapiImageFormat;
-      large?: StrapiImageFormat;
-    };
-    hash: string;
-    ext: string;
-    mime: string;
-    size: number;
-    url: string;
-    previewUrl: string | null;
-    provider: string;
-    provider_metadata: any;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
+// homepage-types.ts
+// Type definitions for the HomePage response and related Strapi media objects
 
-export interface StrapiImageFormat {
+/**
+ * Represents a media file as returned by Strapi's Upload API
+ */
+export interface UploadFile {
+  id: number;
+  documentId: string;
   name: string;
+  alternativeText: string | null;
+  caption: string | null;
+  width: number;
+  height: number;
+  formats: Record<string, any> | null;
   hash: string;
   ext: string;
   mime: string;
-  path: string | null;
-  width: number;
-  height: number;
   size: number;
   url: string;
+  previewUrl: string | null;
+  provider: string;
+  provider_metadata: any | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 }
 
-export interface StrapiMediaData {
-  data: StrapiImage | StrapiImage[] | null;
-}
+/**
+ * Alias for media files used as icons or logos
+ */
+export type Icon = UploadFile;
 
-// About page types
-export interface AboutPageData {
+/**
+ * Root structure for the Homepage API
+ */
+export interface HomePage {
   id: number;
-  attributes: {
-    title: string;
-    description: string;
-    content: string;
-    hero_image: StrapiMediaData;
-    team_members: {
-      data: TeamMember[];
-    };
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
+  documentId: string;
+  hero_title: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  whyChooseTitle: string;
+  whyChooseSubtitle: string;
+
+  testimonialsTitle: string;
+  testimonialsSubtitle: string;
+
+  trustedByTitle: string;
+  trustedByCompanies: TrustedByCompany[];
+
+  servicesTitle: string;
+  servicesSubtitle: string;
+  services: ServiceItem[];
+
+  whyChooseFeaturesList: FeatureItem[];
+  testimonialsList: TestimonialItem[];
+
+  faqTitle: string;
+  faqSubtitle: string;
+  faqItems: FAQItem[];
+
+  ctaSection: CTASection;
+  contactForm: ContactForm;
+
+  localizations: any[];
 }
 
-export interface TeamMember {
+export interface TrustedByCompany {
   id: number;
-  attributes: {
-    name: string;
-    position: string;
-    bio: string;
-    avatar: StrapiMediaData;
-    social_links: {
-      linkedin?: string;
-      twitter?: string;
-      github?: string;
-    };
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
-}
-
-// Home page types
-export interface HomePageData {
-  id: number;
-  attributes: {
-    hero_title: string;
-    hero_subtitle: string;
-    hero_description: string;
-    hero_image: StrapiMediaData;
-    hero_cta_text: string;
-    hero_cta_link: string;
-    services_section_title: string;
-    services_section_description: string;
-    featured_projects: {
-      data: Project[];
-    };
-    testimonials: {
-      data: Testimonial[];
-    };
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
-}
-
-// Project types
-export interface Project {
-  id: number;
-  attributes: {
-    title: string;
-    description: string;
-    content: string;
-    slug: string;
-    featured_image: StrapiMediaData;
-    gallery: StrapiMediaData;
-    technologies: string[];
-    client: string;
-    project_url?: string;
-    github_url?: string;
-    status: 'draft' | 'published' | 'archived';
-    featured: boolean;
-    completed_date: string;
-    category: {
-      data: ProjectCategory;
-    };
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
-}
-
-export interface ProjectCategory {
-  id: number;
-  attributes: {
-    name: string;
-    slug: string;
-    description: string;
-    color: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
-}
-
-// Service types
-export interface Service {
-  id: number;
-  attributes: {
-    title: string;
-    description: string;
-    content: string;
-    icon: StrapiMediaData;
-    features: string[];
-    price_range: string;
-    slug: string;
-    featured: boolean;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
-}
-
-// Testimonial types
-export interface Testimonial {
-  id: number;
-  attributes: {
-    name: string;
-    position: string;
-    company: string;
-    content: string;
-    rating: number;
-    avatar: StrapiMediaData;
-    featured: boolean;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
-}
-
-// Contact form types
-export interface ContactForm {
+  logo?: Icon;
   name: string;
-  email: string;
-  phone?: string;
-  subject?: string;
-  message: string;
-  company?: string;
-  budget_range?: string;
-  project_type?: string;
-  timeline?: string;
+  websiteUrl: string | null;
 }
 
-export interface ContactFormSubmission {
+export interface ServiceItem {
   id: number;
-  attributes: ContactForm & {
-    status: 'new' | 'in_progress' | 'resolved' | 'closed';
-    notes?: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
+  icon: Icon;
+  title: string;
+  description: string;
+  linkText: string;
+  linkUrl: string;
 }
 
-// Blog types (if you plan to add a blog)
-export interface BlogPost {
+export interface FeatureItem {
   id: number;
-  attributes: {
-    title: string;
-    content: string;
-    excerpt: string;
-    slug: string;
-    featured_image: StrapiMediaData;
-    tags: {
-      data: Tag[];
-    };
-    author: {
-      data: Author;
-    };
-    published: boolean;
-    featured: boolean;
-    seo: SEO;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
+  icon: Icon;
+  title: string;
+  description: any[];
 }
 
-export interface Tag {
+export interface TestimonialItem {
   id: number;
-  attributes: {
-    name: string;
-    slug: string;
-    color: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  quote: any[];
+  authorName: string;
+  authorRole: string;
+  authorPhoto?: Icon;
+  websiteUrl: string | null;
 }
 
-export interface Author {
+export interface FAQItem {
   id: number;
-  attributes: {
-    name: string;
-    bio: string;
-    avatar: StrapiMediaData;
-    social_links: {
-      website?: string;
-      linkedin?: string;
-      twitter?: string;
-    };
-    createdAt: string;
-    updatedAt: string;
-  };
+  number: string;
+  question: string;
+  answer: string;
+  isDefaultOpen?: boolean | null;
 }
 
-export interface SEO {
-  meta_title: string;
-  meta_description: string;
-  keywords: string[];
-  og_image: StrapiMediaData;
+export interface CTASection {
+  id: number;
+  icon?: Icon;
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonLink: string;
 }
 
-// API Response types
-export interface ApiError {
-  error: {
-    status: number;
-    name: string;
-    message: string;
-    details: any;
-  };
-}
-
-export interface PaginationMeta {
-  pagination: {
-    page: number;
-    pageSize: number;
-    pageCount: number;
-    total: number;
-  };
+export interface ContactForm {
+  id: number;
+  fullNamePlaceholder: string;
+  emailPlaceholder: string;
+  questionLabel: string;
+  contactOptions?: { label: string; value: string }[];
+  budgetLabel: string;
+  budgetMin: number;
+  budgetMax: number;
+  budgetMinLabel: string;
+  budgetMaxLabel: string;
+  messagePlaceholder: any[];
+  submitButtonText: string;
 }

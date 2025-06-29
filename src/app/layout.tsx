@@ -15,6 +15,11 @@ export const metadata: Metadata = {
     'digital marketing',
   ],
   authors: [{ name: 'Digital Agency Team' }],
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     title: 'Digital Agency - Transform Your Business',
     description:
@@ -38,10 +43,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${barlow.variable} antialiased bg-neutral-60 text-neutral-0`}
+        className={`${barlow.variable} antialiased bg-dark-10 text-neutral-0`}
       >
         <Header />
-        <main className="bg-neutral-60">{children}</main>
+        <main className="max-w-[1596px] flex flex-col mx-auto">{children}</main>
         <Footer />
       </body>
     </html>

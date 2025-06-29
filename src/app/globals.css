@@ -196,6 +196,13 @@ body {
   line-height: 1.4;
 }
 
+.text-contact {
+  font-size: 18px;
+  font-weight: 400; /* Regular */
+  line-height: 1.5; /* 150% */
+  color: var(--color-dark-90); /* #E6E6E6 */
+}
+
 /* Mobile Typography */
 @media (max-width: 768px) {
   .text-paragraph {
