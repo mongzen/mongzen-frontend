@@ -1,11 +1,11 @@
 'use client';
 
 import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-    LoadingSpinner,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  LoadingSpinner,
 } from '@/components/ui';
 import { useAboutPage } from '@/hooks/useApi';
 import { getImageUrl } from '@/utils';

@@ -1,17 +1,7 @@
 import { Footer, Header } from '@/components/layout';
+import { barlow } from '@/lib/fonts';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: 'Digital Agency - Transform Your Business',
@@ -48,10 +38,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${barlow.variable} antialiased bg-neutral-60 text-neutral-0`}
       >
         <Header />
-        <main>{children}</main>
+        <main className="bg-neutral-60">{children}</main>
         <Footer />
       </body>
     </html>
