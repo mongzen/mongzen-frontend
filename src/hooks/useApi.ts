@@ -69,6 +69,8 @@ export function useHomePage(): UseApiState<HomePage> {
         setState((prev) => ({ ...prev, loading: true, error: null }));
         const response = await apiService.getHomePage();
 
+        console.log('Home page data:', response.data);
+
         if (isMounted) {
           setState({
             data: response.data,

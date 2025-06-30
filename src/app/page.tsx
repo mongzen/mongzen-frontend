@@ -47,27 +47,6 @@ export default function Home() {
     );
   }
 
-  // Fallback content when Strapi is not available
-  const fallbackData = {
-    hero_title: 'Welcome to Our Digital Agency',
-    hero_subtitle: 'Crafting Digital Experiences',
-    hero_description:
-      'We are a team of passionate professionals dedicated to delivering exceptional digital solutions.',
-    hero_cta_link: '/contact',
-    services_section_title: 'Our Services',
-    services_section_description:
-      'We offer a comprehensive range of digital services to help your business thrive in the digital world.',
-    trustedByTitle: 'Trusted by Leading Companies',
-    trustedByCompanies: [
-      { name: 'Company A', logo: '/images/company-a.png' },
-      { name: 'Company B', logo: '/images/company-b.png' },
-      { name: 'Company C', logo: '/images/company-c.png' },
-      { name: 'Company D', logo: '/images/company-d.png' },
-    ],
-  };
-
-  const displayData = homeData || fallbackData;
-
   return (
     <div className="min-h-screen bg-neutral-60">
       {/* Hero Section */}
@@ -75,7 +54,8 @@ export default function Home() {
         className="flex w-full max-w-[1596px] mx-auto flex-col items-center border-r border-l border-b border-dark-15 relative min-h-[790px] justify-center"
         style={{
           gap: '-174px',
-          background: 'url(/images/squares.png) 0% 0% / 20px 20px repeat',
+          background: 'url(/images/squares.png) 0% 0% / 22px 22px repeat',
+          backgroundBlendMode: 'overlay',
         }}
       >
         {/* Abstract Animation Background */}
@@ -93,7 +73,7 @@ export default function Home() {
 
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 py-20 relative z-10">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-neutral-0 mb-6 leading-tight whitespace-nowrap">
-            {displayData.hero_title}
+            {homeData?.hero_title}
           </h1>
           <div className="flex gap-3 justify-center">
             <ButtonBlur size="lg" href="/works">
@@ -133,7 +113,7 @@ export default function Home() {
               homeData?.servicesSubtitle ||
               'We offer comprehensive digital solutions'
             }
-            // backgroundImage={homeData?.servicesBackgroundImage || '/images/squares.png'}
+            backgroundImage={homeData?.servicesBanner.url}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Example Service Cards */}
@@ -148,6 +128,28 @@ export default function Home() {
                 className={index === 1 ? 'border-x border-dark-15' : ''}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Section */}
+      <section className="border-x border-b border-dark-15">
+        <div className="max-w-[1596px] mx-auto">
+          <PageHeader
+            title={homeData?.whyChooseTitle || 'Why Choose Us'}
+            subtitle={homeData?.whyChooseSubtitle}
+            backgroundImage={homeData?.whyChooseBanner?.url}
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* {homeData?.whyChooseFeaturesList.map((feature, index) => (
+              <FeatureCard
+                key={feature.id}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                className={index === 1 ? 'border-x border-dark-15' : ''}
+              />
+            ))} */}
           </div>
         </div>
       </section>

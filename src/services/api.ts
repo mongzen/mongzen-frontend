@@ -92,28 +92,9 @@ class ApiService {
     return response.data;
   }
 
-  // Generic POST request
-  // async post<T>(
-  //   url: string,
-  //   data?: any,
-  //   config?: AxiosRequestConfig
-  // ): Promise<StrapiResponse<T>> {
-  //   const response = await this.api.post<StrapiResponse<T>>(url, data, config);
-  //   return response.data;
-  // }
-
   async getHomePage(): Promise<StrapiResponse<HomePage>> {
     return this.get('/homepage?populate=*');
   }
-
-  // async submitContactForm(data: {
-  //   name: string;
-  //   email: string;
-  //   message: string;
-  //   phone?: string;
-  // }): Promise<StrapiResponse<string>> {
-  //   return this.post('/contact-forms', { data });
-  // }
 }
 
 // Export a singleton instance

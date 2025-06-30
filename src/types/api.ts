@@ -43,19 +43,21 @@ export interface HomePage {
 
   whyChooseTitle: string;
   whyChooseSubtitle: string;
+  whyChooseFeaturesList: FeatureItem[];
+  whyChooseBanner?: Icon;
 
+  testimonialsBanner: Icon;
   testimonialsTitle: string;
   testimonialsSubtitle: string;
+  testimonialsList: TestimonialItem[];
 
   trustedByTitle: string;
   trustedByCompanies: TrustedByCompany[];
 
+  servicesBanner: Icon;
   servicesTitle: string;
   servicesSubtitle: string;
   services: ServiceItem[];
-
-  whyChooseFeaturesList: FeatureItem[];
-  testimonialsList: TestimonialItem[];
 
   faqTitle: string;
   faqSubtitle: string;

@@ -9,7 +9,6 @@ interface PageHeaderProps {
   children?: ReactNode;
   className?: string;
   backgroundImage?: string;
-  patternImage?: string;
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = ({
@@ -17,8 +16,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   subtitle,
   children,
   className = '',
-  backgroundImage = '/images/squares.png',
-  patternImage = '/images/squares.png',
+  backgroundImage,
 }) => {
   return (
     <section
@@ -27,31 +25,12 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         'flex flex-col gap-[14px] relative min-h-[336px] justify-center items-center border-b border-dark-15'
       )}
       style={{
-        background: `
-          linear-gradient(0deg, rgba(172, 255, 36, 0.20) 0%, rgba(172, 255, 36, 0.20) 100%),
-          url(${patternImage}) lightgray 0% 0% / 100px 100px repeat,
-          url(${backgroundImage}) lightgray 50% / cover no-repeat
-        `,
-        backgroundBlendMode: 'color, normal, overlay',
+        background: `linear-gradient(0deg, rgba(172, 255, 36, 0.20) 0%, rgba(172, 255, 36, 0.20) 100%), url(/images/squares.png) 0% 0% / 22px 22px repeat, url(${process.env.NEXT_PUBLIC_STRAPI_URL}${backgroundImage}) #232323 50% / cover no-repeat`,
+        backgroundBlendMode: 'color, luminosity, overlay',
       }}
     >
-      <div
-        className="absolute inset-0 opacity-40 pointer-events-none"
-        style={{
-          background: 'url(/images/squares.png) 0% 0% / 20px 20px repeat',
-        }}
-      ></div>
       {/* Title */}
-      <h1
-        className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-[48px]"
-        style={{
-          color: '#FFF',
-          fontFamily: 'Barlow, sans-serif',
-          fontStyle: 'normal',
-          fontWeight: 600,
-          lineHeight: 'normal',
-        }}
-      >
+      <h1 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold">
         {title}
       </h1>
 
