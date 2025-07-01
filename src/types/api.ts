@@ -62,6 +62,7 @@ export interface HomePage {
   faqTitle: string;
   faqSubtitle: string;
   faqItems: FAQItem[];
+  faqBanner?: Icon;
 
   ctaSection: CTASection;
   contactForm: ContactForm;

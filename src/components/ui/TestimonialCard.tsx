@@ -55,23 +55,31 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
 }) => {
   return (
     <div
-      className={clsx('p-[50px] flex flex-col justify-between', className)}
+      className={clsx(
+        'p-6 sm:p-8 md:p-10 lg:p-[50px] flex flex-col justify-between gap-6 lg:gap-8',
+        className
+      )}
       style={{
         aspectRatio,
       }}
     >
       {/* Content */}
-      {typeof title === 'string' ? (
-        <h3>{title}</h3>
-      ) : (
-        <PortableText value={title} />
-      )}
-      {/* Description */}
-      <div className="rounded-[8px] border-dark-15 border bg-dark-10/20 p-5 flex items-center gap-2.5 w-full h-[103px]">
-        {/* Icon */}
+      <div className="flex-1">
+        {typeof title === 'string' ? (
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-medium text-neutral-0 leading-relaxed">
+            {title}
+          </h3>
+        ) : (
+          <PortableText value={title} />
+        )}
+      </div>
+
+      {/* Author Info Card */}
+      <div className="rounded-[8px] border-dark-15 border bg-dark-10/20 p-4 sm:p-5 flex items-center gap-3 sm:gap-4 w-full min-h-[80px] sm:min-h-[90px] lg:min-h-[103px]">
+        {/* Author Photo */}
         {icon && (
           <div
-            className="w-16 h-16 rounded-[10px] flex items-center justify-center border"
+            className="w-12 h-12 sm:w-14 sm:h-14 lg:w-15 lg:h-15 rounded-[8px] lg:rounded-[10px] flex items-center justify-center border overflow-hidden shrink-0"
             style={{
               border: '1px solid #2E2E2E',
               background:
@@ -80,23 +88,31 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
           >
             <img
               src={`${process.env.NEXT_PUBLIC_API_URL}${icon.url}`}
-              alt={icon.name || 'Service Icon'}
-              width={icon.width || 64}
-              height={icon.height || 64}
+              alt={icon.name || 'Author Photo'}
+              width={icon.width || 60}
+              height={icon.height || 60}
+              className="aspect-square object-cover w-full h-full"
             />
           </div>
         )}
-        {/* Author Info */}
-        <div className="flex justify-between gap-2.5 w-full">
-          <div className="flex flex-col flex-1 w-full">
-            {authorName && <span className="font-medium">{authorName}</span>}
-            {authorRole && <span>{authorRole}</span>}
+
+        {/* Author Details & CTA */}
+        <div className="flex justify-between items-center gap-3 sm:gap-4 w-full min-w-0">
+          <div className="flex flex-col flex-1 min-w-0">
+            {authorName && (
+              <span className="font-medium text-neutral-0 text-sm sm:text-base truncate">
+                {authorName}
+              </span>
+            )}
+            {authorRole && (
+              <span className="text-neutral-20 text-xs sm:text-sm truncate">
+                {authorRole}
+              </span>
+            )}
           </div>
-          <button
-            // onClick={handleClick}
-            className="flex items-center justify-center px-6 py-3 bg-dark-15 hover:bg-dark-20 rounded-lg transition-all duration-300 group min-h-6 font-medium text-neutral-15"
-          >
-            Open Website
+          <button className="flex items-center justify-center px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-dark-15 hover:bg-dark-20 rounded-lg transition-all duration-300 group min-h-6 font-medium text-neutral-15 text-xs sm:text-sm lg:text-base shrink-0">
+            <span className="hidden sm:inline">Open Website</span>
+            <span className="sm:hidden">Open</span>
           </button>
         </div>
       </div>

@@ -50,16 +50,19 @@ export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
 }) => {
   return (
     <div
-      className={clsx('p-[50px] flex flex-col gap-10', className)}
+      className={clsx(
+        'p-6 sm:p-8 md:p-10 lg:p-[50px] flex flex-col gap-6 lg:gap-10',
+        className
+      )}
       style={{
         aspectRatio,
       }}
     >
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-3 sm:gap-4 lg:gap-5">
         {/* Icon */}
         {icon && (
           <div
-            className="w-16 h-16 rounded-[10px] flex items-center justify-center border"
+            className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-[8px] lg:rounded-[10px] flex items-center justify-center border shrink-0"
             style={{
               border: '1px solid #2E2E2E',
               background:
@@ -71,6 +74,7 @@ export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
               alt={icon.name || 'Service Icon'}
               width={icon.width || 64}
               height={icon.height || 64}
+              className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 object-contain"
               priority
             />
           </div>
@@ -78,11 +82,11 @@ export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
 
         {/* Content */}
         <h3
-          className="mb-4"
+          className="mb-0 flex-1 min-w-0"
           style={{
             color: '#FFF',
             fontFamily: 'Barlow, sans-serif',
-            fontSize: '24px',
+            fontSize: 'clamp(16px, 4vw, 24px)',
             fontStyle: 'normal',
             fontWeight: 600,
             lineHeight: 'normal',
@@ -93,13 +97,13 @@ export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
       </div>
 
       {/* Description */}
-      <p>
+      <div className="text-sm sm:text-base lg:text-lg text-neutral-20 leading-relaxed">
         {typeof description === 'string' ? (
           description
         ) : (
           <PortableText value={description} />
         )}
-      </p>
+      </div>
     </div>
   );
 };
