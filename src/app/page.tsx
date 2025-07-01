@@ -244,7 +244,7 @@ export default function Home() {
           <PageHeader
             title={
               homeData?.ctaSection.title ||
-              'Thank you for your Interest in SquareUp.'
+              'Thank you for your Interest in Digital Agency.'
             }
             subtitle={homeData?.ctaSection.subtitle}
             icon={homeData?.ctaSection.icon?.url}
@@ -272,9 +272,7 @@ export default function Home() {
             </div>
           </PageHeader>
           {/* Contact Section */}
-          <div className="border-x border-dark-15">
-            <ContactSection contactForm={homeData?.contactForm} />
-          </div>
+          <ContactSection contactForm={homeData?.contactForm} />
         </div>
       </section>
     </div>

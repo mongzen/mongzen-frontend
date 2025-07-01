@@ -70,7 +70,7 @@ export function Footer() {
       <div className="contact-info flex items-start gap-[30px]">
         <div className="flex pb-4 items-center gap-[10px]">
           <EnvelopeIcon className="w-5 h-5 text-primary" />
-          <span className="text-contact">hello@squareup.com</span>
+          <span className="text-contact">hello@digitalagency.com</span>
         </div>
         <div className="flex pb-4 items-center gap-[10px]">
           <PhoneIcon className="w-5 h-5 text-primary" />

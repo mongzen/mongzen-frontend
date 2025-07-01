@@ -4,7 +4,6 @@ import { Checkbox, LoadingSpinner, RangeSlider } from '@/components/ui';
 import { useContactForm } from '@/hooks/useApi';
 import { ContactFormData, apiService } from '@/services/api';
 import { isValidEmail, sanitizeInput } from '@/utils';
-import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -374,10 +373,10 @@ export function ContactSection({ className, contactForm }: ContactFormProps) {
               type="submit"
               disabled={formState === 'submitting' || !isValid}
               className={clsx(
-                'w-full flex items-center justify-center space-x-2 px-6 py-4 rounded-lg font-semibold text-lg transition-all duration-200 transform',
+                'w-full max-w-[116px] max-h-[49px] flex items-center space-x-2 px-6 py-4 rounded-lg font-semibold text-lg transition-all duration-200 transform justify-center mx-auto',
                 formState === 'submitting' || !isValid
-                  ? 'bg-neutral-600 text-neutral-30 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-accent-500 to-accent-400 hover:from-accent-400 hover:to-accent-300 text-white hover:scale-105 shadow-lg hover:shadow-accent-500/25'
+                  ? 'bg-dark-15 text-neutral-30 cursor-not-allowed'
+                  : 'bg-primary text-gray-950'
               )}
             >
               {formState === 'submitting' ? (
@@ -387,18 +386,12 @@ export function ContactSection({ className, contactForm }: ContactFormProps) {
                 </>
               ) : (
                 <>
-                  <PaperAirplaneIcon className="w-5 h-5" />
                   <span>
                     {effectiveFormData?.submitButtonText || 'Send Message'}
                   </span>
                 </>
               )}
             </button>
-
-            <p className="text-xs text-neutral-30 text-center">
-              By submitting this form, you agree to our privacy policy and terms
-              of service.
-            </p>
           </form>
         )}
       </div>

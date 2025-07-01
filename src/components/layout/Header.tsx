@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Icon, WipeButton } from '@/components/ui';
+import { ButtonBlur, Icon, WipeButton } from '@/components/ui';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -70,10 +70,10 @@ export function Header() {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-neutral-15 hover:text-primary-50 p-2 rounded-xl hover:bg-neutral-50/10 transition-all duration-300 relative overflow-hidden group"
+              className="text-neutral-15 hover:text-primary-50 p-2 rounded hover:bg-neutral-50/10 transition-all duration-300 relative overflow-hidden group"
               aria-label="Toggle mobile menu"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-50/10 to-secondary-50/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-50/10 to-primary-50/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded"></div>
               <Icon
                 name={isMobileMenuOpen ? 'XMarkIcon' : 'Bars3Icon'}
                 size="md"
@@ -95,8 +95,8 @@ export function Header() {
                     href={item.href}
                     className={`flex items-center space-x-3 px-4 py-3 text-lg font-semibold rounded-lg transition-all duration-300 group relative overflow-hidden ${
                       isActive
-                        ? 'bg-neutral-15 text-white'
-                        : 'text-neutral-25 hover:text-white hover:bg-neutral-15'
+                        ? 'bg-dark-15 text-white'
+                        : 'text-neutral-25 hover:text-white hover:bg-dark-15'
                     }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -109,21 +109,15 @@ export function Header() {
                   </Link>
                 );
               })}
-              <div className="pt-4 space-y-3">
-                <Button
-                  variant="outline"
-                  className="w-full border-neutral-30 text-neutral-15 hover:border-primary-50 hover:text-primary-50 hover:bg-primary-50/5 transition-all duration-300"
+              <div className="pt-4 space-y-3 flex flex-col">
+                <ButtonBlur
+                  size="lg"
+                  className="w-full sm:w-auto min-w-[160px]"
                 >
-                  <Icon name="PhoneIcon" size="sm" className="mr-2" />
+                  <Icon name="PhoneIcon" size="sm" />
                   Let&apos;s Talk
-                </Button>
-                <Button
-                  variant="primary"
-                  className="w-full bg-gradient-to-r from-primary-50 to-secondary-50 hover:from-primary-60 hover:to-secondary-60 text-neutral-60 font-semibold shadow-xl shadow-primary-50/30 transform hover:scale-105 transition-all duration-300"
-                >
-                  <Icon name="RocketLaunchIcon" size="sm" className="mr-2" />
-                  Get Started
-                </Button>
+                </ButtonBlur>
+                <WipeButton variant="filled">Get Started</WipeButton>
               </div>
             </div>
           </div>
