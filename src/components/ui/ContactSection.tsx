@@ -1,12 +1,9 @@
 'use client';
 
+import { Checkbox, LoadingSpinner, RangeSlider } from '@/components/ui';
+import { useContactForm } from '@/hooks/useApi';
 import { ContactFormData, apiService } from '@/services/api';
-import {
-  isValidEmail,
-  isValidFullName,
-  isValidPhone,
-  sanitizeInput,
-} from '@/utils';
+import { isValidEmail, sanitizeInput } from '@/utils';
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import {
   CheckCircleIcon,
@@ -14,48 +11,119 @@ import {
 } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+import { ContactForm } from '../../types';
 
 interface ContactFormProps {
   className?: string;
+  contactForm?: ContactForm | undefined;
 }
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
-export function ContactSection({ className }: ContactFormProps) {
+// Extended form data to include the budget range and contact reason
+interface ExtendedContactFormData extends ContactFormData {
+  contactReasons: string[];
+  budgetRange: number;
+}
+
+export function ContactSection({ className, contactForm }: ContactFormProps) {
+  const { loading: formLoading } = useContactForm();
   const [formState, setFormState] = useState<FormState>('idle');
   const [responseMessage, setResponseMessage] = useState<string>('');
+
+  // Fallback data when API is not available
+  const fallbackData = {
+    id: 1,
+    fullNamePlaceholder: 'Full Name',
+    emailPlaceholder: 'Email Address',
+    questionLabel: 'Why are you contacting us?',
+    budgetLabel: 'Your Budget',
+    budgetMin: 1000,
+    budgetMax: 100000,
+    budgetMinLabel: '$1,000',
+    budgetMaxLabel: '$100,000',
+    messagePlaceholder: [
+      {
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text: 'Tell us about your project, goals, and requirements...',
+          },
+        ],
+      },
+    ],
+    submitButtonText: 'Send Message',
+    contactOptions: [
+      { id: 1, label: 'Web Development', value: 'web-development' },
+      { id: 2, label: 'Mobile App', value: 'mobile-app' },
+      { id: 3, label: 'UI/UX Design', value: 'ui-ux-design' },
+      { id: 4, label: 'Digital Marketing', value: 'digital-marketing' },
+      { id: 5, label: 'Branding', value: 'branding' },
+      { id: 6, label: 'Consultation', value: 'consultation' },
+    ],
+  };
+
+  const effectiveFormData = contactForm || fallbackData;
 
   const {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isValid },
     watch,
-  } = useForm<ContactFormData>({
+  } = useForm<ExtendedContactFormData>({
     mode: 'onChange',
     defaultValues: {
       fullName: '',
       email: '',
       phone: '',
       subject: '',
-      budget: undefined,
       message: '',
+      contactReasons: [],
+      budgetRange: effectiveFormData?.budgetMin || 1000,
     },
   });
 
-  const onSubmit = async (data: ContactFormData) => {
+  // Helper function to extract text from rich text
+  const extractTextFromRichText = (richText: any[]): string => {
+    if (!richText || !Array.isArray(richText)) return '';
+    return richText
+      .map(
+        (block) =>
+          block.children?.map((child: any) => child.text).join(' ') || ''
+      )
+      .join(' ');
+  };
+
+  const messagePlaceholder = effectiveFormData
+    ? extractTextFromRichText(effectiveFormData.messagePlaceholder)
+    : 'Tell us about your project...';
+
+  const formatCurrency = (value: number): string => {
+    if (effectiveFormData?.budgetMinLabel.includes('THB')) {
+      return `${value.toLocaleString()} THB`;
+    }
+    return `$${value.toLocaleString()}`;
+  };
+
+  const onSubmit = async (data: ExtendedContactFormData) => {
     setFormState('submitting');
     setResponseMessage('');
 
     try {
-      // Sanitize inputs
-      const sanitizedData = {
+      // Sanitize inputs and prepare data
+      const sanitizedData: ContactFormData = {
         fullName: sanitizeInput(data.fullName),
         email: sanitizeInput(data.email),
         phone: data.phone ? sanitizeInput(data.phone) : '',
-        subject: sanitizeInput(data.subject),
-        budget: data.budget,
+        subject:
+          data.contactReasons.length > 0
+            ? data.contactReasons.join(', ')
+            : sanitizeInput(data.subject),
+        budget: data.budgetRange,
         message: sanitizeInput(data.message),
       };
 
@@ -77,19 +145,29 @@ export function ContactSection({ className }: ContactFormProps) {
     reset();
   };
 
+  if (formLoading) {
+    return (
+      <section
+        id="contact"
+        className={clsx(
+          'relative text-white overflow-hidden min-h-[400px] flex items-center justify-center',
+          className
+        )}
+      >
+        <LoadingSpinner size="lg" />
+      </section>
+    );
+  }
+
   return (
     <section
       id="contact"
-      className={clsx(
-        'relative text-white overflow-hidden max-w-[1060px] mx-auto border-x border-dark-15',
-        className
-      )}
+      className={clsx('relative text-white overflow-hidden', className)}
     >
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-        {/* Contact Form */}
+      <div className="relative z-10 max-w-7xl mx-auto p-10 sm:p-20 lg:p-80px border-x border-dark-15">
         {formState === 'success' ? (
           // Success State
-          <div className="text-center py-8">
+          <div className="text-center py-8 w-full">
             <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircleIcon className="w-8 h-8 text-green-400" />
             </div>
@@ -104,15 +182,16 @@ export function ContactSection({ className }: ContactFormProps) {
           </div>
         ) : (
           // Form
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 w-full">
+            {/* Email and Phone Row */}
+            <div className="grid md:grid-cols-2 gap-5">
               {/* Full Name */}
-              <div className="sm:col-span-2">
+              <div className="flex p-6 lg:p-[24px_40px] flex-col justify-center items-start gap-5 flex-1 rounded-lg border border-dark-15 bg-[#24242480]">
                 <label
                   htmlFor="fullName"
-                  className="block text-sm font-medium mb-2"
+                  className="block text-[22px] font-semibold"
                 >
-                  Full Name *
+                  {effectiveFormData?.fullNamePlaceholder || 'Full Name'} *
                 </label>
                 <input
                   {...register('fullName', {
@@ -121,34 +200,34 @@ export function ContactSection({ className }: ContactFormProps) {
                       value: 2,
                       message: 'Name must be at least 2 characters',
                     },
-                    validate: (value) =>
-                      isValidFullName(value) ||
-                      'Please enter a valid full name',
                   })}
                   type="text"
                   id="fullName"
-                  placeholder="Enter your full name"
+                  placeholder={
+                    effectiveFormData?.fullNamePlaceholder ||
+                    'Enter your full name'
+                  }
                   className={clsx(
-                    'w-full px-4 py-3 bg-white/10 border rounded-lg text-white placeholder-neutral-30 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200',
+                    'w-full px-4 py-3 bg-dark-50 border-b border-neutral-50 text-dark-90 placeholder-dark-40 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200',
                     errors.fullName
                       ? 'border-red-400 focus:ring-red-400/50'
-                      : 'border-white/20 focus:ring-accent-400/50'
+                      : 'border-neutral-50 focus:ring-accent-400/50'
                   )}
                 />
                 {errors.fullName && (
-                  <p className="mt-1 text-sm text-red-400">
+                  <p className="text-sm text-red-400">
                     {errors.fullName.message}
                   </p>
                 )}
               </div>
 
               {/* Email */}
-              <div>
+              <div className="flex p-6 lg:p-10 flex-col justify-center items-start gap-5 flex-1 rounded-lg border border-dark-15 bg-[#24242480]">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium mb-2"
+                  className="block text-[22px] font-semibold"
                 >
-                  Email Address *
+                  {effectiveFormData?.emailPlaceholder || 'Email Address'} *
                 </label>
                 <input
                   {...register('email', {
@@ -159,181 +238,132 @@ export function ContactSection({ className }: ContactFormProps) {
                   })}
                   type="email"
                   id="email"
-                  placeholder="your.email@example.com"
+                  placeholder={
+                    effectiveFormData?.emailPlaceholder ||
+                    'your.email@example.com'
+                  }
                   className={clsx(
-                    'w-full px-4 py-3 bg-white/10 border rounded-lg text-white placeholder-neutral-30 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200',
+                    'w-full px-4 py-3 bg-dark-50 border-b border-neutral-50 text-dark-90 placeholder-dark-40 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200',
                     errors.email
                       ? 'border-red-400 focus:ring-red-400/50'
-                      : 'border-white/20 focus:ring-accent-400/50'
+                      : 'border-neutral-50 focus:ring-accent-400/50'
                   )}
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-400">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Phone */}
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Phone Number
-                </label>
-                <input
-                  {...register('phone', {
-                    validate: (value) =>
-                      !value ||
-                      isValidPhone(value) ||
-                      'Please enter a valid phone number',
-                  })}
-                  type="tel"
-                  id="phone"
-                  placeholder="+1 (555) 123-4567"
-                  className={clsx(
-                    'w-full px-4 py-3 bg-white/10 border rounded-lg text-white placeholder-neutral-30 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200',
-                    errors.phone
-                      ? 'border-red-400 focus:ring-red-400/50'
-                      : 'border-white/20 focus:ring-accent-400/50'
-                  )}
-                />
-                {errors.phone && (
-                  <p className="mt-1 text-sm text-red-400">
-                    {errors.phone.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Subject */}
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="subject"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Subject *
-                </label>
-                <select
-                  {...register('subject', {
-                    required: 'Please select a subject',
-                  })}
-                  id="subject"
-                  className={clsx(
-                    'w-full px-4 py-3 bg-white/10 border rounded-lg text-white focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200',
-                    errors.subject
-                      ? 'border-red-400 focus:ring-red-400/50'
-                      : 'border-white/20 focus:ring-accent-400/50'
-                  )}
-                >
-                  <option value="" className="bg-neutral-900 text-neutral-20">
-                    Select a subject
-                  </option>
-                  <option value="Web Development" className="bg-neutral-900">
-                    Web Development
-                  </option>
-                  <option
-                    value="Mobile App Development"
-                    className="bg-neutral-900"
-                  >
-                    Mobile App Development
-                  </option>
-                  <option value="UI/UX Design" className="bg-neutral-900">
-                    UI/UX Design
-                  </option>
-                  <option value="Digital Marketing" className="bg-neutral-900">
-                    Digital Marketing
-                  </option>
-                  <option value="Branding" className="bg-neutral-900">
-                    Branding
-                  </option>
-                  <option value="Consultation" className="bg-neutral-900">
-                    General Consultation
-                  </option>
-                  <option value="Other" className="bg-neutral-900">
-                    Other
-                  </option>
-                </select>
-                {errors.subject && (
-                  <p className="mt-1 text-sm text-red-400">
-                    {errors.subject.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Budget */}
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="budget"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Project Budget (USD)
-                </label>
-                <select
-                  {...register('budget', {
-                    valueAsNumber: true,
-                  })}
-                  id="budget"
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-accent-400/50 focus:border-transparent transition-all duration-200"
-                >
-                  <option value="" className="bg-neutral-900 text-neutral-20">
-                    Select budget range
-                  </option>
-                  <option value={5000} className="bg-neutral-900">
-                    $5,000 - $10,000
-                  </option>
-                  <option value={15000} className="bg-neutral-900">
-                    $10,000 - $25,000
-                  </option>
-                  <option value={35000} className="bg-neutral-900">
-                    $25,000 - $50,000
-                  </option>
-                  <option value={75000} className="bg-neutral-900">
-                    $50,000 - $100,000
-                  </option>
-                  <option value={150000} className="bg-neutral-900">
-                    $100,000+
-                  </option>
-                </select>
-              </div>
-
-              {/* Message */}
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium mb-2"
-                >
-                  Message *
-                </label>
-                <textarea
-                  {...register('message', {
-                    required: 'Message is required',
-                    minLength: {
-                      value: 10,
-                      message: 'Message must be at least 10 characters',
-                    },
-                  })}
-                  id="message"
-                  rows={5}
-                  placeholder="Tell us about your project, goals, timeline, or any specific requirements you have in mind..."
-                  className={clsx(
-                    'w-full px-4 py-3 bg-white/10 border rounded-lg text-white placeholder-neutral-30 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 resize-none',
-                    errors.message
-                      ? 'border-red-400 focus:ring-red-400/50'
-                      : 'border-white/20 focus:ring-accent-400/50'
-                  )}
-                />
-                {errors.message && (
-                  <p className="mt-1 text-sm text-red-400">
-                    {errors.message.message}
-                  </p>
+                  <p className="text-sm text-red-400">{errors.email.message}</p>
                 )}
               </div>
             </div>
 
+            {/* Contact Reasons (Checkboxes) */}
+            {effectiveFormData?.contactOptions &&
+              effectiveFormData.contactOptions.length > 0 && (
+                <div className="flex p-6 lg:p-10 flex-col justify-center items-start gap-5 flex-1 rounded-lg border border-dark-15 bg-[#24242480]">
+                  <label className="block text-[22px] font-semibold">
+                    {effectiveFormData.questionLabel ||
+                      'Why are you contacting us?'}
+                  </label>
+                  <Controller
+                    name="contactReasons"
+                    control={control}
+                    render={({ field }) => (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+                        {effectiveFormData.contactOptions?.map((option) => (
+                          <div
+                            key={option.id}
+                            className="flex items-center space-x-3"
+                          >
+                            <Checkbox
+                              id={`contact-${option.id}`}
+                              checked={field.value.includes(option.value)}
+                              onCheckedChange={(checked) => {
+                                if (checked) {
+                                  field.onChange([
+                                    ...field.value,
+                                    option.value,
+                                  ]);
+                                } else {
+                                  field.onChange(
+                                    field.value.filter(
+                                      (v) => v !== option.value
+                                    )
+                                  );
+                                }
+                              }}
+                            />
+                            <label
+                              htmlFor={`contact-${option.id}`}
+                              className="text-sm font-medium leading-none cursor-pointer"
+                            >
+                              {option.label}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  />
+                </div>
+              )}
+
+            {/* Budget Range Slider */}
+            {effectiveFormData && (
+              <div className="flex p-6 lg:p-10 flex-col justify-center items-start gap-5 flex-1 rounded-lg border border-dark-15 bg-[#24242480]">
+                <label className="block text-[22px] font-semibold">
+                  {effectiveFormData.budgetLabel || 'Your Budget'}
+                </label>
+                <Controller
+                  name="budgetRange"
+                  control={control}
+                  render={({ field }) => (
+                    <RangeSlider
+                      min={effectiveFormData.budgetMin}
+                      max={effectiveFormData.budgetMax}
+                      value={field.value}
+                      onChange={field.onChange}
+                      formatLabel={formatCurrency}
+                      className="w-full"
+                      // Step every 100
+                      step={100}
+                    />
+                  )}
+                />
+              </div>
+            )}
+
+            {/* Message */}
+            <div className="flex p-6 lg:p-10 flex-col justify-center items-start gap-5 flex-1 rounded-lg border border-dark-15 bg-[#24242480]">
+              <label
+                htmlFor="message"
+                className="block text-[22px] font-semibold"
+              >
+                Message *
+              </label>
+              <textarea
+                {...register('message', {
+                  required: 'Message is required',
+                  minLength: {
+                    value: 10,
+                    message: 'Message must be at least 10 characters',
+                  },
+                })}
+                id="message"
+                rows={5}
+                placeholder={messagePlaceholder}
+                className={clsx(
+                  'w-full px-4 py-3 bg-dark-50 border-b border-neutral-50 text-dark-90 placeholder-dark-40 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 resize-none',
+                  errors.message
+                    ? 'border-red-400 focus:ring-red-400/50'
+                    : 'border-neutral-50 focus:ring-accent-400/50'
+                )}
+              />
+              {errors.message && (
+                <p className="text-sm text-red-400">{errors.message.message}</p>
+              )}
+            </div>
+
             {/* Error Message */}
             {formState === 'error' && responseMessage && (
-              <div className="flex items-center space-x-3 p-4 bg-red-500/20 border border-red-400/50 rounded-lg">
+              <div className="flex items-center space-x-3 p-4 bg-red-500/20 border-red-400/50 rounded-lg">
                 <ExclamationCircleIcon className="w-5 h-5 text-red-400 flex-shrink-0" />
                 <p className="text-red-400">{responseMessage}</p>
               </div>
@@ -358,10 +388,17 @@ export function ContactSection({ className }: ContactFormProps) {
               ) : (
                 <>
                   <PaperAirplaneIcon className="w-5 h-5" />
-                  <span>Send Message</span>
+                  <span>
+                    {effectiveFormData?.submitButtonText || 'Send Message'}
+                  </span>
                 </>
               )}
             </button>
+
+            <p className="text-xs text-neutral-30 text-center">
+              By submitting this form, you agree to our privacy policy and terms
+              of service.
+            </p>
           </form>
         )}
       </div>

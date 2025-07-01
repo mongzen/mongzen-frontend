@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { HomePage, ContactForm } from '../types';
+import { ContactForm, HomePage } from '../types';
 
 export interface ContactFormData {
   fullName: string;

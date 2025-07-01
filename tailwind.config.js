@@ -52,18 +52,27 @@ module.exports = {
           50: '#9EFF00',
           80: '#CCF266',
           90: '#E5F9B3',
+          800: '#1a365d',
+          900: '#1e3a8a',
         },
-        // Accent colors (for FAQ active state)
+        // Secondary colors
+        secondary: {
+          900: '#7c2d12',
+        },
+        // Accent colors (for FAQ active state and contact form)
         accent: {
           50: '#C5FF66',
           60: '#B8FF4D',
           70: '#ABFF33',
+          300: '#10b981',
+          400: '#059669',
+          500: '#047857',
         },
         // Neutral colors
         neutral: {
           0: '#FFFFFF',
           10: '#F5F5F5',
-          15: '#E6E6E6',
+          15: '#262626', // Added for border color as specified
           20: '#CCCCCC',
           30: '#B3B3B3',
           40: '#999999',

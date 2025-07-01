@@ -273,7 +273,7 @@ export default function Home() {
           </PageHeader>
           {/* Contact Section */}
           <div className="border-x border-dark-15">
-            <ContactSection />
+            <ContactSection contactForm={homeData?.contactForm} />
           </div>
         </div>
       </section>
