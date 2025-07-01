@@ -2,6 +2,7 @@
 
 import {
   ButtonBlur,
+  FAQAccordion,
   LoadingSpinner,
   PageHeader,
   ServiceCard,
@@ -170,12 +171,12 @@ export default function Home() {
                   'border-dark-15 min-h-[200px] sm:min-h-[240px] md:min-h-[280px] lg:min-h-[318px]',
                   // Mobile: bottom border for all except last
                   index < homeData?.whyChooseFeaturesList.length - 1 &&
-                    'border-b md:border-b-0',
+                    'border-b',
                   // Tablet & Desktop: even indices get right border
-                  index % 2 === 0 && 'md:border-r',
+                  index % 2 === 0 && 'border-r',
                   // Tablet & Desktop: bottom borders for all except last row
                   index < homeData?.whyChooseFeaturesList.length - 2 &&
-                    'md:border-b'
+                    'border-b'
                 )}
               />
             ))}
@@ -201,16 +202,13 @@ export default function Home() {
                 authorName={testimonial.authorName}
                 authorRole={testimonial.authorRole}
                 icon={testimonial.authorPhoto}
-                aspectRatio={798 / 574}
                 className={clsx(
-                  'border-dark-15 min-h-[350px] sm:min-h-[450px] lg:min-h-[574px]',
                   // Mobile: bottom border for all except last
-                  index < homeData?.testimonialsList.length - 1 &&
-                    'border-b lg:border-b-0',
+                  index < homeData?.testimonialsList.length - 1 && 'border-b',
                   // Desktop: even indices get right border
                   index % 2 === 0 && 'lg:border-r',
                   // Desktop: bottom borders for all except last row
-                  index < homeData?.testimonialsList.length - 2 && 'lg:border-b'
+                  index < homeData?.testimonialsList.length - 2 && 'border-b'
                 )}
               />
             ))}
@@ -226,50 +224,15 @@ export default function Home() {
             subtitle={homeData?.faqSubtitle}
             backgroundImage={homeData?.faqBanner?.url}
           />
-          <div className="space-y-0">
-            <ul className="grid grid-cols-1 lg:grid-cols-2">
-              {homeData?.faqItems?.map((faq, index) => (
-                <li
-                  key={faq.id}
-                  className={clsx(
-                    'border-b border-dark-15 p-[20px] sm:p-[30px] lg:p-[30px_50px] flex gap-4 sm:gap-6 lg:gap-8',
-                    // Desktop: even indices get right border
-                    index % 2 === 0 && 'lg:border-r lg:border-dark-15',
-                    // Mobile: all items have bottom border except last
-                    index === homeData?.faqItems.length - 1 &&
-                      'border-b-0 lg:border-b',
-                    // Desktop: ensure proper borders for last row
-                    index >= homeData?.faqItems.length - 2 && 'lg:border-b-0'
-                  )}
-                >
-                  <div
-                    className="flex p-3 sm:p-4 lg:p-5 flex-col gap-2.5 aspect-square rounded-xl text-lg sm:text-xl lg:text-[28px] font-medium leading-[150%] w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 items-center justify-center shrink-0"
-                    style={{
-                      border: '1px solid #2E2E2E',
-                      background:
-                        'linear-gradient(180deg, #242424 0%, rgba(36, 36, 36, 0.00) 100%)',
-                    }}
-                  >
-                    {faq.number}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-neutral-0 mb-2 sm:mb-3 text-sm sm:text-base lg:text-lg leading-relaxed">
-                      {faq.question}
-                    </h3>
-                    <p className="text-neutral-20 text-xs sm:text-sm lg:text-base leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {homeData?.faqItems && (
+            <FAQAccordion items={homeData.faqItems} maxItems={8} />
+          )}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="border-x border-b border-dark-15">
-        <div className="max-w-[1596px] mx-auto">
+      <section className="border-x-0 sm:border-x border-b border-dark-15">
+        <div className="max-w-container mx-auto">
           <PageHeader
             title={
               homeData?.ctaSection.title ||

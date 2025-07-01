@@ -53,6 +53,12 @@ module.exports = {
           80: '#CCF266',
           90: '#E5F9B3',
         },
+        // Accent colors (for FAQ active state)
+        accent: {
+          50: '#C5FF66',
+          60: '#B8FF4D',
+          70: '#ABFF33',
+        },
         // Neutral colors
         neutral: {
           0: '#FFFFFF',

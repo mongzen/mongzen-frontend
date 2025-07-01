@@ -9,7 +9,6 @@ interface TestimonialCardProps {
   authorName?: string; // Optional author name prop
   authorRole?: string; // Optional author role prop
   className?: string;
-  aspectRatio?: number; // Optional aspect ratio prop
 }
 
 const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
@@ -51,17 +50,13 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
   authorName,
   authorRole,
   className = '',
-  aspectRatio = 532 / 577,
 }) => {
   return (
     <div
       className={clsx(
-        'p-6 sm:p-8 md:p-10 lg:p-[50px] flex flex-col justify-between gap-6 lg:gap-8',
+        'p-6 sm:p-8 md:p-10 lg:p-[50px] flex flex-col justify-between gap-6 lg:gap-8 border-dark-15 min-h-[350px] xl:aspect-[638_/_374] xl:max-h-[574px] overflow-hidden w-full',
         className
       )}
-      style={{
-        aspectRatio,
-      }}
     >
       {/* Content */}
       <div className="flex-1">
