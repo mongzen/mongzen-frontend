@@ -107,16 +107,6 @@ class ApiService {
     return response.data;
   }
 
-  // Generic POST request
-  async post<T>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<StrapiResponse<T>> {
-    const response = await this.api.post<StrapiResponse<T>>(url, data, config);
-    return response.data;
-  }
-
   async getHomePage(): Promise<StrapiResponse<HomePage>> {
     return this.get('/api/homepage?populate=*');
   }
@@ -159,11 +149,9 @@ class ApiService {
         message:
           'Your message has been sent successfully! We will get back to you soon.',
       };
-    } catch (error: any) {
+    } catch (error) {
       console.error('Contact form submission error:', error);
-      throw new Error(
-        error.message || 'Failed to send your message. Please try again later.'
-      );
+      throw new Error('Failed to send your message. Please try again later.');
     }
   }
 }

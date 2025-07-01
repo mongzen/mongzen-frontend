@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error) {
     console.error('Contact API error:', error);
     return NextResponse.json(
       {

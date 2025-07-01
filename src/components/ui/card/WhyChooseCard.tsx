@@ -8,7 +8,6 @@ interface WhyChooseCardProps {
   icon?: Icon;
   title: string | PortableTextBlock[];
   description: string | PortableTextBlock[];
-  onClick?: () => void;
   className?: string;
   aspectRatio?: number; // Optional aspect ratio prop
 }
@@ -44,7 +43,6 @@ export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
   icon,
   title,
   description,
-  onClick,
   className = '',
   aspectRatio = 532 / 577,
 }) => {

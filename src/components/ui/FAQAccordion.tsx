@@ -32,7 +32,6 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
             <FAQAccordionItemCard
               key={faq.id}
               faq={faq}
-              index={index}
               isLastInColumn={index === leftColumnItems.length - 1}
               className={clsx(
                 // Stagger animation delays for visual appeal
@@ -52,7 +51,6 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
             <FAQAccordionItemCard
               key={`faq-item-${index}`}
               faq={faq}
-              index={index + leftColumnItems.length}
               isLastInColumn={index === rightColumnItems.length - 1}
               className={clsx(
                 // Stagger animation delays for visual appeal

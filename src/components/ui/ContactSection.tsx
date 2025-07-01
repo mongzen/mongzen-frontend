@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 'use client';
 
 import { Checkbox, LoadingSpinner, RangeSlider } from '@/components/ui';
@@ -72,7 +74,6 @@ export function ContactSection({ className, contactForm }: ContactFormProps) {
     reset,
     control,
     formState: { errors, isValid },
-    watch,
   } = useForm<ExtendedContactFormData>({
     mode: 'onChange',
     defaultValues: {

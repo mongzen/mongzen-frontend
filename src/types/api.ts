@@ -99,7 +99,7 @@ export interface FeatureItem {
 export interface PortableTextChild {
   type: 'text';
   text: string;
-  [key: string]: any;
+  [key: string]: string;
 }
 
 /**

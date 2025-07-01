@@ -5,14 +5,12 @@ import { useEffect, useRef, useState } from 'react';
 
 interface FAQAccordionItemProps {
   faq: FAQItem;
-  index: number;
   isLastInColumn?: boolean;
   className?: string;
 }
 
 const FAQAccordionItemCard: React.FC<FAQAccordionItemProps> = ({
   faq,
-  index,
   isLastInColumn = false,
   className,
 }) => {
