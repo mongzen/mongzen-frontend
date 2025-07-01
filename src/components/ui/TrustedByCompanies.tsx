@@ -171,7 +171,7 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
               <div className="flex items-center justify-center w-full h-full">
                 {company.logo?.url ? (
                   <Image
-                    src={process.env.NEXT_PUBLIC_API_URL + company.logo.url}
+                    src={company.logo.url}
                     alt={`${company.name} logo`}
                     className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
                     width={company.logo.width || 100}

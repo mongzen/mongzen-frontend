@@ -79,7 +79,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             }}
           >
             <Image
-              src={process.env.NEXT_PUBLIC_API_URL + icon.url}
+              src={icon.url}
               alt={icon.name || 'Service Icon'}
               width={icon.width || 64}
               height={icon.height || 64}
