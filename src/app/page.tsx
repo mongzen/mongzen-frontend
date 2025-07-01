@@ -5,10 +5,13 @@ import {
   LoadingSpinner,
   PageHeader,
   ServiceCard,
+  TestimonialCard,
   TrustedByCompanies,
+  WhyChooseCard,
   WipeButton,
 } from '@/components/ui';
 import { useHomePage } from '@/hooks/useApi';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -115,8 +118,7 @@ export default function Home() {
             }
             backgroundImage={homeData?.servicesBanner.url}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Example Service Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {homeData?.services.map((service, index) => (
               <ServiceCard
                 key={service.id}
@@ -133,24 +135,77 @@ export default function Home() {
       </section>
 
       {/* Why Choose Section */}
-      <section className="border-x border-b border-dark-15">
+      <section className="border-x border-dark-15">
         <div className="max-w-[1596px] mx-auto">
           <PageHeader
             title={homeData?.whyChooseTitle || 'Why Choose Us'}
             subtitle={homeData?.whyChooseSubtitle}
             backgroundImage={homeData?.whyChooseBanner?.url}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* {homeData?.whyChooseFeaturesList.map((feature, index) => (
-              <FeatureCard
-                key={feature.id}
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-                className={index === 1 ? 'border-x border-dark-15' : ''}
+          <div className="grid grid-cols-2 grid-rows-2">
+            {homeData?.whyChooseFeaturesList.map((service, index) => (
+              <WhyChooseCard
+                key={service.id}
+                title={service.title}
+                icon={service.icon}
+                description={service.description}
+                aspectRatio={790 / 378} // Maintain aspect ratio
+                className={clsx(
+                  index % 2 === 0 ? 'border-r' : '',
+                  'border-dark-15 border-b min-h-[218px] p-[80px]'
+                )}
               />
-            ))} */}
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* What our Clients Say Section */}
+      <section className="border-x border-dark-15">
+        <div className="max-w-[1596px] mx-auto">
+          <PageHeader
+            title={
+              homeData?.testimonialsTitle || 'What our Clients say About us'
+            }
+            subtitle={homeData?.testimonialsSubtitle}
+            backgroundImage={homeData?.testimonialsBanner?.url}
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {homeData?.testimonialsList.map((testimonial, index) => (
+              <TestimonialCard
+                key={testimonial.id}
+                title={testimonial.quote}
+                icon={testimonial.authorPhoto}
+                authorName={testimonial.authorName}
+                authorRole={testimonial.authorRole}
+                aspectRatio={798 / 574}
+                className={clsx(
+                  index % 2 === 0 ? 'border-r' : '',
+                  'border-dark-15 border-b min-h-[574px] p-[100px_80px] flex flex-col gap-[40px]'
+                )}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="border-x border-dark-15">
+        <div className="max-w-[1596px] mx-auto">
+          <PageHeader
+            title={
+              homeData?.ctaSection.title ||
+              'Thank you for your Interest in SquareUp.'
+            }
+            subtitle={homeData?.ctaSection.subtitle}
+            icon={homeData?.ctaSection.icon?.url}
+            backgroundImage={homeData?.ctaSection.ctaBanner?.url}
+            className="h-[597px]"
+          >
+            <WipeButton variant="filled" color="primary" size="lg">
+              Contact
+            </WipeButton>
+          </PageHeader>
         </div>
       </section>
     </div>

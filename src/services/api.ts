@@ -27,10 +27,10 @@ class ApiService {
   constructor() {
     this.api = axios.create({
       baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337/api',
-      timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
       },
+      timeout: 10000, // 10 seconds timeout
     });
 
     this.setupInterceptors();
@@ -93,7 +93,7 @@ class ApiService {
   }
 
   async getHomePage(): Promise<StrapiResponse<HomePage>> {
-    return this.get('/homepage?populate=*');
+    return this.get('/api/homepage?populate=*');
   }
 }
 

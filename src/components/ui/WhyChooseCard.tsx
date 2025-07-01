@@ -4,12 +4,10 @@ import { Icon, PortableTextBlock } from '@/types';
 import clsx from 'clsx';
 import Image from 'next/image';
 
-interface ServiceCardProps {
+interface WhyChooseCardProps {
   icon?: Icon;
   title: string | PortableTextBlock[];
   description: string | PortableTextBlock[];
-  buttonText?: string;
-  buttonHref?: string;
   onClick?: () => void;
   className?: string;
   aspectRatio?: number; // Optional aspect ratio prop
@@ -42,34 +40,24 @@ const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
   );
 };
 
-export const ServiceCard: React.FC<ServiceCardProps> = ({
+export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
   icon,
   title,
   description,
-  buttonText = 'Learn More',
-  buttonHref,
   onClick,
   className = '',
   aspectRatio = 532 / 577,
 }) => {
-  const handleClick = () => {
-    if (onClick) {
-      onClick();
-    } else if (buttonHref) {
-      window.open(buttonHref, '_self');
-    }
-  };
-
   return (
     <div
-      className={clsx('p-[50px] flex flex-col justify-between', className)}
+      className={clsx('p-[50px] flex flex-col gap-10', className)}
       style={{
         aspectRatio,
       }}
     >
-      {/* Icon */}
-      {icon && (
-        <div className="mb-6">
+      <div className="flex items-center gap-5">
+        {/* Icon */}
+        {icon && (
           <div
             className="w-16 h-16 rounded-[10px] flex items-center justify-center border"
             style={{
@@ -86,11 +74,9 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
               priority
             />
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Content */}
-      <div className="flex-1 mb-6">
+        {/* Content */}
         <h3
           className="mb-4"
           style={{
@@ -104,36 +90,18 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         >
           {typeof title === 'string' ? title : <PortableText value={title} />}
         </h3>
-
-        {/* Description */}
-        <p
-          style={{
-            color: '#E6E6E6',
-            fontFamily: 'Barlow, sans-serif',
-            fontSize: '16px',
-            fontStyle: 'normal',
-            fontWeight: 400,
-            lineHeight: '24px',
-            letterSpacing: '-0.096px',
-          }}
-        >
-          {typeof description === 'string' ? (
-            description
-          ) : (
-            <PortableText value={description} />
-          )}
-        </p>
       </div>
 
-      {/* Grey Button */}
-      <button
-        onClick={handleClick}
-        className="flex items-center justify-center px-6 py-3 bg-dark-15 hover:bg-dark-20 rounded-lg transition-all duration-300 group min-h-6 font-medium text-neutral-15"
-      >
-        {buttonText}
-      </button>
+      {/* Description */}
+      <p>
+        {typeof description === 'string' ? (
+          description
+        ) : (
+          <PortableText value={description} />
+        )}
+      </p>
     </div>
   );
 };
 
-export default ServiceCard;
+export default WhyChooseCard;

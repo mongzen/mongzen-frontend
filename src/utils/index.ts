@@ -43,7 +43,7 @@ export function truncateText(text: string, maxLength: number): string {
 export function getImageUrl(url: string | undefined): string {
   if (!url) return '/placeholder-image.jpg';
   if (url.startsWith('http')) return url;
-  return `${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'}${url}`;
+  return `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337'}${url}`;
 }
 
 export function isValidEmail(email: string): boolean {

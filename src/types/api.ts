@@ -89,12 +89,43 @@ export interface FeatureItem {
   id: number;
   icon: Icon;
   title: string;
-  description: string[];
+  description: string;
 }
+
+/**
+ * Represents a child text node in Portable Text
+ */
+export interface PortableTextChild {
+  type: 'text';
+  text: string;
+  [key: string]: any;
+}
+
+/**
+ * Heading block in Portable Text
+ */
+export interface HeadingBlock {
+  type: 'heading';
+  level: number;
+  children: PortableTextChild[];
+}
+
+/**
+ * Paragraph block in Portable Text
+ */
+export interface ParagraphBlock {
+  type: 'paragraph';
+  children: PortableTextChild[];
+}
+
+/**
+ * Union type for supported Portable Text blocks
+ */
+export type PortableTextBlock = HeadingBlock | ParagraphBlock;
 
 export interface TestimonialItem {
   id: number;
-  quote: string[];
+  quote: PortableTextBlock[];
   authorName: string;
   authorRole: string;
   authorPhoto?: Icon;
@@ -112,6 +143,7 @@ export interface FAQItem {
 export interface CTASection {
   id: number;
   icon?: Icon;
+  ctaBanner?: Icon;
   title: string;
   subtitle: string;
   buttonText: string;
