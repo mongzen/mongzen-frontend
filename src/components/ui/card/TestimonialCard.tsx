@@ -82,7 +82,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
             }}
           >
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}${icon.url}`}
+              src={icon.url}
               alt={icon.name || 'Author Photo'}
               width={icon.width || 60}
               height={icon.height || 60}
