@@ -43,23 +43,26 @@ export interface HomePage {
 
   whyChooseTitle: string;
   whyChooseSubtitle: string;
+  whyChooseFeaturesList: FeatureItem[];
+  whyChooseBanner?: Icon;
 
+  testimonialsBanner: Icon;
   testimonialsTitle: string;
   testimonialsSubtitle: string;
+  testimonialsList: TestimonialItem[];
 
   trustedByTitle: string;
   trustedByCompanies: TrustedByCompany[];
 
+  servicesBanner: Icon;
   servicesTitle: string;
   servicesSubtitle: string;
   services: ServiceItem[];
 
-  whyChooseFeaturesList: FeatureItem[];
-  testimonialsList: TestimonialItem[];
-
   faqTitle: string;
   faqSubtitle: string;
   faqItems: FAQItem[];
+  faqBanner?: Icon;
 
   ctaSection: CTASection;
   contactForm: ContactForm;
@@ -87,12 +90,43 @@ export interface FeatureItem {
   id: number;
   icon: Icon;
   title: string;
-  description: string[];
+  description: string;
 }
+
+/**
+ * Represents a child text node in Portable Text
+ */
+export interface PortableTextChild {
+  type: 'text';
+  text: string;
+  [key: string]: string;
+}
+
+/**
+ * Heading block in Portable Text
+ */
+export interface HeadingBlock {
+  type: 'heading';
+  level: number;
+  children: PortableTextChild[];
+}
+
+/**
+ * Paragraph block in Portable Text
+ */
+export interface ParagraphBlock {
+  type: 'paragraph';
+  children: PortableTextChild[];
+}
+
+/**
+ * Union type for supported Portable Text blocks
+ */
+export type PortableTextBlock = HeadingBlock | ParagraphBlock;
 
 export interface TestimonialItem {
   id: number;
-  quote: string[];
+  quote: PortableTextBlock[];
   authorName: string;
   authorRole: string;
   authorPhoto?: Icon;
@@ -110,10 +144,25 @@ export interface FAQItem {
 export interface CTASection {
   id: number;
   icon?: Icon;
+  ctaBanner?: Icon;
   title: string;
   subtitle: string;
   buttonText: string;
   buttonLink: string;
+}
+
+export interface ContactOption {
+  id: number;
+  label: string;
+  value: string;
+}
+
+export interface MessagePlaceholder {
+  type: string;
+  children: {
+    type: string;
+    text: string;
+  }[];
 }
 
 export interface ContactForm {
@@ -121,12 +170,12 @@ export interface ContactForm {
   fullNamePlaceholder: string;
   emailPlaceholder: string;
   questionLabel: string;
-  contactOptions?: { label: string; value: string }[];
+  contactOptions?: ContactOption[];
   budgetLabel: string;
   budgetMin: number;
   budgetMax: number;
   budgetMinLabel: string;
   budgetMaxLabel: string;
-  messagePlaceholder: string[];
+  messagePlaceholder: MessagePlaceholder[];
   submitButtonText: string;
 }

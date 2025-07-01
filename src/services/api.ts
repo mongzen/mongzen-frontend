@@ -1,5 +1,20 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { HomePage } from '../types';
+import { ContactForm, HomePage } from '../types';
+
+export interface ContactFormData {
+  fullName: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  budget?: number;
+  message: string;
+}
+
+export interface ContactFormResponse {
+  id: number;
+  success: boolean;
+  message: string;
+}
 
 export interface StrapiResponse<T> {
   data: T;
@@ -27,10 +42,10 @@ class ApiService {
   constructor() {
     this.api = axios.create({
       baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337/api',
-      timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
       },
+      timeout: 10000, // 10 seconds timeout
     });
 
     this.setupInterceptors();
@@ -92,28 +107,53 @@ class ApiService {
     return response.data;
   }
 
-  // Generic POST request
-  // async post<T>(
-  //   url: string,
-  //   data?: any,
-  //   config?: AxiosRequestConfig
-  // ): Promise<StrapiResponse<T>> {
-  //   const response = await this.api.post<StrapiResponse<T>>(url, data, config);
-  //   return response.data;
-  // }
-
   async getHomePage(): Promise<StrapiResponse<HomePage>> {
-    return this.get('/homepage?populate=*');
+    return this.get('/api/homepage?populate=*');
   }
 
-  // async submitContactForm(data: {
-  //   name: string;
-  //   email: string;
-  //   message: string;
-  //   phone?: string;
-  // }): Promise<StrapiResponse<string>> {
-  //   return this.post('/contact-forms', { data });
-  // }
+  async getContactForm(): Promise<StrapiResponse<ContactForm>> {
+    return this.get('/api/contact-form?populate=*');
+  }
+
+  async submitContactForm(data: ContactFormData): Promise<ContactFormResponse> {
+    try {
+      // Use the Next.js API route instead of calling Strapi directly
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            fullName: data.fullName,
+            email: data.email,
+            phone: data.phone,
+            subject: data.subject,
+            budget: data.budget,
+            message: data.message,
+            submittedAt: new Date().toISOString(),
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error?.message || 'Failed to send message');
+      }
+
+      const result = await response.json();
+
+      return {
+        id: result.data?.id || 0,
+        success: true,
+        message:
+          'Your message has been sent successfully! We will get back to you soon.',
+      };
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      throw new Error('Failed to send your message. Please try again later.');
+    }
+  }
 }
 
 // Export a singleton instance

@@ -4,13 +4,10 @@ import { Icon, PortableTextBlock } from '@/types';
 import clsx from 'clsx';
 import Image from 'next/image';
 
-interface ServiceCardProps {
+interface WhyChooseCardProps {
   icon?: Icon;
   title: string | PortableTextBlock[];
   description: string | PortableTextBlock[];
-  buttonText?: string;
-  buttonHref?: string;
-  onClick?: () => void;
   className?: string;
   aspectRatio?: number; // Optional aspect ratio prop
 }
@@ -42,36 +39,28 @@ const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
   );
 };
 
-export const ServiceCard: React.FC<ServiceCardProps> = ({
+export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
   icon,
   title,
   description,
-  buttonText = 'Learn More',
-  buttonHref,
-  onClick,
   className = '',
   aspectRatio = 532 / 577,
 }) => {
-  const handleClick = () => {
-    if (onClick) {
-      onClick();
-    } else if (buttonHref) {
-      window.open(buttonHref, '_self');
-    }
-  };
-
   return (
     <div
-      className={clsx('p-[50px] flex flex-col justify-between', className)}
+      className={clsx(
+        'p-6 sm:p-8 md:p-10 lg:p-[50px] flex flex-col gap-6 lg:gap-10',
+        className
+      )}
       style={{
         aspectRatio,
       }}
     >
-      {/* Icon */}
-      {icon && (
-        <div className="mb-6">
+      <div className="flex items-center gap-3 sm:gap-4 lg:gap-5">
+        {/* Icon */}
+        {icon && (
           <div
-            className="w-16 h-16 rounded-[10px] flex items-center justify-center border"
+            className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-[8px] lg:rounded-[10px] flex items-center justify-center border shrink-0"
             style={{
               border: '1px solid #2E2E2E',
               background:
@@ -83,20 +72,19 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
               alt={icon.name || 'Service Icon'}
               width={icon.width || 64}
               height={icon.height || 64}
+              className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 object-contain"
               priority
             />
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Content */}
-      <div className="flex-1 mb-6">
+        {/* Content */}
         <h3
-          className="mb-4"
+          className="mb-0 flex-1 min-w-0"
           style={{
             color: '#FFF',
             fontFamily: 'Barlow, sans-serif',
-            fontSize: '24px',
+            fontSize: 'clamp(16px, 4vw, 24px)',
             fontStyle: 'normal',
             fontWeight: 600,
             lineHeight: 'normal',
@@ -104,36 +92,18 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         >
           {typeof title === 'string' ? title : <PortableText value={title} />}
         </h3>
-
-        {/* Description */}
-        <p
-          style={{
-            color: '#E6E6E6',
-            fontFamily: 'Barlow, sans-serif',
-            fontSize: '16px',
-            fontStyle: 'normal',
-            fontWeight: 400,
-            lineHeight: '24px',
-            letterSpacing: '-0.096px',
-          }}
-        >
-          {typeof description === 'string' ? (
-            description
-          ) : (
-            <PortableText value={description} />
-          )}
-        </p>
       </div>
 
-      {/* Grey Button */}
-      <button
-        onClick={handleClick}
-        className="flex items-center justify-center px-6 py-3 bg-dark-15 hover:bg-dark-20 rounded-lg transition-all duration-300 group min-h-6 font-medium text-neutral-15"
-      >
-        {buttonText}
-      </button>
+      {/* Description */}
+      <div className="text-sm sm:text-base lg:text-lg text-neutral-20 leading-relaxed">
+        {typeof description === 'string' ? (
+          description
+        ) : (
+          <PortableText value={description} />
+        )}
+      </div>
     </div>
   );
 };
 
-export default ServiceCard;
+export default WhyChooseCard;
