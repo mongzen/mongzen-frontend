@@ -2,6 +2,7 @@
 
 import {
   ButtonBlur,
+  ContactSection,
   FAQAccordion,
   LoadingSpinner,
   PageHeader,
@@ -14,7 +15,6 @@ import {
 import { useHomePage } from '@/hooks/useApi';
 import clsx from 'clsx';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Home() {
   const { data: homeData, loading, error } = useHomePage();
@@ -55,7 +55,7 @@ export default function Home() {
     <div className="min-h-screen bg-neutral-60">
       {/* Hero Section */}
       <section
-        className="flex w-full max-w-container mx-auto flex-col items-center border-r-0 sm:border-r border-l-0 sm:border-l border-b border-dark-15 relative min-h-[500px] sm:min-h-[600px] lg:min-h-[790px] justify-center px-4 sm:px-6 lg:px-8"
+        className="flex w-full mx-auto flex-col items-center border-r-0 sm:border-r border-l-0 sm:border-l border-b border-dark-15 relative min-h-[500px] sm:min-h-[600px] lg:min-h-[790px] justify-center px-4 sm:px-6 lg:px-8"
         style={{
           gap: '-174px',
           background: 'url(/images/squares.png) 0% 0% / 22px 22px repeat',
@@ -85,7 +85,15 @@ export default function Home() {
             >
               Our Works
             </ButtonBlur>
-            <Link href={'/contact'} className="w-full sm:w-auto">
+            <button
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="w-full sm:w-auto"
+            >
               <WipeButton
                 variant="filled"
                 color="primary"
@@ -94,7 +102,7 @@ export default function Home() {
               >
                 Contact
               </WipeButton>
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -112,7 +120,7 @@ export default function Home() {
 
       {/* Our Services */}
       <section className="border-x-0 sm:border-x border-b border-dark-15">
-        <div className="max-w-container mx-auto">
+        <div className="mx-auto">
           <PageHeader
             title={homeData?.servicesTitle || 'Our Services'}
             subtitle={
@@ -153,7 +161,7 @@ export default function Home() {
 
       {/* Why Choose Section */}
       <section className="border-x-0 sm:border-x border-b border-dark-15">
-        <div className="max-w-container mx-auto">
+        <div className="mx-auto">
           <PageHeader
             title={homeData?.whyChooseTitle || 'Why Choose Us'}
             subtitle={homeData?.whyChooseSubtitle}
@@ -186,7 +194,7 @@ export default function Home() {
 
       {/* What our Clients Say Section */}
       <section className="border-x-0 sm:border-x border-b border-dark-15">
-        <div className="max-w-container mx-auto">
+        <div className="mx-auto">
           <PageHeader
             title={
               homeData?.testimonialsTitle || 'What our Clients say About us'
@@ -218,7 +226,7 @@ export default function Home() {
 
       {/* Frequently Asked Questions */}
       <section className="border-x-0 sm:border-x border-b border-dark-15">
-        <div className="max-w-container mx-auto">
+        <div className="mx-auto">
           <PageHeader
             title={homeData?.faqTitle || 'Frequently Asked Questions'}
             subtitle={homeData?.faqSubtitle}
@@ -232,7 +240,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="border-x-0 sm:border-x border-b border-dark-15">
-        <div className="max-w-container mx-auto">
+        <div className="mx-auto">
           <PageHeader
             title={
               homeData?.ctaSection.title ||
@@ -244,16 +252,29 @@ export default function Home() {
             className="h-[400px] sm:h-[500px] lg:h-[597px]"
           >
             <div className="mt-6 sm:mt-8">
-              <WipeButton
-                variant="filled"
-                color="primary"
-                size="lg"
-                className="min-w-[160px]"
+              <button
+                onClick={() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
-                Contact
-              </WipeButton>
+                <WipeButton
+                  variant="filled"
+                  color="primary"
+                  size="lg"
+                  className="min-w-[160px]"
+                >
+                  Contact
+                </WipeButton>
+              </button>
             </div>
           </PageHeader>
+          {/* Contact Section */}
+          <div className="border-x border-dark-15">
+            <ContactSection />
+          </div>
         </div>
       </section>
     </div>

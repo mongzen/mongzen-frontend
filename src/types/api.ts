@@ -151,17 +151,31 @@ export interface CTASection {
   buttonLink: string;
 }
 
+export interface ContactOption {
+  id: number;
+  label: string;
+  value: string;
+}
+
+export interface MessagePlaceholder {
+  type: string;
+  children: {
+    type: string;
+    text: string;
+  }[];
+}
+
 export interface ContactForm {
   id: number;
   fullNamePlaceholder: string;
   emailPlaceholder: string;
   questionLabel: string;
-  contactOptions?: { label: string; value: string }[];
+  contactOptions?: ContactOption[];
   budgetLabel: string;
   budgetMin: number;
   budgetMax: number;
   budgetMinLabel: string;
   budgetMaxLabel: string;
-  messagePlaceholder: string[];
+  messagePlaceholder: MessagePlaceholder[];
   submitButtonText: string;
 }

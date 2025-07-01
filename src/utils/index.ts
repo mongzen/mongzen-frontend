@@ -48,12 +48,25 @@ export function getImageUrl(url: string | undefined): string {
 
 export function isValidEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+  return emailRegex.test(email.trim());
 }
 
 export function isValidPhone(phone: string): boolean {
-  const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-  return phoneRegex.test(phone.replace(/\s/g, ''));
+  // Remove all non-digit characters except +
+  const cleanPhone = phone.replace(/[^\d+]/g, '');
+  // Check for various phone formats
+  const phoneRegex = /^(\+\d{1,3}[- ]?)?\d{3,14}$/;
+  return phoneRegex.test(cleanPhone);
+}
+
+export function isValidFullName(name: string): boolean {
+  const trimmedName = name.trim();
+  // At least 2 characters, contains at least one space (first and last name)
+  return trimmedName.length >= 2 && /^[a-zA-Z\s'-]+$/.test(trimmedName);
+}
+
+export function sanitizeInput(input: string): string {
+  return input.trim().replace(/<[^>]*>/g, ''); // Remove HTML tags
 }
 
 export function generateSEOUrl(baseUrl: string, path: string): string {
