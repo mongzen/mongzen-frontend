@@ -1,4 +1,4 @@
-import { PortableTextBlock } from '../../types';
+import { PortableTextBlock } from '@/types';
 
 const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
   return (

@@ -1,10 +1,10 @@
 'use client';
 
 import { TrustedByCompany } from '@/types/api';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { formatImageUrl } from '../../utils/imageUtils';
 
 interface TrustedByCompaniesProps {
   title?: string;

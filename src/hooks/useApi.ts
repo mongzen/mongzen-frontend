@@ -1,6 +1,6 @@
 import { apiService } from '@/services/api';
+import { ContactForm, HomePage } from '@/types';
 import { useEffect, useState } from 'react';
-import { ContactForm, HomePage } from '../types';
 
 export interface UseApiState<T> {
   data: T | null;
