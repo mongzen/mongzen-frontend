@@ -173,7 +173,7 @@ export default function Home() {
                 description={service.description}
                 aspectRatio={790 / 378} // Maintain aspect ratio
                 className={clsx(
-                  'border-dark-15 min-h-[200px] sm:min-h-[240px] md:min-h-[280px] lg:min-h-[318px]',
+                  'border-dark-15 sm:min-h-[240px] md:min-h-[280px] lg:min-h-[318px]',
                   // Mobile: bottom border for all except last
                   index < homeData?.whyChooseFeaturesList.length - 1 &&
                     'border-b',
