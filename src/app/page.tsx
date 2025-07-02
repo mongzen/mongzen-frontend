@@ -13,9 +13,9 @@ import {
   WipeButton,
 } from '@/components/ui';
 import { useHomePage } from '@/hooks/useApi';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { formatImageUrl } from '../utils/imageUtils';
 
 export default function Home() {
   const { data: homeData, loading, error } = useHomePage();
