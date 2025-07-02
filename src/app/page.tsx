@@ -13,6 +13,7 @@ import {
   WipeButton,
 } from '@/components/ui';
 import { useHomePage } from '@/hooks/useApi';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
 
@@ -85,24 +86,20 @@ export default function Home() {
             >
               Our Works
             </ButtonBlur>
-            <button
+            <WipeButton
+              variant="filled"
+              color="primary"
+              size="lg"
+              className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
               onClick={() => {
                 const contactSection = document.getElementById('contact');
                 if (contactSection) {
                   contactSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="w-full sm:w-auto"
             >
-              <WipeButton
-                variant="filled"
-                color="primary"
-                size="lg"
-                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
-              >
-                Contact
-              </WipeButton>
-            </button>
+              Contact
+            </WipeButton>
           </div>
         </div>
       </section>
@@ -127,7 +124,7 @@ export default function Home() {
               homeData?.servicesSubtitle ||
               'We offer comprehensive digital solutions'
             }
-            backgroundImage={homeData?.servicesBanner.url}
+            backgroundImage={formatImageUrl(homeData?.servicesBanner.url)}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {homeData?.services.map((service, index) => (
@@ -165,7 +162,7 @@ export default function Home() {
           <PageHeader
             title={homeData?.whyChooseTitle || 'Why Choose Us'}
             subtitle={homeData?.whyChooseSubtitle}
-            backgroundImage={homeData?.whyChooseBanner?.url}
+            backgroundImage={formatImageUrl(homeData?.whyChooseBanner?.url)}
           />
           <div className="grid grid-cols-1 md:grid-cols-2">
             {homeData?.whyChooseFeaturesList.map((service, index) => (
@@ -176,7 +173,7 @@ export default function Home() {
                 description={service.description}
                 aspectRatio={790 / 378} // Maintain aspect ratio
                 className={clsx(
-                  'border-dark-15 min-h-[200px] sm:min-h-[240px] md:min-h-[280px] lg:min-h-[318px]',
+                  'border-dark-15 sm:min-h-[240px] md:min-h-[280px] lg:min-h-[318px]',
                   // Mobile: bottom border for all except last
                   index < homeData?.whyChooseFeaturesList.length - 1 &&
                     'border-b',
@@ -200,7 +197,7 @@ export default function Home() {
               homeData?.testimonialsTitle || 'What our Clients say About us'
             }
             subtitle={homeData?.testimonialsSubtitle}
-            backgroundImage={homeData?.testimonialsBanner?.url}
+            backgroundImage={formatImageUrl(homeData?.testimonialsBanner?.url)}
           />
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {homeData?.testimonialsList.map((testimonial, index) => (
@@ -230,7 +227,7 @@ export default function Home() {
           <PageHeader
             title={homeData?.faqTitle || 'Frequently Asked Questions'}
             subtitle={homeData?.faqSubtitle}
-            backgroundImage={homeData?.faqBanner?.url}
+            backgroundImage={formatImageUrl(homeData?.faqBanner?.url)}
           />
           {homeData?.faqItems && (
             <FAQAccordion items={homeData.faqItems} maxItems={8} />
@@ -247,12 +244,18 @@ export default function Home() {
               'Thank you for your Interest in Digital Agency.'
             }
             subtitle={homeData?.ctaSection.subtitle}
-            icon={homeData?.ctaSection.icon?.url}
-            backgroundImage={homeData?.ctaSection.ctaBanner?.url}
+            icon={formatImageUrl(homeData?.ctaSection.icon?.url)}
+            backgroundImage={formatImageUrl(
+              homeData?.ctaSection.ctaBanner?.url
+            )}
             className="h-[400px] sm:h-[500px] lg:h-[597px]"
           >
             <div className="mt-6 sm:mt-8">
-              <button
+              <WipeButton
+                variant="filled"
+                color="primary"
+                size="lg"
+                className="min-w-[160px]"
                 onClick={() => {
                   const contactSection = document.getElementById('contact');
                   if (contactSection) {
@@ -260,15 +263,8 @@ export default function Home() {
                   }
                 }}
               >
-                <WipeButton
-                  variant="filled"
-                  color="primary"
-                  size="lg"
-                  className="min-w-[160px]"
-                >
-                  Contact
-                </WipeButton>
-              </button>
+                Contact
+              </WipeButton>
             </div>
           </PageHeader>
           {/* Contact Section */}

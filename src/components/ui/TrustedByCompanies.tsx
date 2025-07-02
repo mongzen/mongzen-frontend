@@ -1,6 +1,7 @@
 'use client';
 
 import { TrustedByCompany } from '@/types/api';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
@@ -39,14 +40,18 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
+      if (window.innerWidth < 480) {
+        setItemsPerView(2); // Small mobile
+      } else if (window.innerWidth < 640) {
         setItemsPerView(3); // Mobile
       } else if (window.innerWidth < 768) {
-        setItemsPerView(4); // Small tablet
+        setItemsPerView(4); // Large mobile/Small tablet
       } else if (window.innerWidth < 1024) {
-        setItemsPerView(6); // Tablet
-      } else {
+        setItemsPerView(5); // Tablet
+      } else if (window.innerWidth < 1280) {
         setItemsPerView(6); // Desktop
+      } else {
+        setItemsPerView(7); // Large desktop
       }
     };
 
@@ -91,35 +96,13 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
   return (
     <section
       className={clsx(
-        'bg-neutral-60 mt-[-10px] border-x border-b border-dark-15'
+        'bg-neutral-60 mt-[-10px] border-x border-b border-dark-15 w-full'
       )}
     >
       {/* Title Button */}
-      <div className="flex justify-center">
-        <div
-          style={{
-            display: 'flex',
-            padding: '14px 24px',
-            alignItems: 'flex-start',
-            gap: '10px',
-            borderRadius: '100px',
-            border: '1px solid #262626',
-            background: '#1A1A1A',
-            zIndex: 1,
-            marginTop: '-15px',
-          }}
-        >
-          <span
-            style={{
-              color: '#FDFFFA',
-              textAlign: 'center',
-              fontFamily: 'Barlow, sans-serif',
-              fontSize: '14px',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              lineHeight: 'normal',
-            }}
-          >
+      <div className="flex justify-center px-4 sm:px-0">
+        <div className="flex py-3 px-4 sm:py-[14px] sm:px-6 items-center gap-2 sm:gap-[10px] rounded-full border border-[#262626] bg-[#1A1A1A] z-10 -mt-3 sm:-mt-[15px] relative">
+          <span className="text-[#FDFFFA] text-center font-medium text-xs sm:text-sm leading-normal whitespace-nowrap">
             {title}
           </span>
         </div>
@@ -127,21 +110,19 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
 
       {/* Logo Slider Container */}
       <div
-        className="overflow-hidden"
+        className="overflow-hidden touch-pan-x"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <div
+          className="flex items-center transition-transform duration-500 ease-in-out md:my-10 my-5"
           style={{
-            display: 'flex',
-            padding: '30px 0px',
-            alignItems: 'flex-start',
-            gap: '20px',
+            padding: '20px 0px sm:30px 0px',
+            gap: '10px sm:15px lg:20px',
             transform:
               companies.length > itemsPerView
                 ? `translateX(-${currentIndex * (100 / itemsPerView)}%)`
                 : 'translateX(0)',
-            transition: 'transform 0.5s ease-in-out',
             width:
               companies.length > itemsPerView
                 ? `${(companies.length / itemsPerView) * 100}%`
@@ -151,31 +132,41 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
           {companies.map((company, index) => (
             <div
               key={`${company.id}-${index}`}
-              style={{
-                display: 'flex',
-                padding: '16px 30px',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '30px',
-                flex: '1 0 0',
-                minWidth: '250px',
-                maxWidth: '250px',
-              }}
-              className="transition-colors duration-300 rounded-lg cursor-pointer"
+              className={clsx(
+                'flex justify-center items-center transition-all duration-300 rounded-lg cursor-pointer group',
+                'flex-shrink-0',
+                // Responsive sizing
+                'w-[120px] min-h-[60px] sm:w-[140px] sm:min-h-[70px] md:w-[180px] md:min-h-[80px] lg:w-[220px] lg:min-h-[90px] xl:w-[250px] xl:min-h-[100px]',
+                // Responsive padding
+                'p-2 sm:p-3 md:p-4 lg:p-5'
+              )}
               onClick={() => {
                 if (company.websiteUrl) {
                   window.open(company.websiteUrl, '_blank');
                 }
               }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (
+                  (e.key === 'Enter' || e.key === ' ') &&
+                  company.websiteUrl
+                ) {
+                  e.preventDefault();
+                  window.open(company.websiteUrl, '_blank');
+                }
+              }}
+              aria-label={`Visit ${company.name} website`}
             >
               <div className="flex items-center justify-center w-full h-full">
                 {company.logo?.url ? (
                   <Image
-                    src={company.logo.url}
+                    src={formatImageUrl(company.logo.url)}
                     alt={`${company.name} logo`}
-                    className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
+                    className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-50 sm:opacity-60 group-hover:opacity-100 transition-opacity duration-300"
                     width={company.logo.width || 100}
                     height={company.logo.height || 50}
+                    sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, (max-width: 1024px) 180px, (max-width: 1280px) 220px, 250px"
                     onError={(e) => {
                       // Fallback to company name if image fails to load
                       const target = e.target as HTMLImageElement;
@@ -183,7 +174,7 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
                       const parent = target.parentElement;
                       if (parent) {
                         parent.innerHTML = `
-                            <div class="text-neutral-20 hover:text-neutral-10 font-medium text-lg transition-colors duration-300">
+                            <div class="text-neutral-20 group-hover:text-neutral-10 font-medium text-xs sm:text-sm md:text-base lg:text-lg transition-colors duration-300 text-center px-2">
                               ${company.name}
                             </div>
                           `;
@@ -191,7 +182,9 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
                     }}
                   />
                 ) : (
-                  company.name
+                  <div className="text-neutral-20 group-hover:text-neutral-10 font-medium text-xs sm:text-sm md:text-base lg:text-lg transition-colors duration-300 text-center px-2">
+                    {company.name}
+                  </div>
                 )}
               </div>
             </div>

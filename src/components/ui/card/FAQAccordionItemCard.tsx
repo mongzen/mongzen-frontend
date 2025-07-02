@@ -14,7 +14,7 @@ const FAQAccordionItemCard: React.FC<FAQAccordionItemProps> = ({
   isLastInColumn = false,
   className,
 }) => {
-  const [isOpen, setIsOpen] = useState(faq.isDefaultOpen || false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<number>(0);
 

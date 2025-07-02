@@ -5,6 +5,7 @@
 import { Checkbox, LoadingSpinner, RangeSlider } from '@/components/ui';
 import { useContactForm } from '@/hooks/useApi';
 import { ContactFormData, apiService } from '@/services/api';
+import { ContactForm } from '@/types';
 import { isValidEmail, sanitizeInput } from '@/utils';
 import {
   CheckCircleIcon,
@@ -13,7 +14,6 @@ import {
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ContactForm } from '../../types';
 
 interface ContactFormProps {
   className?: string;
