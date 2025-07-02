@@ -1,9 +1,8 @@
 'use client';
 
 import { Icon, PortableTextBlock } from '@/types';
-import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
-import Image from 'next/image';
+import { formatImageUrl } from '../../../utils/imageUtils';
 
 interface TestimonialCardProps {
   icon?: Icon;
@@ -83,7 +82,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
                 'linear-gradient(229deg, rgba(158, 255, 0, 0.20) -68.25%, rgba(158, 255, 0, 0.00) 32.16%), linear-gradient(180deg, #242424 0%, rgba(36, 36, 36, 0.00) 100%)',
             }}
           >
-            <Image
+            <img
               src={formatImageUrl(icon.url)}
               alt={icon.name || 'Author Photo'}
               width={icon.width || 60}

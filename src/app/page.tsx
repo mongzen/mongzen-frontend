@@ -86,24 +86,20 @@ export default function Home() {
             >
               Our Works
             </ButtonBlur>
-            <button
+            <WipeButton
+              variant="filled"
+              color="primary"
+              size="lg"
+              className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
               onClick={() => {
                 const contactSection = document.getElementById('contact');
                 if (contactSection) {
                   contactSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="w-full sm:w-auto"
             >
-              <WipeButton
-                variant="filled"
-                color="primary"
-                size="lg"
-                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
-              >
-                Contact
-              </WipeButton>
-            </button>
+              Contact
+            </WipeButton>
           </div>
         </div>
       </section>
@@ -255,7 +251,11 @@ export default function Home() {
             className="h-[400px] sm:h-[500px] lg:h-[597px]"
           >
             <div className="mt-6 sm:mt-8">
-              <button
+              <WipeButton
+                variant="filled"
+                color="primary"
+                size="lg"
+                className="min-w-[160px]"
                 onClick={() => {
                   const contactSection = document.getElementById('contact');
                   if (contactSection) {
@@ -263,15 +263,8 @@ export default function Home() {
                   }
                 }}
               >
-                <WipeButton
-                  variant="filled"
-                  color="primary"
-                  size="lg"
-                  className="min-w-[160px]"
-                >
-                  Contact
-                </WipeButton>
-              </button>
+                Contact
+              </WipeButton>
             </div>
           </PageHeader>
           {/* Contact Section */}
