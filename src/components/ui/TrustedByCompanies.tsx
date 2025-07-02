@@ -4,6 +4,7 @@ import { TrustedByCompany } from '@/types/api';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { formatImageUrl } from '../../utils/imageUtils';
 
 interface TrustedByCompaniesProps {
   title?: string;
@@ -171,7 +172,7 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
               <div className="flex items-center justify-center w-full h-full">
                 {company.logo?.url ? (
                   <Image
-                    src={company.logo.url}
+                    src={formatImageUrl(company.logo.url)}
                     alt={`${company.name} logo`}
                     className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-300"
                     width={company.logo.width || 100}

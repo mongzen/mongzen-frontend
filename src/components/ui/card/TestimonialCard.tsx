@@ -2,6 +2,7 @@
 
 import { Icon, PortableTextBlock } from '@/types';
 import clsx from 'clsx';
+import { formatImageUrl } from '../../../utils/imageUtils';
 
 interface TestimonialCardProps {
   icon?: Icon;
@@ -82,7 +83,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
             }}
           >
             <img
-              src={icon.url}
+              src={formatImageUrl(icon.url)}
               alt={icon.name || 'Author Photo'}
               width={icon.width || 60}
               height={icon.height || 60}

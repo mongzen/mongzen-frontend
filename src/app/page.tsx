@@ -15,6 +15,7 @@ import {
 import { useHomePage } from '@/hooks/useApi';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { formatImageUrl } from '../utils/imageUtils';
 
 export default function Home() {
   const { data: homeData, loading, error } = useHomePage();
@@ -127,7 +128,7 @@ export default function Home() {
               homeData?.servicesSubtitle ||
               'We offer comprehensive digital solutions'
             }
-            backgroundImage={homeData?.servicesBanner.url}
+            backgroundImage={formatImageUrl(homeData?.servicesBanner.url)}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {homeData?.services.map((service, index) => (
@@ -165,7 +166,7 @@ export default function Home() {
           <PageHeader
             title={homeData?.whyChooseTitle || 'Why Choose Us'}
             subtitle={homeData?.whyChooseSubtitle}
-            backgroundImage={homeData?.whyChooseBanner?.url}
+            backgroundImage={formatImageUrl(homeData?.whyChooseBanner?.url)}
           />
           <div className="grid grid-cols-1 md:grid-cols-2">
             {homeData?.whyChooseFeaturesList.map((service, index) => (
@@ -200,7 +201,7 @@ export default function Home() {
               homeData?.testimonialsTitle || 'What our Clients say About us'
             }
             subtitle={homeData?.testimonialsSubtitle}
-            backgroundImage={homeData?.testimonialsBanner?.url}
+            backgroundImage={formatImageUrl(homeData?.testimonialsBanner?.url)}
           />
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {homeData?.testimonialsList.map((testimonial, index) => (
@@ -230,7 +231,7 @@ export default function Home() {
           <PageHeader
             title={homeData?.faqTitle || 'Frequently Asked Questions'}
             subtitle={homeData?.faqSubtitle}
-            backgroundImage={homeData?.faqBanner?.url}
+            backgroundImage={formatImageUrl(homeData?.faqBanner?.url)}
           />
           {homeData?.faqItems && (
             <FAQAccordion items={homeData.faqItems} maxItems={8} />
@@ -247,8 +248,10 @@ export default function Home() {
               'Thank you for your Interest in Digital Agency.'
             }
             subtitle={homeData?.ctaSection.subtitle}
-            icon={homeData?.ctaSection.icon?.url}
-            backgroundImage={homeData?.ctaSection.ctaBanner?.url}
+            icon={formatImageUrl(homeData?.ctaSection.icon?.url)}
+            backgroundImage={formatImageUrl(
+              homeData?.ctaSection.ctaBanner?.url
+            )}
             className="h-[400px] sm:h-[500px] lg:h-[597px]"
           >
             <div className="mt-6 sm:mt-8">

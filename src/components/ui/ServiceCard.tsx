@@ -3,6 +3,7 @@
 import { Icon, PortableTextBlock } from '@/types';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { formatImageUrl } from '../../utils/imageUtils';
 
 interface ServiceCardProps {
   icon?: Icon;
@@ -79,7 +80,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             }}
           >
             <Image
-              src={icon.url}
+              src={formatImageUrl(icon.url)}
               alt={icon.name || 'Service Icon'}
               width={icon.width || 64}
               height={icon.height || 64}

@@ -1,8 +1,10 @@
 'use client';
 
 import { Icon, PortableTextBlock } from '@/types';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
+import PortableText from '../PortableText';
 
 interface WhyChooseCardProps {
   icon?: Icon;
@@ -11,33 +13,6 @@ interface WhyChooseCardProps {
   className?: string;
   aspectRatio?: number; // Optional aspect ratio prop
 }
-
-const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
-  return (
-    <div>
-      {value.map((block, index) => {
-        if (block.type === 'heading') {
-          return (
-            <h3 key={index} className={`text-${block.level}`}>
-              {block.children.map((child, childIndex) => (
-                <span key={childIndex}>{child.text}</span>
-              ))}
-            </h3>
-          );
-        } else if (block.type === 'paragraph') {
-          return (
-            <p key={index}>
-              {block.children.map((child, childIndex) => (
-                <span key={childIndex}>{child.text}</span>
-              ))}
-            </p>
-          );
-        }
-        return null;
-      })}
-    </div>
-  );
-};
 
 export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
   icon,
@@ -68,7 +43,7 @@ export const WhyChooseCard: React.FC<WhyChooseCardProps> = ({
             }}
           >
             <Image
-              src={icon.url}
+              src={formatImageUrl(icon.url)}
               alt={icon.name || 'Service Icon'}
               width={icon.width || 64}
               height={icon.height || 64}
