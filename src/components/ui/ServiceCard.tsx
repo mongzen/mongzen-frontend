@@ -19,26 +19,28 @@ interface ServiceCardProps {
 const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
   return (
     <div>
-      {value.map((block, index) => {
-        if (block.type === 'heading') {
-          return (
-            <h3 key={index} className={`text-${block.level}`}>
-              {block.children.map((child, childIndex) => (
-                <span key={childIndex}>{child.text}</span>
-              ))}
-            </h3>
-          );
-        } else if (block.type === 'paragraph') {
-          return (
-            <p key={index}>
-              {block.children.map((child, childIndex) => (
-                <span key={childIndex}>{child.text}</span>
-              ))}
-            </p>
-          );
-        }
-        return null;
-      })}
+      {value &&
+        value.length > 0 &&
+        value.map((block, index) => {
+          if (block.type === 'heading') {
+            return (
+              <h3 key={index} className={`text-${block.level}`}>
+                {block.children.map((child, childIndex) => (
+                  <span key={childIndex}>{child.text}</span>
+                ))}
+              </h3>
+            );
+          } else if (block.type === 'paragraph') {
+            return (
+              <p key={index}>
+                {block.children.map((child, childIndex) => (
+                  <span key={childIndex}>{child.text}</span>
+                ))}
+              </p>
+            );
+          }
+          return null;
+        })}
     </div>
   );
 };
@@ -47,7 +49,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   icon,
   title,
   description,
-  buttonText = 'Learn More',
+  buttonText,
   buttonHref,
   onClick,
   className = '',
@@ -92,47 +94,29 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
       {/* Content */}
       <div className="flex-1 mb-6">
-        <h3
-          className="mb-4"
-          style={{
-            color: '#FFF',
-            fontFamily: 'Barlow, sans-serif',
-            fontSize: '24px',
-            fontStyle: 'normal',
-            fontWeight: 600,
-            lineHeight: 'normal',
-          }}
-        >
+        <h3 className="mb-4 text-[24px] font-semibold">
           {typeof title === 'string' ? title : <PortableText value={title} />}
         </h3>
 
         {/* Description */}
-        <p
-          style={{
-            color: '#E6E6E6',
-            fontFamily: 'Barlow, sans-serif',
-            fontSize: '16px',
-            fontStyle: 'normal',
-            fontWeight: 400,
-            lineHeight: '24px',
-            letterSpacing: '-0.096px',
-          }}
-        >
+        <div className="text-[16px] text-neutral-20 leading-[24px] font-normal tracking-[-0.096px]">
           {typeof description === 'string' ? (
             description
           ) : (
             <PortableText value={description} />
           )}
-        </p>
+        </div>
       </div>
 
       {/* Grey Button */}
-      <button
-        onClick={handleClick}
-        className="flex items-center justify-center px-6 py-3 bg-dark-15 hover:bg-dark-20 rounded-lg transition-all duration-300 group min-h-6 font-medium text-neutral-15"
-      >
-        {buttonText}
-      </button>
+      {buttonText && (
+        <button
+          onClick={handleClick}
+          className="flex items-center justify-center px-6 py-3 bg-dark-15 hover:bg-dark-20 rounded-lg transition-all duration-300 group min-h-6 font-medium text-neutral-15"
+        >
+          {buttonText}
+        </button>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { ContactForm, HomePage } from '@/types';
+import { ContactForm, HomePage, ServicePage } from '@/types';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface ContactFormData {
@@ -153,6 +153,11 @@ class ApiService {
       console.error('Contact form submission error:', error);
       throw new Error('Failed to send your message. Please try again later.');
     }
+  }
+
+  // Services
+  async getServicePage(): Promise<StrapiResponse<ServicePage>> {
+    return this.get('/api/service?populate=*');
   }
 }
 

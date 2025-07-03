@@ -179,3 +179,72 @@ export interface ContactForm {
   messagePlaceholder: MessagePlaceholder[];
   submitButtonText: string;
 }
+
+/**
+ * Shared component: section-title-subtitle
+ */
+export interface SectionTitleSubtitle {
+  id: number;
+  title: string;
+  subtitle: string;
+  background?: UploadFile;
+  icon?: UploadFile;
+  button_text?: string;
+  button_link?: string;
+}
+
+/**
+ * Shared element: service-item
+ */
+export interface ServiceElement {
+  id: number;
+  title: string;
+  description: string;
+  linkText: string;
+  linkUrl: string;
+  icon?: UploadFile;
+}
+
+/**
+ * Shared group: service-category
+ */
+export interface ServiceCategory {
+  id: number;
+  title: string;
+  description?: string;
+  services: ServiceElement[];
+}
+
+/**
+ * Shared section: sections-service-section
+ */
+export interface ServiceSection {
+  id: number;
+  title: string;
+  description?: string;
+  categories: ServiceCategory[];
+  intro_cta?: string;
+}
+
+/**
+ * Service page structure
+ */
+export interface ServicePage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  // SectionBanner component
+  SectionBanner: SectionTitleSubtitle;
+
+  // Services sections (repeatable)
+  Services: ServiceSection[];
+
+  // ServiceProjectCTA component
+  ServiceProjectCTA: SectionTitleSubtitle;
+
+  localizations: string[];
+}

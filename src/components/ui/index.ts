@@ -7,7 +7,7 @@ export { WhyChooseCard } from './card/WhyChooseCard';
 export { Checkbox } from './Checkbox';
 export { ContactSection } from './ContactSection';
 export { FAQAccordion } from './FAQAccordion';
-export { Icon } from './Icon';
+export { Icon, type IconName } from './Icon';
 export { LoadingOverlay, LoadingSpinner } from './Loading';
 export { PageHeader } from './PageHeader';
 export { RangeSlider } from './RangeSlider';
