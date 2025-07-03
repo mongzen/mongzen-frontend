@@ -1,5 +1,5 @@
 import { apiService } from '@/services/api';
-import { ContactForm, HomePage } from '@/types';
+import { ContactForm, HomePage, ServicePage } from '@/types';
 import { useEffect, useState } from 'react';
 
 export interface UseApiState<T> {
@@ -91,6 +91,52 @@ export function useContactForm(): UseApiState<ContactForm> {
     };
 
     fetchContactForm();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return state;
+}
+
+export function useServicePage(): UseApiState<ServicePage> {
+  const [state, setState] = useState<UseApiState<ServicePage>>({
+    data: null,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchServicePage = async () => {
+      try {
+        setState((prev) => ({ ...prev, loading: true, error: null }));
+        const response = await apiService.getServicePage();
+
+        if (isMounted) {
+          setState({
+            data: response.data,
+            loading: false,
+            error: null,
+          });
+        }
+      } catch (error) {
+        if (isMounted) {
+          setState({
+            data: null,
+            loading: false,
+            error:
+              error instanceof Error
+                ? error.message
+                : 'Failed to fetch service page',
+          });
+        }
+      }
+    };
+
+    fetchServicePage();
 
     return () => {
       isMounted = false;

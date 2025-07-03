@@ -13,8 +13,8 @@ export function Header() {
 
   const navigation = [
     { name: 'Home', href: '/', icon: 'HomeIcon' },
+    { name: 'Services', href: '/service', icon: 'CogIcon' },
     { name: 'About', href: '/about', icon: 'UserIcon' },
-    { name: 'Services', href: '/services', icon: 'CogIcon' },
     { name: 'Projects', href: '/projects', icon: 'RocketLaunchIcon' },
     { name: 'Contact', href: '/contact', icon: 'EnvelopeIcon' },
   ];

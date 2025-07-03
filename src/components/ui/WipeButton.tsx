@@ -19,7 +19,7 @@ interface WipeButtonProps {
 }
 
 export function WipeButton({
-  children = 'INQUIRE',
+  children,
   onClick,
   className = '',
   variant = 'outline',
@@ -27,7 +27,7 @@ export function WipeButton({
   size = 'md',
 }: WipeButtonProps) {
   // Split text into individual characters for animation
-  const textContent = typeof children === 'string' ? children : 'INQUIRE';
+  const textContent = typeof children === 'string' ? children : 'Button';
   const characters = useMemo(() => textContent.split(''), [textContent]);
 
   const getButtonStyles = () => {
@@ -149,27 +149,6 @@ export function WipeButton({
       initial="rest"
       whileHover="hover"
     >
-      {/* Background wipe overlay - fills on hover for outline and ghost variants */}
-      {/* <motion.div
-        initial={{ x: '-100%' }}
-        whileHover={{
-          x: '0%',
-          transition: {
-            duration: 0.4,
-            ease: easings.smooth,
-          },
-        }}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: hoverColors.bg,
-          zIndex: 1,
-        }}
-      /> */}
-
       {/* Content container */}
       <div className="relative z-[2] overflow-hidden h-full flex items-center justify-center">
         {/* Original text layer */}
