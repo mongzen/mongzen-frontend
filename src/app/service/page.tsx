@@ -47,7 +47,7 @@ export default function Service() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-60">
+    <div className="min-h-screen">
       {/* Section Banner */}
       <section className="border-0 sm:border-x border-dark-15">
         <PageHeader

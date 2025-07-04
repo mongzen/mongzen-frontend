@@ -248,3 +248,46 @@ export interface ServicePage {
 
   localizations: string[];
 }
+
+/**
+ * Work item component structure
+ */
+export interface WorkItem {
+  id: number;
+  title: string;
+  name: string;
+  link: string;
+  description: string;
+  image?: UploadFile;
+}
+
+/**
+ * OurWorks section component structure
+ */
+export interface OurWorksSection {
+  id: number;
+  title: string;
+  description: string;
+  intro_cta: string;
+  workList: WorkItem[];
+}
+
+/**
+ * Work page structure
+ */
+export interface WorkPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  // SectionBanner component
+  SectionBanner: SectionTitleSubtitle;
+
+  // OurWorks section
+  OurWorks: OurWorksSection;
+
+  localizations: string[];
+}
