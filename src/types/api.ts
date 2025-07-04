@@ -243,9 +243,6 @@ export interface ServicePage {
   // Services sections (repeatable)
   Services: ServiceSection[];
 
-  // ServiceProjectCTA component
-  ServiceProjectCTA: SectionTitleSubtitle;
-
   localizations: string[];
 }
 
@@ -269,7 +266,6 @@ export interface OurWorksSection {
   title: string;
   description: string;
   intro_cta: string;
-  workList: WorkItem[];
 }
 
 /**
@@ -289,5 +285,35 @@ export interface WorkPage {
   // OurWorks section
   OurWorks: OurWorksSection;
 
+  localizations: string[];
+
+  workList: WorkItem[];
+}
+
+/**
+ * SEO component structure
+ */
+export interface Seo {
+  id: number;
+  metaTitle: string;
+  metaDescription: string;
+  shareImage?: UploadFile;
+}
+
+/**
+ * Global settings structure
+ */
+export interface GlobalSettings {
+  id: number;
+  documentId: string;
+  siteName: string;
+  siteDescription: string;
+  favicon?: UploadFile;
+  defaultSeo: Seo;
+  ProjectCTA: SectionTitleSubtitle;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
   localizations: string[];
 }

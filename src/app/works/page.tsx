@@ -6,15 +6,16 @@ import {
   WipeButton,
   WorkCard,
 } from '@/components/ui';
-import { useWorkPage } from '@/hooks/useApi';
+import { useGlobal, useWorkPage } from '@/hooks/useApi';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Link from 'next/link';
 
 export default function Works() {
   const { data: workData, loading, error } = useWorkPage();
+  const { data: globalData, loading: globalLoading } = useGlobal();
 
-  if (loading) {
+  if (loading || globalLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col">
         <LoadingSpinner size="lg" />
@@ -85,8 +86,8 @@ export default function Works() {
             </div>
 
             {/* Works Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 border-b border-dark-15">
-              {workData.OurWorks.workList.map((work, workIndex) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 border-b border-dark-15">
+              {workData.workList.map((work, workIndex) => (
                 <WorkCard
                   key={work.id}
                   title={work.title}
@@ -94,24 +95,22 @@ export default function Works() {
                   image={work.image}
                   link={work.link}
                   description={work.description}
-                  aspectRatio={3 / 2}
                   className={clsx(
                     'border-dark-15',
-                    '[&>div>h3]:!text-[20px] [&>div>h3]:!mb-2 [&>div>h4]:!text-[16px] [&>div>h4]:!mb-4 max-h-[400px] overflow-hidden',
+                    // '[&>div>h3]:!text-[20px] [&>div>h3]:!mb-2 [&>div>h4]:!text-[16px] [&>div>h4]:!mb-4 max-h-[400px] overflow-hidden'
                     // Mobile: all cards have bottom border except last
-                    workIndex < workData.OurWorks.workList.length - 1 &&
+                    workIndex < workData.workList.length - 1 &&
                       'border-b md:border-b-0',
                     // Tablet: right card has left border
-                    workIndex % 2 === 1 && 'md:border-l',
-                    // Tablet: bottom borders for all except last row
-                    workIndex < workData.OurWorks.workList.length - 2 &&
-                      'md:border-b xl:border-b-0',
-                    // Desktop: middle card has left border, third card has left border
-                    workIndex % 3 === 1 && 'xl:border-l',
-                    workIndex % 3 === 2 && 'xl:border-l',
-                    // Desktop: bottom borders for all except last row
-                    workIndex < workData.OurWorks.workList.length - 3 &&
-                      'xl:border-b'
+                    workIndex % 2 === 1 && 'md:border-l'
+                    // // Tablet: bottom borders for all except last row
+                    // workIndex < workData.workList.length - 2 &&
+                    //   'md:border-b xl:border-b-0',
+                    // // Desktop: middle card has left border, third card has left border
+                    // workIndex % 3 === 1 && 'xl:border-l',
+                    // workIndex % 3 === 2 && 'xl:border-l',
+                    // // Desktop: bottom borders for all except last row
+                    // workIndex < workData.workList.length - 3 && 'xl:border-b'
                   )}
                 />
               ))}
@@ -121,33 +120,37 @@ export default function Works() {
       )}
 
       {/* CTA Section */}
-      {workData?.SectionBanner.button_text &&
-        workData?.SectionBanner.button_link && (
-          <section className="border-x-0 sm:border-x border-b border-dark-15">
-            <div className="mx-auto">
-              <PageHeader
-                title="Ready to Start Your Project?"
-                subtitle="Let us help you bring your vision to life"
-                backgroundImage={formatImageUrl(
-                  workData?.SectionBanner.background?.url
-                )}
-                icon={formatImageUrl(workData?.SectionBanner.icon?.url)}
-                className="lg:py-[120px] lg:space-y-10 space-y-4 py-10 !border-b-0 md:px-16 xl:px-[350px] px-10"
-              >
-                <Link href={workData?.SectionBanner.button_link || '#'}>
-                  <WipeButton
-                    variant="filled"
-                    color="primary"
-                    size="lg"
-                    className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
-                  >
-                    {workData?.SectionBanner.button_text || 'Get Started'}
-                  </WipeButton>
-                </Link>
-              </PageHeader>
-            </div>
-          </section>
-        )}
+      {globalData?.ProjectCTA && (
+        <section className="border-x-0 sm:border-x border-b border-dark-15">
+          <div className="mx-auto">
+            <PageHeader
+              title={
+                globalData?.ProjectCTA.title || 'Ready to Start Your Project?'
+              }
+              subtitle={
+                globalData?.ProjectCTA.subtitle ||
+                'Let us help you bring your vision to life'
+              }
+              backgroundImage={formatImageUrl(
+                globalData?.ProjectCTA.background?.url
+              )}
+              icon={formatImageUrl(globalData?.ProjectCTA.icon?.url)}
+              className="lg:py-[120px] lg:space-y-10 space-y-4 py-10 !border-b-0 md:px-16 xl:px-[350px] px-10"
+            >
+              <Link href={globalData?.ProjectCTA.button_link || '#'}>
+                <WipeButton
+                  variant="filled"
+                  color="primary"
+                  size="lg"
+                  className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
+                >
+                  {globalData?.ProjectCTA.button_text || 'Get Started'}
+                </WipeButton>
+              </Link>
+            </PageHeader>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

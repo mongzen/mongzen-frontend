@@ -1,5 +1,11 @@
 import { apiService } from '@/services/api';
-import { ContactForm, HomePage, ServicePage, WorkPage } from '@/types';
+import {
+  ContactForm,
+  GlobalSettings,
+  HomePage,
+  ServicePage,
+  WorkPage,
+} from '@/types';
 import { useEffect, useState } from 'react';
 
 export interface UseApiState<T> {
@@ -183,6 +189,52 @@ export function useWorkPage(): UseApiState<WorkPage> {
     };
 
     fetchWorkPage();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return state;
+}
+
+export function useGlobal(): UseApiState<GlobalSettings> {
+  const [state, setState] = useState<UseApiState<GlobalSettings>>({
+    data: null,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchGlobal = async () => {
+      try {
+        setState((prev) => ({ ...prev, loading: true, error: null }));
+        const response = await apiService.getGlobal();
+
+        if (isMounted) {
+          setState({
+            data: response.data,
+            loading: false,
+            error: null,
+          });
+        }
+      } catch (error) {
+        if (isMounted) {
+          setState({
+            data: null,
+            loading: false,
+            error:
+              error instanceof Error
+                ? error.message
+                : 'Failed to fetch global settings',
+          });
+        }
+      }
+    };
+
+    fetchGlobal();
 
     return () => {
       isMounted = false;
