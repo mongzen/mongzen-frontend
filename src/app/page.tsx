@@ -21,7 +21,7 @@ export default function Home() {
   const { data: homeData, loading, error } = useHomePage();
   const { data: globalData, loading: globalLoading } = useGlobal();
 
-  if (loading) {
+  if (loading || globalLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col">
         <LoadingSpinner size="lg" />

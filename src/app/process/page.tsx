@@ -88,48 +88,46 @@ export default function Process() {
             </div>
 
             {/* Service Categories */}
-            {processData.processSection.categories?.map(
-              (category, categoryIndex) => (
-                <div key={category.id} className="border-b border-dark-15">
-                  {/* Category Header */}
-                  <div className="py-8 sm:py-10 px-4 sm:px-6 lg:px-8 border-b border-dark-15">
-                    <h3 className="text-xl sm:text-2xl font-semibold text-neutral-0 mb-4">
-                      {category.title}
-                    </h3>
-                    {category.description && (
-                      <p className="text-base text-dark-90 leading-relaxed">
-                        {category.description}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Services Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {category.services?.map((service, serviceIndex) => (
-                      <ServiceCard
-                        key={service.id}
-                        icon={service.icon}
-                        title={service.title}
-                        description={service.description}
-                        buttonText={service.linkText}
-                        buttonHref={service.linkUrl}
-                        className={clsx(
-                          'border-dark-15',
-                          // Mobile: all cards have bottom border except last
-                          serviceIndex < category.services.length - 1 &&
-                            'border-b md:border-b-0',
-                          // Tablet: right card has left border
-                          serviceIndex % 2 === 1 && 'md:border-l lg:border-l-0',
-                          // Desktop: middle and third cards have left border
-                          serviceIndex % 3 === 1 && 'lg:border-l',
-                          serviceIndex % 3 === 2 && 'lg:border-l'
-                        )}
-                      />
-                    ))}
-                  </div>
+            {processData.processSection.categories?.map((category) => (
+              <div key={category.id} className="border-b border-dark-15">
+                {/* Category Header */}
+                <div className="py-8 sm:py-10 px-4 sm:px-6 lg:px-8 border-b border-dark-15">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-neutral-0 mb-4">
+                    {category.title}
+                  </h3>
+                  {category.description && (
+                    <p className="text-base text-dark-90 leading-relaxed">
+                      {category.description}
+                    </p>
+                  )}
                 </div>
-              )
-            )}
+
+                {/* Services Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                  {category.services?.map((service, serviceIndex) => (
+                    <ServiceCard
+                      key={service.id}
+                      icon={service.icon}
+                      title={service.title}
+                      description={service.description}
+                      buttonText={service.linkText}
+                      buttonHref={service.linkUrl}
+                      className={clsx(
+                        'border-dark-15',
+                        // Mobile: all cards have bottom border except last
+                        serviceIndex < category.services.length - 1 &&
+                          'border-b md:border-b-0',
+                        // Tablet: right card has left border
+                        serviceIndex % 2 === 1 && 'md:border-l lg:border-l-0',
+                        // Desktop: middle and third cards have left border
+                        serviceIndex % 3 === 1 && 'lg:border-l',
+                        serviceIndex % 3 === 2 && 'lg:border-l'
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       )}
