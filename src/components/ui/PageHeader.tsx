@@ -46,7 +46,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 
       <div className="space-y-2">
         {/* Title */}
-        <h1 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold whitespace-nowrap">
+        <h1 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-semibold lg:whitespace-nowrap">
           {title}
         </h1>
 

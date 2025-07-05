@@ -1,5 +1,6 @@
 import { apiService } from '@/services/api';
 import {
+  AboutPage,
   GlobalSettings,
   HomePage,
   ProcessPage,
@@ -143,6 +144,52 @@ export function useProcessPage(): UseApiState<ProcessPage> {
     };
 
     fetchProcessPage();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return state;
+}
+
+export function useAboutPage(): UseApiState<AboutPage> {
+  const [state, setState] = useState<UseApiState<AboutPage>>({
+    data: null,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchAboutPage = async () => {
+      try {
+        setState((prev) => ({ ...prev, loading: true, error: null }));
+        const response = await apiService.getAboutPage();
+
+        if (isMounted) {
+          setState({
+            data: response.data,
+            loading: false,
+            error: null,
+          });
+        }
+      } catch (error) {
+        if (isMounted) {
+          setState({
+            data: null,
+            loading: false,
+            error:
+              error instanceof Error
+                ? error.message
+                : 'Failed to fetch about page',
+          });
+        }
+      }
+    };
+
+    fetchAboutPage();
 
     return () => {
       isMounted = false;

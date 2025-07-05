@@ -343,3 +343,35 @@ export interface ProcessPage {
 
   localizations: string[];
 }
+
+/**
+ * About page structure
+ */
+export interface AboutPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  // Title field
+  Title: string;
+
+  // SectionBanner component
+  SectionBanner: SectionTitleSubtitle;
+
+  // Intro Image
+  introImage?: UploadFile;
+
+  // Intro section (using service-section structure)
+  intro: ServiceSection;
+
+  // Title2 field
+  Title2: string;
+
+  // List (repeatable work-item components)
+  list: WorkItem[];
+
+  localizations: string[];
+}

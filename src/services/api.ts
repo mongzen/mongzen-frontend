@@ -1,4 +1,5 @@
 import {
+  AboutPage,
   ContactForm,
   GlobalSettings,
   HomePage,
@@ -170,6 +171,11 @@ class ApiService {
   // Process
   async getProcessPage(): Promise<StrapiResponse<ProcessPage>> {
     return this.get('/api/process?populate=*');
+  }
+
+  // About
+  async getAboutPage(): Promise<StrapiResponse<AboutPage>> {
+    return this.get('/api/about?populate=*');
   }
 
   // Works
