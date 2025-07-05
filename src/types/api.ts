@@ -65,7 +65,6 @@ export interface HomePage {
   faqBanner?: Icon;
 
   ctaSection: CTASection;
-  contactForm: ContactForm;
 
   localizations: string[];
 }
@@ -311,9 +310,36 @@ export interface GlobalSettings {
   favicon?: UploadFile;
   defaultSeo: Seo;
   ProjectCTA: SectionTitleSubtitle;
+  contactForm: ContactForm;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   locale: string;
+  localizations: string[];
+}
+
+/**
+ * Process page structure
+ */
+export interface ProcessPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  // Title field
+  title: string;
+
+  // SectionBanner component
+  SectionBanner: SectionTitleSubtitle;
+
+  // Process section (using service-section structure)
+  processSection: ServiceSection;
+
+  // Process list (repeatable work-item components)
+  processList: WorkItem[];
+
   localizations: string[];
 }

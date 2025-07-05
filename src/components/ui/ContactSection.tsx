@@ -3,7 +3,7 @@
 'use client';
 
 import { Checkbox, LoadingSpinner, RangeSlider } from '@/components/ui';
-import { useContactForm } from '@/hooks/useApi';
+import { useGlobal } from '@/hooks/useApi';
 import { ContactFormData, apiService } from '@/services/api';
 import { ContactForm } from '@/types';
 import { isValidEmail, sanitizeInput } from '@/utils';
@@ -29,7 +29,7 @@ interface ExtendedContactFormData extends ContactFormData {
 }
 
 export function ContactSection({ className, contactForm }: ContactFormProps) {
-  const { loading: formLoading } = useContactForm();
+  const { loading: formLoading } = useGlobal();
   const [formState, setFormState] = useState<FormState>('idle');
   const [responseMessage, setResponseMessage] = useState<string>('');
 

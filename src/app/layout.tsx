@@ -1,5 +1,5 @@
 import { Footer, Header } from '@/components/layout';
-import { barlow } from '@/lib/fonts';
+import { barlow, inter } from '@/lib/fonts';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${barlow.variable} antialiased bg-dark-10 text-neutral-0`}
+        className={`${barlow.variable} ${inter.variable} antialiased bg-dark-10 text-neutral-0`}
       >
         <Header />
         <main className="max-w-[1596px] flex flex-col mx-auto">{children}</main>

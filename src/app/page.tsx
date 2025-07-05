@@ -12,13 +12,14 @@ import {
   WhyChooseCard,
   WipeButton,
 } from '@/components/ui';
-import { useHomePage } from '@/hooks/useApi';
+import { useGlobal, useHomePage } from '@/hooks/useApi';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
 
 export default function Home() {
   const { data: homeData, loading, error } = useHomePage();
+  const { data: globalData, loading: globalLoading } = useGlobal();
 
   if (loading) {
     return (
@@ -37,7 +38,7 @@ export default function Home() {
           <p className="text-neutral-20 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
-              http://localhost:1337
+              {process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337'}
             </code>
           </p>
           <WipeButton
@@ -268,7 +269,7 @@ export default function Home() {
             </div>
           </PageHeader>
           {/* Contact Section */}
-          <ContactSection contactForm={homeData?.contactForm} />
+          <ContactSection contactForm={globalData?.contactForm} />
         </div>
       </section>
     </div>

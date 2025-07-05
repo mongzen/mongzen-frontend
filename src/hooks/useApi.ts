@@ -1,8 +1,8 @@
 import { apiService } from '@/services/api';
 import {
-  ContactForm,
   GlobalSettings,
   HomePage,
+  ProcessPage,
   ServicePage,
   WorkPage,
 } from '@/types';
@@ -60,52 +60,6 @@ export function useHomePage(): UseApiState<HomePage> {
   return state;
 }
 
-export function useContactForm(): UseApiState<ContactForm> {
-  const [state, setState] = useState<UseApiState<ContactForm>>({
-    data: null,
-    loading: true,
-    error: null,
-  });
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchContactForm = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }));
-        const response = await apiService.getContactForm();
-
-        if (isMounted) {
-          setState({
-            data: response.data,
-            loading: false,
-            error: null,
-          });
-        }
-      } catch (error) {
-        if (isMounted) {
-          setState({
-            data: null,
-            loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to fetch contact form',
-          });
-        }
-      }
-    };
-
-    fetchContactForm();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return state;
-}
-
 export function useServicePage(): UseApiState<ServicePage> {
   const [state, setState] = useState<UseApiState<ServicePage>>({
     data: null,
@@ -143,6 +97,52 @@ export function useServicePage(): UseApiState<ServicePage> {
     };
 
     fetchServicePage();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return state;
+}
+
+export function useProcessPage(): UseApiState<ProcessPage> {
+  const [state, setState] = useState<UseApiState<ProcessPage>>({
+    data: null,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchProcessPage = async () => {
+      try {
+        setState((prev) => ({ ...prev, loading: true, error: null }));
+        const response = await apiService.getProcessPage();
+
+        if (isMounted) {
+          setState({
+            data: response.data,
+            loading: false,
+            error: null,
+          });
+        }
+      } catch (error) {
+        if (isMounted) {
+          setState({
+            data: null,
+            loading: false,
+            error:
+              error instanceof Error
+                ? error.message
+                : 'Failed to fetch process page',
+          });
+        }
+      }
+    };
+
+    fetchProcessPage();
 
     return () => {
       isMounted = false;

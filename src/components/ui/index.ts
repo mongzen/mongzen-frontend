@@ -10,6 +10,7 @@ export { FAQAccordion } from './FAQAccordion';
 export { Icon, type IconName } from './Icon';
 export { LoadingOverlay, LoadingSpinner } from './Loading';
 export { PageHeader } from './PageHeader';
+export { ProcessCard } from './ProcessCard';
 export { RangeSlider } from './RangeSlider';
 export { ServiceCard } from './ServiceCard';
 export { Social } from './Social';
@@ -17,3 +18,4 @@ export { TrustedByCompanies } from './TrustedByCompanies';
 export { default as TypographyShowcase } from './TypographyShowcase';
 export { WipeButton } from './WipeButton';
 export { WorkCard } from './WorkCard';
+
