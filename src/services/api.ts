@@ -1,4 +1,12 @@
-import { ContactForm, HomePage, ServicePage } from '@/types';
+import {
+  AboutPage,
+  ContactForm,
+  GlobalSettings,
+  HomePage,
+  ProcessPage,
+  ServicePage,
+  WorkPage,
+} from '@/types';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface ContactFormData {
@@ -158,6 +166,25 @@ class ApiService {
   // Services
   async getServicePage(): Promise<StrapiResponse<ServicePage>> {
     return this.get('/api/service?populate=*');
+  }
+
+  // Process
+  async getProcessPage(): Promise<StrapiResponse<ProcessPage>> {
+    return this.get('/api/process?populate=*');
+  }
+
+  // About
+  async getAboutPage(): Promise<StrapiResponse<AboutPage>> {
+    return this.get('/api/about?populate=*');
+  }
+
+  // Works
+  async getWorkPage(): Promise<StrapiResponse<WorkPage>> {
+    return this.get('/api/work?populate=*');
+  }
+
+  async getGlobal(): Promise<StrapiResponse<GlobalSettings>> {
+    return this.get('/api/global?populate=*');
   }
 }
 

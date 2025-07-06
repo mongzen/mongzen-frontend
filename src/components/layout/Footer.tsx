@@ -96,13 +96,13 @@ export function Footer() {
 
       {/* Contact Info */}
       <div className="contact-info flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 lg:gap-[30px]">
-        <div className="flex items-center gap-2 sm:gap-[10px] min-w-0 flex-1">
+        <div className="flex items-center gap-2 sm:gap-[10px] min-w-0">
           <EnvelopeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
           <span className="text-contact text-sm sm:text-base truncate">
             hello@digitalagency.com
           </span>
         </div>
-        <div className="flex items-center gap-2 sm:gap-[10px] min-w-0 flex-1">
+        <div className="flex items-center gap-2 sm:gap-[10px] min-w-0">
           <PhoneIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
           <span className="text-contact text-sm sm:text-base">
             +88(TH) 86772 5569

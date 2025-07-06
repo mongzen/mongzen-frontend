@@ -14,8 +14,9 @@ export function Header() {
   const navigation = [
     { name: 'Home', href: '/', icon: 'HomeIcon' },
     { name: 'Services', href: '/service', icon: 'CogIcon' },
+    { name: 'Works', href: '/works', icon: 'RocketLaunchIcon' },
+    { name: 'Process', href: '/process', icon: 'ArrowPathIcon' },
     { name: 'About', href: '/about', icon: 'UserIcon' },
-    { name: 'Projects', href: '/projects', icon: 'RocketLaunchIcon' },
     { name: 'Contact', href: '/contact', icon: 'EnvelopeIcon' },
   ];
 

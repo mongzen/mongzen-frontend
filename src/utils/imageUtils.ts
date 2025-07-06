@@ -28,6 +28,26 @@ export function formatImageUrl(url: string | undefined | null): string {
 }
 
 /**
+ * Check unoptimized image URL
+ */
+export function isUnoptimizedImageUrl(url: string): boolean {
+  if (!url) return false;
+
+  // If already a complete URL, return as is
+  if (url.startsWith('http://')) {
+    return true;
+  }
+
+  // If starts with /, it's a relative path from API
+  if (url.startsWith('/')) {
+    return false;
+  }
+
+  // Otherwise, assume it's a relative path that needs /uploads/ prefix
+  return false;
+}
+
+/**
  * Validates if URL is likely to be a valid image
  */
 export function isValidImageUrl(url: string): boolean {

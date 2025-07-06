@@ -65,7 +65,6 @@ export interface HomePage {
   faqBanner?: Icon;
 
   ctaSection: CTASection;
-  contactForm: ContactForm;
 
   localizations: string[];
 }
@@ -243,8 +242,150 @@ export interface ServicePage {
   // Services sections (repeatable)
   Services: ServiceSection[];
 
-  // ServiceProjectCTA component
-  ServiceProjectCTA: SectionTitleSubtitle;
+  localizations: string[];
+}
+
+/**
+ * Work item component structure
+ */
+export interface WorkItem {
+  id: number;
+  title: string;
+  name: string;
+  link: string;
+  description: string;
+  image?: UploadFile;
+}
+
+/**
+ * OurWorks section component structure
+ */
+export interface OurWorksSection {
+  id: number;
+  title: string;
+  description: string;
+  intro_cta: string;
+}
+
+/**
+ * Work page structure
+ */
+export interface WorkPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  // SectionBanner component
+  SectionBanner: SectionTitleSubtitle;
+
+  // OurWorks section
+  OurWorks: OurWorksSection;
+
+  localizations: string[];
+
+  workList: WorkItem[];
+}
+
+/**
+ * SEO component structure
+ */
+export interface Seo {
+  id: number;
+  metaTitle: string;
+  metaDescription: string;
+  shareImage?: UploadFile;
+}
+
+/**
+ * Footer CTA section structure
+ */
+export interface FooterCTA {
+  title: string;
+  description: string;
+  titleWelcome: string;
+  descriptionWelcome: string;
+  buttonText: string;
+  buttonLink: string;
+  icon?: UploadFile;
+}
+
+/**
+ * Global settings structure
+ */
+export interface GlobalSettings {
+  id: number;
+  documentId: string;
+  siteName: string;
+  siteDescription: string;
+  favicon?: UploadFile;
+  defaultSeo: Seo;
+  ProjectCTA: SectionTitleSubtitle;
+  footerCTA?: FooterCTA;
+  contactForm: ContactForm;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+  localizations: string[];
+}
+
+/**
+ * Process page structure
+ */
+export interface ProcessPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  // Title field
+  title: string;
+
+  // SectionBanner component
+  SectionBanner: SectionTitleSubtitle;
+
+  // Process section (using service-section structure)
+  processSection: ServiceSection;
+
+  // Process list (repeatable work-item components)
+  processList: WorkItem[];
+
+  localizations: string[];
+}
+
+/**
+ * About page structure
+ */
+export interface AboutPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  // Title field
+  Title: string;
+
+  // SectionBanner component
+  SectionBanner: SectionTitleSubtitle;
+
+  // Intro Image
+  introImage?: UploadFile;
+
+  // Intro section (using service-section structure)
+  intro: ServiceSection;
+
+  // Title2 field
+  Title2: string;
+
+  // List (repeatable work-item components)
+  list: WorkItem[];
 
   localizations: string[];
 }

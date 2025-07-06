@@ -33,7 +33,7 @@ export default function Home() {
           <p className="text-gray-600 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-gray-100 px-2 py-1 rounded">
-              http://localhost:1337
+              {process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337'}
             </code>
           </p>
           <Button onClick={() => window.location.reload()}>Try Again</Button>

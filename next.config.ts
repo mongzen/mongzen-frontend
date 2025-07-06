@@ -4,13 +4,22 @@ const nextConfig: NextConfig = {
   /* config options here */
   images: {
     remotePatterns: [
-      // Localhost for development
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '1337',
-        pathname: '/**',
+        pathname: '/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'tremendous-confidence-db98bf7d24.strapiapp.com',
+        pathname: '/uploads/**',
+      },
+    ],
+    // Alternative older syntax (if above doesn't work)
+    domains: [
+      'localhost:1337',
+      'tremendous-confidence-db98bf7d24.strapiapp.com',
     ],
   },
 };
