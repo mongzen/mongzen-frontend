@@ -300,6 +300,19 @@ export interface Seo {
 }
 
 /**
+ * Footer CTA section structure
+ */
+export interface FooterCTA {
+  title: string;
+  description: string;
+  titleWelcome: string;
+  descriptionWelcome: string;
+  buttonText: string;
+  buttonLink: string;
+  icon?: UploadFile;
+}
+
+/**
  * Global settings structure
  */
 export interface GlobalSettings {
@@ -310,6 +323,7 @@ export interface GlobalSettings {
   favicon?: UploadFile;
   defaultSeo: Seo;
   ProjectCTA: SectionTitleSubtitle;
+  footerCTA?: FooterCTA;
   contactForm: ContactForm;
   createdAt: string;
   updatedAt: string;

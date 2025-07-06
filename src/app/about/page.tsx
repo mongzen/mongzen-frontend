@@ -8,8 +8,9 @@ import {
   WipeButton,
 } from '@/components/ui';
 import { useAboutPage, useGlobal } from '@/hooks/useApi';
-import { formatImageUrl } from '@/utils/imageUtils';
+import { formatImageUrl, isUnoptimizedImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function About() {
@@ -65,45 +66,47 @@ export default function About() {
         />
       </section>
 
-      {/* Intro Image Section */}
-      {/* {aboutData?.introImage && (
-        <section className="border-x-0 sm:border-x border-dark-15">
-          <div className="mx-auto border-b border-dark-15">
-            <div className="w-full overflow-hidden">
-              <Image
-                src={formatImageUrl(aboutData.introImage.url)}
-                alt={aboutData.introImage.name || 'About Image'}
-                width={aboutData.introImage.width || 1200}
-                height={aboutData.introImage.height || 600}
-                className="w-full h-full object-cover max-w-full"
-                unoptimized={isUnoptimizedImageUrl(
-                  formatImageUrl(aboutData.introImage.url)
-                )}
-                priority
-              />
-            </div>
-          </div>
-        </section>
-      )} */}
-
       {/* Intro Section */}
       {aboutData?.intro && (
         <section className="border-x-0 sm:border-x border-dark-15">
-          <div className="mx-auto">
-            {/* Section Header */}
-            <div className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12 space-y-3.5 border-b border-dark-15">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-0 mb-4 sm:mb-6">
-                {aboutData.intro.title}
-              </h2>
-              {aboutData.intro.description && (
-                <p className="text-base sm:text-lg text-dark-90 leading-relaxed">
-                  {aboutData.intro.description}
-                </p>
+          <div className="mx-auto border border-dark-15">
+            <div className="flex flex-col lg:flex-row px-4 sm:px-8 lg:px-[150px] py-12 sm:py-16 lg:py-[100px] items-center gap-8 lg:gap-[100px]">
+              {/* Section Header */}
+              <div className="flex flex-col justify-center flex-1">
+                <div className="space-y-6">
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-0 leading-tight tracking-tight">
+                    {aboutData.intro.title}
+                  </h2>
+                  {aboutData.intro.description && (
+                    <p className="text-lg sm:text-xl text-neutral-20 leading-relaxed font-light">
+                      {aboutData.intro.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Intro Image Section */}
+              {aboutData?.introImage && (
+                <div className="flex flex-1 h-[400px] sm:h-[500px] lg:h-[571px] flex-col justify-center items-center gap-2.5 rounded-2xl border border-dark-15 overflow-hidden relative bg-gradient-to-b from-transparent via-transparent to-dark-5">
+                  {/* <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-white/30 opacity-20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-b from-primary-50/20 to-primary-50/20 mix-blend-color"></div> */}
+                  <Image
+                    src={formatImageUrl(aboutData.introImage.url)}
+                    alt={aboutData.introImage.name || 'About Image'}
+                    fill
+                    className="object-cover"
+                    // mix-blend-overlay
+                    unoptimized={isUnoptimizedImageUrl(
+                      formatImageUrl(aboutData.introImage.url)
+                    )}
+                    priority
+                  />
+                </div>
               )}
             </div>
 
             {/* Service Categories */}
-            {aboutData.intro.categories?.map((category, categoryIndex) => (
+            {aboutData.intro.categories?.map((category) => (
               <div key={category.id} className="border-b border-dark-15">
                 {/* Category Header */}
                 <div className="py-8 sm:py-10 px-4 sm:px-6 lg:px-8 border-b border-dark-15">
@@ -185,35 +188,76 @@ export default function About() {
         </section>
       )}
 
-      {/* CTA Section */}
-      {globalData?.ProjectCTA && (
-        <section className="border-x-0 sm:border-x border-b border-dark-15">
+      {/* Footer CTA Section */}
+      {globalData?.footerCTA && (
+        <section className="border-x-0 sm:border-x border-dark-15">
           <div className="mx-auto">
-            <PageHeader
-              title={
-                globalData?.ProjectCTA.title || 'Ready to Start Your Project?'
-              }
-              subtitle={
-                globalData?.ProjectCTA.subtitle ||
-                'Let us help you bring your vision to life'
-              }
-              backgroundImage={formatImageUrl(
-                globalData?.ProjectCTA.background?.url
-              )}
-              icon={formatImageUrl(globalData?.ProjectCTA.icon?.url)}
-              className="lg:py-[120px] lg:space-y-10 space-y-4 py-10 !border-b-0 md:px-16 xl:px-[350px] px-10"
-            >
-              <Link href={globalData?.ProjectCTA.button_link || '#'}>
-                <WipeButton
-                  variant="filled"
-                  color="primary"
-                  size="lg"
-                  className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
-                >
-                  {globalData?.ProjectCTA.button_text || 'Get Started'}
-                </WipeButton>
-              </Link>
-            </PageHeader>
+            <div className="flex max-w-[1596px] mx-auto px-6 sm:px-12 lg:px-20 py-12 sm:py-16 lg:py-20 flex-col justify-center items-start gap-8 lg:gap-[50px] border-b border-dark-15">
+              {/* Main Container */}
+              <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-10 self-stretch">
+                {/* Logo */}
+                <div className="w-32 h-32 lg:w-[150.704px] lg:h-[150px] flex-shrink-0">
+                  {globalData.footerCTA.icon && (
+                    <Image
+                      src={formatImageUrl(globalData.footerCTA.icon.url)}
+                      alt={globalData.footerCTA.icon.name || 'Footer CTA Icon'}
+                      width={80}
+                      height={80}
+                      className="object-contain"
+                      unoptimized={isUnoptimizedImageUrl(
+                        formatImageUrl(globalData.footerCTA.icon.url)
+                      )}
+                    />
+                  )}
+                </div>
+
+                {/* Text Container */}
+                <div className="flex flex-col items-start gap-5 flex-1 text-center lg:text-left">
+                  <div className="space-y-4">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[30px] font-medium text-neutral-60 leading-normal font-barlow">
+                      {globalData.footerCTA.title}
+                    </h2>
+                    <p className="text-base sm:text-lg text-neutral-20 leading-relaxed">
+                      {globalData.footerCTA.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Container */}
+              <div className="flex flex-col lg:flex-row px-6 lg:px-10 py-6 justify-center items-center gap-4 lg:gap-5 self-stretch bg-dark-5/50 rounded-lg border border-dark-15">
+                {/* Sub Container - Left */}
+                <div className="flex items-center gap-5 flex-1 text-center lg:text-left">
+                  <div className="space-y-2">
+                    <h3 className="text-lg lg:text-xl font-semibold text-neutral-0">
+                      {globalData.footerCTA.titleWelcome}
+                    </h3>
+                    <p className="text-sm lg:text-base text-neutral-30">
+                      {globalData.footerCTA.descriptionWelcome}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Text Container - Center */}
+                <div className="flex px-4 lg:px-5 py-3 lg:py-3.5 justify-center items-center gap-2.5 rounded-lg bg-dark-15">
+                  <span className="text-xs lg:text-sm text-neutral-20 font-medium">
+                    Ready to get started?
+                  </span>
+                </div>
+
+                {/* Button - Right */}
+                <Link href={globalData.footerCTA.buttonLink || '#'}>
+                  <WipeButton
+                    variant="filled"
+                    color="primary"
+                    size="lg"
+                    className="px-4 lg:px-6 py-2.5 lg:py-3 text-sm lg:text-base font-medium w-full lg:w-auto"
+                  >
+                    {globalData.footerCTA.buttonText}
+                  </WipeButton>
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       )}
