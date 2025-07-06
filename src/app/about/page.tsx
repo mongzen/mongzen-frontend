@@ -201,9 +201,9 @@ export default function About() {
                     <Image
                       src={formatImageUrl(globalData.footerCTA.icon.url)}
                       alt={globalData.footerCTA.icon.name || 'Footer CTA Icon'}
-                      width={80}
-                      height={80}
-                      className="object-contain"
+                      width={200}
+                      height={200}
+                      className="object-cover"
                       unoptimized={isUnoptimizedImageUrl(
                         formatImageUrl(globalData.footerCTA.icon.url)
                       )}
@@ -214,10 +214,10 @@ export default function About() {
                 {/* Text Container */}
                 <div className="flex flex-col items-start gap-5 flex-1 text-center lg:text-left">
                   <div className="space-y-4">
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[30px] font-medium text-neutral-60 leading-normal font-barlow">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-[30px] font-medium text-dark-60 leading-normal font-barlow">
                       {globalData.footerCTA.title}
                     </h2>
-                    <p className="text-base sm:text-lg text-neutral-20 leading-relaxed">
+                    <p className="text-lg font-normal text-dark-60 leading-[150%] font-inter">
                       {globalData.footerCTA.description}
                     </p>
                   </div>
@@ -225,24 +225,17 @@ export default function About() {
               </div>
 
               {/* Bottom Container */}
-              <div className="flex flex-col lg:flex-row px-6 lg:px-10 py-6 justify-center items-center gap-4 lg:gap-5 self-stretch bg-dark-5/50 rounded-lg border border-dark-15">
+              <div className="flex flex-col lg:flex-row px-6 lg:px-10 py-6 justify-center items-center gap-4 lg:gap-5 self-stretch bg-[#242424]/20 rounded-lg border border-dark-15">
                 {/* Sub Container - Left */}
                 <div className="flex items-center gap-5 flex-1 text-center lg:text-left">
-                  <div className="space-y-2">
-                    <h3 className="text-lg lg:text-xl font-semibold text-neutral-0">
+                  <div className="flex items-center gap-5">
+                    <h3 className="text-lg lg:text-xl font-semibold text-neutral-0 mb-0">
                       {globalData.footerCTA.titleWelcome}
                     </h3>
-                    <p className="text-sm lg:text-base text-neutral-30">
+                    <p className="flex px-5 py-3.5 justify-center items-center gap-2.5 rounded-lg bg-dark-15 text-sm lg:text-base">
                       {globalData.footerCTA.descriptionWelcome}
                     </p>
                   </div>
-                </div>
-
-                {/* Text Container - Center */}
-                <div className="flex px-4 lg:px-5 py-3 lg:py-3.5 justify-center items-center gap-2.5 rounded-lg bg-dark-15">
-                  <span className="text-xs lg:text-sm text-neutral-20 font-medium">
-                    Ready to get started?
-                  </span>
                 </div>
 
                 {/* Button - Right */}
