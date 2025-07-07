@@ -1,5 +1,5 @@
 import { Icon } from '@/components/ui';
-import { FAQItem } from '@/types/api';
+import { FAQItem } from '@/types';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 

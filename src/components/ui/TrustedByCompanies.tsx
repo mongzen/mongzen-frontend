@@ -1,6 +1,6 @@
 'use client';
 
-import { TrustedByCompany } from '@/types/api';
+import { TrustedByCompany } from '@/types';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';

@@ -128,7 +128,7 @@ export default function Home() {
             backgroundImage={formatImageUrl(homeData?.servicesBanner.url)}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-            {homeData?.services.map((service, index) => (
+            {homeData?.services.map((service: any, index: number) => (
               <ServiceCard
                 key={service.id}
                 title={service.title}
@@ -166,26 +166,28 @@ export default function Home() {
             backgroundImage={formatImageUrl(homeData?.whyChooseBanner?.url)}
           />
           <div className="grid grid-cols-1 md:grid-cols-2">
-            {homeData?.whyChooseFeaturesList.map((service, index) => (
-              <WhyChooseCard
-                key={service.id}
-                title={service.title}
-                icon={service.icon}
-                description={service.description}
-                aspectRatio={790 / 378} // Maintain aspect ratio
-                className={clsx(
-                  'border-dark-15 sm:min-h-[240px] md:min-h-[280px] lg:min-h-[318px]',
-                  // Mobile: bottom border for all except last
-                  index < homeData?.whyChooseFeaturesList.length - 1 &&
-                    'border-b',
-                  // Tablet & Desktop: even indices get right border
-                  index % 2 === 0 && 'border-r',
-                  // Tablet & Desktop: bottom borders for all except last row
-                  index < homeData?.whyChooseFeaturesList.length - 2 &&
-                    'border-b'
-                )}
-              />
-            ))}
+            {homeData?.whyChooseFeaturesList.map(
+              (service: any, index: number) => (
+                <WhyChooseCard
+                  key={service.id}
+                  title={service.title}
+                  icon={service.icon}
+                  description={service.description}
+                  aspectRatio={790 / 378} // Maintain aspect ratio
+                  className={clsx(
+                    'border-dark-15 sm:min-h-[240px] md:min-h-[280px] lg:min-h-[318px]',
+                    // Mobile: bottom border for all except last
+                    index < homeData?.whyChooseFeaturesList.length - 1 &&
+                      'border-b',
+                    // Tablet & Desktop: even indices get right border
+                    index % 2 === 0 && 'border-r',
+                    // Tablet & Desktop: bottom borders for all except last row
+                    index < homeData?.whyChooseFeaturesList.length - 2 &&
+                      'border-b'
+                  )}
+                />
+              )
+            )}
           </div>
         </div>
       </section>
@@ -201,23 +203,25 @@ export default function Home() {
             backgroundImage={formatImageUrl(homeData?.testimonialsBanner?.url)}
           />
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            {homeData?.testimonialsList.map((testimonial, index) => (
-              <TestimonialCard
-                key={testimonial.id}
-                title={testimonial.quote}
-                authorName={testimonial.authorName}
-                authorRole={testimonial.authorRole}
-                icon={testimonial.authorPhoto}
-                className={clsx(
-                  // Mobile: bottom border for all except last
-                  index < homeData?.testimonialsList.length - 1 && 'border-b',
-                  // Desktop: even indices get right border
-                  index % 2 === 0 && 'lg:border-r',
-                  // Desktop: bottom borders for all except last row
-                  index < homeData?.testimonialsList.length - 2 && 'border-b'
-                )}
-              />
-            ))}
+            {homeData?.testimonialsList.map(
+              (testimonial: any, index: number) => (
+                <TestimonialCard
+                  key={testimonial.id}
+                  title={testimonial.quote}
+                  authorName={testimonial.authorName}
+                  authorRole={testimonial.authorRole}
+                  icon={testimonial.authorPhoto}
+                  className={clsx(
+                    // Mobile: bottom border for all except last
+                    index < homeData?.testimonialsList.length - 1 && 'border-b',
+                    // Desktop: even indices get right border
+                    index % 2 === 0 && 'lg:border-r',
+                    // Desktop: bottom borders for all except last row
+                    index < homeData?.testimonialsList.length - 2 && 'border-b'
+                  )}
+                />
+              )
+            )}
           </div>
         </div>
       </section>
