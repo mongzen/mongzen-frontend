@@ -1,102 +1,7 @@
 /**
  * Styles Constants
- * Centralized management of CSS classes, colors, and style-related constants
+ * Only includes style constants that are actually used in the codebase
  */
-
-/**
- * Color Constants
- */
-export const COLORS = {
-  // Primary Colors
-  PRIMARY: {
-    50: 'primary-50',
-    100: 'primary-100',
-    200: 'primary-200',
-    300: 'primary-300',
-    400: 'primary-400',
-    500: 'primary-500',
-    600: 'primary-600',
-    700: 'primary-700',
-    800: 'primary-800',
-    900: 'primary-900',
-  },
-
-  // Secondary Colors
-  SECONDARY: {
-    50: 'secondary-50',
-    100: 'secondary-100',
-    200: 'secondary-200',
-    300: 'secondary-300',
-    400: 'secondary-400',
-    500: 'secondary-500',
-    600: 'secondary-600',
-    700: 'secondary-700',
-    800: 'secondary-800',
-    900: 'secondary-900',
-  },
-
-  // Accent Colors
-  ACCENT: {
-    50: 'accent-50',
-    100: 'accent-100',
-    200: 'accent-200',
-    300: 'accent-300',
-    400: 'accent-400',
-    500: 'accent-500',
-    600: 'accent-600',
-    700: 'accent-700',
-    800: 'accent-800',
-    900: 'accent-900',
-  },
-
-  // Neutral Colors
-  NEUTRAL: {
-    10: 'neutral-10',
-    20: 'neutral-20',
-    30: 'neutral-30',
-    40: 'neutral-40',
-    50: 'neutral-50',
-    60: 'neutral-60',
-    70: 'neutral-70',
-    80: 'neutral-80',
-    90: 'neutral-90',
-  },
-
-  // Dark Colors
-  DARK: {
-    15: 'dark-15',
-    40: 'dark-40',
-    50: 'dark-50',
-    90: 'dark-90',
-  },
-
-  // Status Colors
-  DANGER: {
-    50: 'danger-50',
-    400: 'danger-400',
-    500: 'danger-500',
-  },
-
-  SUCCESS: {
-    400: 'success-400',
-    500: 'success-500',
-  },
-
-  WARNING: {
-    400: 'warning-400',
-    500: 'warning-500',
-  },
-
-  INFO: {
-    400: 'info-400',
-    500: 'info-500',
-  },
-
-  // Base Colors
-  WHITE: 'white',
-  BLACK: 'black',
-  TRANSPARENT: 'transparent',
-} as const;
 
 /**
  * Spacing Constants
@@ -158,52 +63,6 @@ export const BORDERS = {
 
   // Complex Borders
   CONDITIONAL_X: 'border-x-0 sm:border-x',
-} as const;
-
-/**
- * Layout Constants
- */
-export const LAYOUT = {
-  // Container
-  CONTAINER: 'max-w-7xl mx-auto',
-  CONTAINER_PADDING: 'max-w-7xl mx-auto px-6',
-
-  // Flex
-  FLEX: 'flex',
-  FLEX_COL: 'flex flex-col',
-  FLEX_CENTER: 'flex items-center justify-center',
-  FLEX_BETWEEN: 'flex items-center justify-between',
-
-  // Grid
-  GRID: 'grid',
-  GRID_COLS_1: 'grid-cols-1',
-  GRID_COLS_2: 'grid-cols-2',
-  GRID_COLS_3: 'grid-cols-3',
-  GRID_LG_COLS_3: 'lg:grid-cols-3',
-  GRID_MD_COLS_2: 'md:grid-cols-2',
-  GRID_SM_COLS_2: 'sm:grid-cols-2',
-
-  // Positioning
-  RELATIVE: 'relative',
-  ABSOLUTE: 'absolute',
-  FIXED: 'fixed',
-  STICKY: 'sticky',
-
-  // Z-Index
-  Z_0: 'z-0',
-  Z_10: 'z-10',
-  Z_20: 'z-20',
-  Z_30: 'z-30',
-  Z_40: 'z-40',
-  Z_50: 'z-50',
-
-  // Width & Height
-  FULL_WIDTH: 'w-full',
-  FULL_HEIGHT: 'h-full',
-  MIN_HEIGHT_SCREEN: 'min-h-screen',
-
-  // Overflow
-  OVERFLOW_HIDDEN: 'overflow-hidden',
 } as const;
 
 /**
@@ -299,18 +158,6 @@ export const BACKGROUNDS = {
 } as const;
 
 /**
- * Shadow Constants
- */
-export const SHADOWS = {
-  SM: 'shadow-sm',
-  DEFAULT: 'shadow',
-  MD: 'shadow-md',
-  LG: 'shadow-lg',
-  XL: 'shadow-xl',
-  CUSTOM: 'shadow-lg shadow-primary-50/5',
-} as const;
-
-/**
  * Transition Constants
  */
 export const TRANSITIONS = {
@@ -368,43 +215,6 @@ export const STATES = {
 } as const;
 
 /**
- * Animation Constants
- */
-export const ANIMATIONS = {
-  SPIN: 'animate-spin',
-  PULSE: 'animate-pulse',
-  BOUNCE: 'animate-bounce',
-  PING: 'animate-ping',
-} as const;
-
-/**
- * Responsive Constants
- */
-export const RESPONSIVE = {
-  // Breakpoint Prefixes
-  SM: 'sm:',
-  MD: 'md:',
-  LG: 'lg:',
-  XL: 'xl:',
-  '2XL': '2xl:',
-
-  // Common Responsive Classes
-  SM_BORDER_X: 'sm:border-x',
-  LG_COL_SPAN_1: 'lg:col-span-1',
-  LG_COL_SPAN_2: 'lg:col-span-2',
-  LG_GRID_COLS_1: 'lg:grid-cols-1',
-  LG_P_80PX: 'lg:p-80px',
-  LG_PY_24: 'lg:py-24',
-  LG_PY_32: 'lg:py-32',
-  LG_TEXT_2XL: 'lg:text-2xl',
-  LG_TEXT_4XL: 'lg:text-4xl',
-  LG_TEXT_6XL: 'lg:text-6xl',
-  MD_GRID_COLS_2: 'md:grid-cols-2',
-  SM_GRID_COLS_2: 'sm:grid-cols-2',
-  XL_GRID_COLS_2: 'xl:grid-cols-2',
-} as const;
-
-/**
  * Component Specific Styles
  */
 export const COMPONENT_STYLES = {
@@ -438,14 +248,9 @@ export const COMPONENT_STYLES = {
 } as const;
 
 // Type definitions
-export type ColorVariant = keyof typeof COLORS;
 export type SpacingVariant = keyof typeof SPACING;
 export type BorderVariant = keyof typeof BORDERS;
-export type LayoutVariant = keyof typeof LAYOUT;
 export type TypographyVariant = keyof typeof TYPOGRAPHY;
 export type BackgroundVariant = keyof typeof BACKGROUNDS;
-export type ShadowVariant = keyof typeof SHADOWS;
 export type TransitionVariant = keyof typeof TRANSITIONS;
 export type StateVariant = keyof typeof STATES;
-export type AnimationVariant = keyof typeof ANIMATIONS;
-export type ResponsiveVariant = keyof typeof RESPONSIVE;

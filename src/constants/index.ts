@@ -1,146 +1,18 @@
 /**
  * Application Constants
- * Centralized management of folder names, file names, API endpoints, and other constants
+ * Only includes constants that are actually used in the codebase
  */
 
-// Re-export all constants from other files
-export * from './components';
-export * from './styles';
-
-/**
- * Folder Structure Constants
- */
-export const FOLDERS = {
-  // Main directories
-  SRC: 'src',
-  COMPONENTS: 'components',
-  PAGES: 'pages',
-  UTILS: 'utils',
-  SERVICES: 'services',
-  HOOKS: 'hooks',
-  TYPES: 'types',
-  LIB: 'lib',
-  PUBLIC: 'public',
-
-  // Component subdirectories
-  UI: 'ui',
-  LAYOUT: 'layout',
-  CLIENT: 'client',
-  CARD: 'card',
-  SVG: 'svg',
-  ABOUT: 'about',
-
-  // App directories
-  APP: 'app',
-  API: 'api',
-  CONTACT: 'contact',
-  ABOUT_PAGE: 'about',
-  SERVICE: 'service',
-  WORKS: 'works',
-  PROCESS: 'process',
-  GUIDE: 'guide',
-
-  // Public subdirectories
-  IMAGES: 'images',
-} as const;
-
-/**
- * File Name Constants
- */
-export const FILES = {
-  // Configuration files
-  PACKAGE_JSON: 'package.json',
-  TSCONFIG: 'tsconfig.json',
-  NEXT_CONFIG: 'next.config.ts',
-  TAILWIND_CONFIG: 'tailwind.config.js',
-  ESLINT_CONFIG: 'eslint.config.mjs',
-  POSTCSS_CONFIG: 'postcss.config.mjs',
-  README: 'README.md',
-
-  // App files
-  LAYOUT: 'layout.tsx',
-  PAGE: 'page.tsx',
-  LOADING: 'loading.tsx',
-  ERROR: 'error.tsx',
-  NOT_FOUND: 'not-found.tsx',
-  ROUTE: 'route.ts',
-
-  // Style files
-  GLOBALS_CSS: 'globals.css',
-
-  // Type definition files
-  API_TYPES: 'api.ts',
-  COMMON_TYPES: 'common.ts',
-  INDEX_TYPES: 'index.ts',
-
-  // Service files
-  API_SERVICE: 'api.ts',
-
-  // Hook files
-  USE_API: 'useApi.ts',
-
-  // Utility files
-  IMAGE_UTILS: 'imageUtils.ts',
-  INDEX: 'index.ts',
-
-  // Library files
-  FONTS: 'fonts.ts',
-
-  // Public assets
-  FAVICON: 'favicon.svg',
-  LOGO: 'logo.svg',
-  CONTACT_PNG: 'contact.png',
-  ABSTRACT_DESIGN: 'AbstractDesign.svg',
-  NEXT_SVG: 'next.svg',
-  VERCEL_SVG: 'vercel.svg',
-  FILE_SVG: 'file.svg',
-  GLOBE_SVG: 'globe.svg',
-  WINDOW_SVG: 'window.svg',
-  SQUARES_PNG: 'squares.png',
-
-  // Component files
-  HEADER: 'Header.tsx',
-  FOOTER: 'Footer.tsx',
-  BUTTON: 'Button.tsx',
-  BUTTON_BLUR: 'ButtonBlur.tsx',
-  BUTTON_CONTACT: 'ButtonContact.tsx',
-  BUTTON_SQUARE_LINEAR: 'ButtonSquareLinear.tsx',
-  CARD: 'Card.tsx',
-  CHECKBOX: 'Checkbox.tsx',
-  CONTACT_SECTION: 'ContactSection.tsx',
-  CONTACT_PAGE_HEADER: 'ContactPageHeader.tsx',
-  CONTACT_FAQ_SECTION: 'ContactFAQSection.tsx',
-  FAQ_ACCORDION: 'FAQAccordion.tsx',
-  ICON: 'Icon.tsx',
-  LOADING_COMPONENT: 'Loading.tsx',
-  OPEN_HOURS: 'OpenHours.tsx',
-  PAGE_HEADER: 'PageHeader.tsx',
-  PROCESS_CARD: 'ProcessCard.tsx',
-  RANGE_SLIDER: 'RangeSlider.tsx',
-  SERVICE_CARD: 'ServiceCard.tsx',
-  SOCIAL: 'Social.tsx',
-  STAY_CONNECT: 'StayConnect.tsx',
-  TRUSTED_BY_COMPANIES: 'TrustedByCompanies.tsx',
-  TYPOGRAPHY_SHOWCASE: 'TypographyShowcase.tsx',
-  WIPE_BUTTON: 'WipeButton.tsx',
-  WORK_CARD: 'WorkCard.tsx',
-  ABSTRACT_ANIMATION: 'AbstractAnimation.tsx',
-  COLOR_SHOWCASE: 'ColorShowcase.tsx',
-  PORTABLE_TEXT: 'PortableText.tsx',
-
-  // Card component files
-  FAQ_ACCORDION_ITEM_CARD: 'FAQAccordionItemCard.tsx',
-  TESTIMONIAL_CARD: 'TestimonialCard.tsx',
-  WHY_CHOOSE_CARD: 'WhyChooseCard.tsx',
-
-  // SVG component files
-  ICON_FACEBOOK: 'IconFacebook.tsx',
-  ICON_LINKEDIN: 'IconLinkedIn.tsx',
-
-  // App specific files
-  APPLE_ICON: 'apple-icon.tsx',
-  ICON_TSX: 'icon.tsx',
-} as const;
+// Re-export used constants from styles
+export {
+  BACKGROUNDS,
+  BORDERS,
+  COMPONENT_STYLES,
+  SPACING,
+  STATES,
+  TRANSITIONS,
+  TYPOGRAPHY,
+} from './styles';
 
 /**
  * API Endpoints Constants
@@ -197,82 +69,75 @@ export const DEFAULTS = {
 } as const;
 
 /**
- * Component Collection Names (Strapi)
+ * Button Labels
  */
-export const COLLECTION_NAMES = {
-  COMPONENTS_SHARED_OPEN_HOURS: 'components_shared_open_hours',
-  COMPONENTS_SHARED_STAY_CONNECTS: 'components_shared_stay_connects',
-  COMPONENTS_SHARED_BUTTON_CONTACTS: 'components_shared_button_contacts',
-  COMPONENTS_SHARED_SECTION_TITLE_SUBTITLE:
-    'components_shared_section_title_subtitle',
-  CONTACTS: 'contacts',
-  HOMEPAGES: 'homepages',
-  SERVICES: 'services',
-  PROCESSES: 'processes',
-  ABOUTS: 'abouts',
-  WORKS: 'works',
-  GLOBALS: 'globals',
+export const BUTTON_LABELS = {
+  // Action Buttons
+  SEND_MESSAGE: 'Send Message',
+  TRY_AGAIN: 'Try Again',
+  SEND_ANOTHER_MESSAGE: 'Send Another Message',
+  VIEW_FAQ: 'View FAQ',
+  VIEW_WORK: 'View Our Work',
+  LEARN_MORE: 'Learn More',
+  GET_STARTED: 'Get Started',
+  CONTACT_US: 'Contact Us',
+
+  // Navigation Buttons
+  BACK: 'Back',
+  NEXT: 'Next',
+  HOME: 'Home',
+  ABOUT: 'About',
+  SERVICES: 'Services',
+  WORKS: 'Works',
+  CONTACT: 'Contact',
+  PROCESS: 'Process',
+  GUIDE: 'Guide',
 } as const;
 
 /**
- * Component Type Names (Strapi)
+ * Error Messages
  */
-export const COMPONENT_TYPES = {
-  SHARED: {
-    OPEN_HOURS: 'shared.open-hours',
-    STAY_CONNECT: 'shared.stay-connect',
-    BUTTON_CONTACT: 'shared.button-contact',
-    SECTION_TITLE_SUBTITLE: 'shared.section-title-subtitle',
-  },
+export const ERROR_MESSAGES = {
+  // API Errors
+  FAILED_TO_FETCH_HOME: 'Failed to fetch home page',
+  FAILED_TO_FETCH_ABOUT: 'Failed to fetch about page',
+  FAILED_TO_FETCH_CONTACT: 'Failed to fetch contact page',
+  FAILED_TO_FETCH_SERVICE: 'Failed to fetch service page',
+  FAILED_TO_FETCH_WORK: 'Failed to fetch work page',
+  FAILED_TO_FETCH_PROCESS: 'Failed to fetch process page',
+  FAILED_TO_FETCH_GLOBAL: 'Failed to fetch global settings',
+
+  // Form Errors
+  FAILED_TO_SEND_MESSAGE:
+    'Failed to send your message. Please try again later.',
+  SOMETHING_WENT_WRONG: 'Something went wrong. Please try again.',
+
+  // Validation Errors
+  FULL_NAME_REQUIRED: 'Full name is required',
+  EMAIL_REQUIRED: 'Email is required',
+  MESSAGE_REQUIRED: 'Message is required',
+  INVALID_EMAIL: 'Please enter a valid email address',
+  NAME_TOO_SHORT: 'Name must be at least 2 characters',
+  MESSAGE_TOO_SHORT: 'Message must be at least 10 characters',
 } as const;
 
 /**
- * File Extensions
+ * Loading Messages
  */
-export const EXTENSIONS = {
-  TSX: '.tsx',
-  TS: '.ts',
-  JS: '.js',
-  JSX: '.jsx',
-  CSS: '.css',
-  JSON: '.json',
-  MD: '.md',
-  SVG: '.svg',
-  PNG: '.png',
-  JPG: '.jpg',
-  JPEG: '.jpeg',
-  WEBP: '.webp',
-} as const;
-
-/**
- * Build Full Paths
- */
-export const PATHS = {
-  // Source paths
-  SRC: `./${FOLDERS.SRC}`,
-  COMPONENTS: `./${FOLDERS.SRC}/${FOLDERS.COMPONENTS}`,
-  COMPONENTS_UI: `./${FOLDERS.SRC}/${FOLDERS.COMPONENTS}/${FOLDERS.UI}`,
-  COMPONENTS_LAYOUT: `./${FOLDERS.SRC}/${FOLDERS.COMPONENTS}/${FOLDERS.LAYOUT}`,
-  SERVICES: `./${FOLDERS.SRC}/${FOLDERS.SERVICES}`,
-  HOOKS: `./${FOLDERS.SRC}/${FOLDERS.HOOKS}`,
-  TYPES: `./${FOLDERS.SRC}/${FOLDERS.TYPES}`,
-  UTILS: `./${FOLDERS.SRC}/${FOLDERS.UTILS}`,
-  LIB: `./${FOLDERS.SRC}/${FOLDERS.LIB}`,
-
-  // App paths
-  APP: `./${FOLDERS.SRC}/${FOLDERS.APP}`,
-  APP_API: `./${FOLDERS.SRC}/${FOLDERS.APP}/${FOLDERS.API}`,
-  APP_CONTACT: `./${FOLDERS.SRC}/${FOLDERS.APP}/${FOLDERS.CONTACT}`,
-
-  // Public paths
-  PUBLIC: `./${FOLDERS.PUBLIC}`,
-  PUBLIC_IMAGES: `./${FOLDERS.PUBLIC}/${FOLDERS.IMAGES}`,
+export const LOADING_MESSAGES = {
+  LOADING_HOME: 'Loading home page...',
+  LOADING_ABOUT: 'Loading about page...',
+  LOADING_CONTACT: 'Loading contact page...',
+  LOADING_SERVICE: 'Loading service page...',
+  LOADING_WORK: 'Loading work page...',
+  LOADING_PROCESS: 'Loading process page...',
+  LOADING_GLOBAL: 'Loading global settings...',
+  SENDING_MESSAGE: 'Sending...',
 } as const;
 
 // Type definitions for better TypeScript support
-export type FolderName = keyof typeof FOLDERS;
-export type FileName = keyof typeof FILES;
 export type ApiEndpoint = keyof typeof API_ENDPOINTS;
 export type RoutePath = keyof typeof ROUTES;
-export type CollectionName = keyof typeof COLLECTION_NAMES;
-export type Extension = keyof typeof EXTENSIONS;
+export type ButtonLabel = keyof typeof BUTTON_LABELS;
+export type ErrorMessage = keyof typeof ERROR_MESSAGES;
+export type LoadingMessage = keyof typeof LOADING_MESSAGES;
