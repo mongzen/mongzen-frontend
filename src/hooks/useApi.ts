@@ -1,6 +1,7 @@
 import { apiService } from '@/services/api';
 import {
   AboutPage,
+  ContactPage,
   GlobalSettings,
   HomePage,
   ProcessPage,
@@ -282,6 +283,52 @@ export function useGlobal(): UseApiState<GlobalSettings> {
     };
 
     fetchGlobal();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return state;
+}
+
+export function useContactPage(): UseApiState<ContactPage> {
+  const [state, setState] = useState<UseApiState<ContactPage>>({
+    data: null,
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchContactPage = async () => {
+      try {
+        setState((prev) => ({ ...prev, loading: true, error: null }));
+        const response = await apiService.getContactPage();
+
+        if (isMounted) {
+          setState({
+            data: response.data,
+            loading: false,
+            error: null,
+          });
+        }
+      } catch (error) {
+        if (isMounted) {
+          setState({
+            data: null,
+            loading: false,
+            error:
+              error instanceof Error
+                ? error.message
+                : 'Failed to fetch contact page',
+          });
+        }
+      }
+    };
+
+    fetchContactPage();
 
     return () => {
       isMounted = false;

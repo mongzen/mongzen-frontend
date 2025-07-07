@@ -1,6 +1,8 @@
+import { API_ENDPOINTS, DEFAULTS, ENV_VARS } from '@/constants';
 import {
   AboutPage,
   ContactForm,
+  ContactPage,
   GlobalSettings,
   HomePage,
   ProcessPage,
@@ -49,11 +51,13 @@ class ApiService {
 
   constructor() {
     this.api = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337/api',
+      baseURL:
+        process.env[ENV_VARS.API_URL] ||
+        `${DEFAULTS.API_URL}${DEFAULTS.STRAPI_API_BASE}`,
       headers: {
         'Content-Type': 'application/json',
       },
-      timeout: 10000, // 10 seconds timeout
+      timeout: DEFAULTS.TIMEOUT,
     });
 
     this.setupInterceptors();
@@ -116,17 +120,19 @@ class ApiService {
   }
 
   async getHomePage(): Promise<StrapiResponse<HomePage>> {
-    return this.get('/api/homepage?populate=*');
+    return this.get(`${API_ENDPOINTS.HOMEPAGE}${API_ENDPOINTS.POPULATE_ALL}`);
   }
 
   async getContactForm(): Promise<StrapiResponse<ContactForm>> {
-    return this.get('/api/contact-form?populate=*');
+    return this.get(
+      `${API_ENDPOINTS.CONTACT_FORM}${API_ENDPOINTS.POPULATE_ALL}`
+    );
   }
 
   async submitContactForm(data: ContactFormData): Promise<ContactFormResponse> {
     try {
       // Use the Next.js API route instead of calling Strapi directly
-      const response = await fetch('/api/contact', {
+      const response = await fetch(API_ENDPOINTS.CONTACT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,26 +171,31 @@ class ApiService {
 
   // Services
   async getServicePage(): Promise<StrapiResponse<ServicePage>> {
-    return this.get('/api/service?populate=*');
+    return this.get(`${API_ENDPOINTS.SERVICE}${API_ENDPOINTS.POPULATE_ALL}`);
   }
 
   // Process
   async getProcessPage(): Promise<StrapiResponse<ProcessPage>> {
-    return this.get('/api/process?populate=*');
+    return this.get(`${API_ENDPOINTS.PROCESS}${API_ENDPOINTS.POPULATE_ALL}`);
   }
 
   // About
   async getAboutPage(): Promise<StrapiResponse<AboutPage>> {
-    return this.get('/api/about?populate=*');
+    return this.get(`${API_ENDPOINTS.ABOUT}${API_ENDPOINTS.POPULATE_ALL}`);
   }
 
   // Works
   async getWorkPage(): Promise<StrapiResponse<WorkPage>> {
-    return this.get('/api/work?populate=*');
+    return this.get(`${API_ENDPOINTS.WORK}${API_ENDPOINTS.POPULATE_ALL}`);
+  }
+
+  // Contact
+  async getContactPage(): Promise<StrapiResponse<ContactPage>> {
+    return this.get(`${API_ENDPOINTS.CONTACT}${API_ENDPOINTS.POPULATE_ALL}`);
   }
 
   async getGlobal(): Promise<StrapiResponse<GlobalSettings>> {
-    return this.get('/api/global?populate=*');
+    return this.get(`${API_ENDPOINTS.GLOBAL}${API_ENDPOINTS.POPULATE_ALL}`);
   }
 }
 

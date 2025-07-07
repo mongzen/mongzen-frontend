@@ -389,3 +389,85 @@ export interface AboutPage {
 
   localizations: string[];
 }
+
+/**
+ * Contact page specific components
+ */
+
+/**
+ * Button Contact component (shared.button-contact)
+ */
+export interface ButtonContact {
+  id: number;
+  title: string;
+  icon?: UploadFile;
+  link: string;
+}
+
+/**
+ * Open Hours component (shared.open-hours)
+ */
+export interface OpenHours {
+  id: number;
+  title: string;
+  subtitle: string;
+}
+
+/**
+ * Stay Connect component (shared.stay-connect)
+ */
+export interface StayConnect {
+  id: number;
+  title: string;
+  Social: ButtonContact[];
+}
+
+/**
+ * Contact page structure
+ */
+export interface ContactPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+
+  // SectionBanner component
+  SectionBanner: SectionTitleSubtitle;
+
+  // Contact List (repeatable ButtonContact components)
+  contactList: ButtonContact[];
+
+  // Contact Open Hours
+  contactOpenHours: OpenHours;
+
+  // Contact Stay Connect
+  contactStayConnect: StayConnect;
+
+  // Contact FAQ
+  contactFaq: SectionTitleSubtitle;
+
+  localizations: string[];
+}
+
+/**
+ * Updated Global settings structure with contact page data
+ */
+export interface UpdatedGlobalSettings {
+  id: number;
+  documentId: string;
+  siteName: string;
+  siteDescription: string;
+  favicon?: UploadFile;
+  defaultSeo: Seo;
+  ProjectCTA: SectionTitleSubtitle;
+  footerCTA?: FooterCTA;
+  contactForm: ContactForm;
+  contact?: ContactPage;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+  localizations: string[];
+}
