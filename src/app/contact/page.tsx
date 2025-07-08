@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 import {
   ButtonContact,
   ContactSection,
@@ -15,9 +18,9 @@ import {
   DEFAULTS,
   ENV_VARS,
   ERROR_MESSAGES,
-  FALLBACK_CONTACT_DATA,
   LOADING_MESSAGES,
 } from '@/constants';
+import { FALLBACK_CONTACT_DATA } from '@/constants/fallback';
 import { useContactPage, useGlobal } from '@/hooks/useApi';
 import { formatImageUrl, isUnoptimizedImageUrl } from '@/utils/imageUtils';
 import Image from 'next/image';
