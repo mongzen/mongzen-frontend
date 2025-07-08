@@ -88,7 +88,7 @@ export default function Process() {
             </div>
 
             {/* Service Categories */}
-            {processData.processSection.categories?.map((category: any) => (
+            {processData.processSection.categories?.map((category) => (
               <div key={category.id} className="border-b border-dark-15">
                 {/* Category Header */}
                 <div className="py-8 sm:py-10 px-4 sm:px-6 lg:px-8 border-b border-dark-15">
@@ -104,29 +104,27 @@ export default function Process() {
 
                 {/* Services Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                  {category.services?.map(
-                    (service: any, serviceIndex: number) => (
-                      <ServiceCard
-                        key={service.id}
-                        icon={service.icon}
-                        title={service.title}
-                        description={service.description}
-                        buttonText={service.linkText}
-                        buttonHref={service.linkUrl}
-                        className={clsx(
-                          'border-dark-15',
-                          // Mobile: all cards have bottom border except last
-                          serviceIndex < category.services.length - 1 &&
-                            'border-b md:border-b-0',
-                          // Tablet: right card has left border
-                          serviceIndex % 2 === 1 && 'md:border-l lg:border-l-0',
-                          // Desktop: middle and third cards have left border
-                          serviceIndex % 3 === 1 && 'lg:border-l',
-                          serviceIndex % 3 === 2 && 'lg:border-l'
-                        )}
-                      />
-                    )
-                  )}
+                  {category.services?.map((service, serviceIndex: number) => (
+                    <ServiceCard
+                      key={service.id}
+                      icon={service.icon}
+                      title={service.title}
+                      description={service.description}
+                      buttonText={service.linkText}
+                      buttonHref={service.linkUrl}
+                      className={clsx(
+                        'border-dark-15',
+                        // Mobile: all cards have bottom border except last
+                        serviceIndex < category.services.length - 1 &&
+                          'border-b md:border-b-0',
+                        // Tablet: right card has left border
+                        serviceIndex % 2 === 1 && 'md:border-l lg:border-l-0',
+                        // Desktop: middle and third cards have left border
+                        serviceIndex % 3 === 1 && 'lg:border-l',
+                        serviceIndex % 3 === 2 && 'lg:border-l'
+                      )}
+                    />
+                  ))}
                 </div>
               </div>
             ))}
@@ -140,24 +138,22 @@ export default function Process() {
           <div className="mx-auto">
             {/* Process Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 border-b border-dark-15">
-              {processData.processList.map(
-                (process: any, processIndex: number) => (
-                  <ProcessCard
-                    key={process.id}
-                    title={process.title}
-                    name={process.name}
-                    description={process.description}
-                    className={clsx(
-                      'border-dark-15',
-                      // Mobile: all cards have bottom border except last
-                      processIndex < processData.processList.length - 1 &&
-                        'border-b md:border-b-0',
-                      // Tablet: right card has left border
-                      processIndex % 2 === 1 && 'md:border-l'
-                    )}
-                  />
-                )
-              )}
+              {processData.processList.map((process, processIndex: number) => (
+                <ProcessCard
+                  key={process.id}
+                  title={process.title}
+                  name={process.name}
+                  description={process.description}
+                  className={clsx(
+                    'border-dark-15',
+                    // Mobile: all cards have bottom border except last
+                    processIndex < processData.processList.length - 1 &&
+                      'border-b md:border-b-0',
+                    // Tablet: right card has left border
+                    processIndex % 2 === 1 && 'md:border-l'
+                  )}
+                />
+              ))}
             </div>
           </div>
         </section>

@@ -1,6 +1,7 @@
 'use client';
 
-import { Social } from '@/components/ui';
+import { StayConnectLinks } from '@/components/ui';
+import { useGlobal } from '@/hooks/useApi';
 import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -9,6 +10,7 @@ import { usePathname } from 'next/navigation';
 
 export function Footer() {
   const pathname = usePathname();
+  const { data: globalData } = useGlobal();
 
   const navigation = [
     { name: 'Home', href: '/', icon: 'HomeIcon' },
@@ -83,12 +85,10 @@ export function Footer() {
 
         {/* Social Links */}
         <div className="flex items-center justify-center lg:justify-end">
-          <Social size="sm" showLabel={false} className="sm:hidden" />
-          <Social
-            size="md"
-            showLabel={true}
-            className="hidden sm:flex lg:flex"
-          />
+          {/* Stay Connected */}
+          {globalData?.stayConnect && (
+            <StayConnectLinks data={globalData?.stayConnect} />
+          )}
         </div>
       </div>
 

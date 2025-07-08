@@ -10,6 +10,7 @@ import {
   TYPOGRAPHY,
 } from '@/constants';
 import { ButtonContact as ButtonContactType } from '@/types';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
 
@@ -43,8 +44,6 @@ export function ButtonContact({ data, className }: ButtonContactProps) {
         COMPONENT_STYLES.CARD_BASE,
         COMPONENT_STYLES.CARD_HOVER,
         STATES.GROUP,
-        STATES.HOVER_BORDER_PRIMARY,
-        STATES.HOVER_SHADOW,
         TRANSITIONS.ALL,
         TRANSITIONS.DURATION_200,
         'flex items-center gap-4 text-left w-full',
@@ -65,7 +64,7 @@ export function ButtonContact({ data, className }: ButtonContactProps) {
           )}
         >
           <Image
-            src={icon.url}
+            src={formatImageUrl(icon.url)}
             alt={icon.alternativeText || title}
             width={24}
             height={24}

@@ -2,9 +2,10 @@
  * Global Settings Types
  */
 
-import { ContactPage } from './contact';
-import { Seo, UploadFile } from './media';
-import { BasePage, ContactForm, SectionTitleSubtitle } from './shared';
+import { FAQItem, OpenHours, StayConnect } from '@/types/components';
+import { ContactPage } from '@/types/contact';
+import { Seo, UploadFile } from '@/types/media';
+import { BasePage, ContactForm, SectionTitleSubtitle } from '@/types/shared';
 
 /**
  * Footer CTA section structure
@@ -30,6 +31,11 @@ export interface GlobalSettings extends BasePage {
   ProjectCTA: SectionTitleSubtitle;
   footerCTA?: FooterCTA;
   contactForm: ContactForm;
+  openHours?: OpenHours;
+  stayConnect?: StayConnect;
+  contactFaq?: SectionTitleSubtitle;
+  faqList: FAQItem[];
+  faqBanner?: SectionTitleSubtitle;
 }
 
 /**
