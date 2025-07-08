@@ -11,7 +11,7 @@ export {
   SPACING,
   STATES,
   TRANSITIONS,
-  TYPOGRAPHY
+  TYPOGRAPHY,
 } from './styles';
 
 /**

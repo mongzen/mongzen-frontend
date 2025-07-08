@@ -70,7 +70,7 @@ export const CardIcon: React.FC<CardIconProps> = ({
     <div
       className={clsx(
         sizeClasses[size],
-        'rounded-[8px] lg:rounded-[10px] flex items-center justify-center border shrink-0',
+        'rounded-[8px] lg:rounded-[10px] flex items-center justify-center border shrink-0 p-4',
         className
       )}
       style={{
@@ -84,7 +84,7 @@ export const CardIcon: React.FC<CardIconProps> = ({
         alt={icon.alternativeText || icon.name || 'Icon'}
         width={imageSizes[size].width}
         height={imageSizes[size].height}
-        className="object-contain"
+        className="object-contain aspect-square"
         priority
       />
     </div>
@@ -191,9 +191,11 @@ export const BaseCard: React.FC<
   external = false,
   children,
 }) => {
+  const shouldNavigate = (href && !onClick) || onClick;
+
   const cardClasses = clsx(
     'p-6 sm:p-8 md:p-10 lg:p-[50px] flex flex-col',
-    onClick || href
+    shouldNavigate
       ? 'cursor-pointer hover:bg-dark-5 transition-colors duration-300'
       : '',
     className
@@ -213,24 +215,40 @@ export const BaseCard: React.FC<
 
   const cardStyle = aspectRatio ? { aspectRatio } : {};
 
-  if (href && !onClick) {
-    const Component = external ? 'div' : Link;
-    const linkProps = external
-      ? { href, target: '_blank', rel: 'noopener noreferrer' }
-      : { href };
+  // Always use div to avoid nested anchor issues
+  // Handle navigation through onClick instead of wrapping in Link
 
-    return (
-      <Component {...linkProps} className={cardClasses} style={cardStyle}>
-        {children}
-      </Component>
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Prevent navigation if the click is on an interactive element
+    const target = e.target as HTMLElement;
+    const isInteractive = target.closest(
+      'a, button, [role="button"], input, select, textarea'
     );
-  }
+
+    if (isInteractive) {
+      return;
+    }
+
+    handleClick();
+  };
 
   return (
     <div
-      onClick={onClick ? handleClick : undefined}
+      onClick={shouldNavigate ? handleCardClick : undefined}
       className={cardClasses}
       style={cardStyle}
+      role={shouldNavigate ? 'button' : undefined}
+      tabIndex={shouldNavigate ? 0 : undefined}
+      onKeyDown={
+        shouldNavigate
+          ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleCardClick(e as any);
+              }
+            }
+          : undefined
+      }
     >
       {children}
     </div>
