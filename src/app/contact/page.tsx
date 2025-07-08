@@ -15,11 +15,10 @@ import {
   DEFAULTS,
   ENV_VARS,
   ERROR_MESSAGES,
+  FALLBACK_CONTACT_DATA,
   LOADING_MESSAGES,
-  ROUTES,
 } from '@/constants';
 import { useContactPage, useGlobal } from '@/hooks/useApi';
-import { ContactPage as ContactPageType } from '@/types';
 import { formatImageUrl } from '@/utils/imageUtils';
 
 export default function ContactPage() {
@@ -38,83 +37,8 @@ export default function ContactPage() {
   const isLoading = contactLoading || globalLoading;
   const error = contactError || globalError;
 
-  // Fallback data for development/demonstration
-  const fallbackContactData: ContactPageType = {
-    id: 1,
-    documentId: 'contact',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    publishedAt: new Date().toISOString(),
-    locale: 'en',
-    localizations: [],
-    SectionBanner: {
-      id: 1,
-      title: 'Get in Touch',
-      subtitle:
-        "Ready to start your project? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
-      background: undefined,
-      icon: undefined,
-      button_text: BUTTON_LABELS.VIEW_WORK,
-      button_link: ROUTES.WORKS,
-    },
-    contactList: [
-      {
-        id: 1,
-        title: 'hello@digitalagency.com',
-        icon: undefined,
-        link: 'mailto:hello@digitalagency.com',
-      },
-      {
-        id: 2,
-        title: '+1 (555) 123-4567',
-        icon: undefined,
-        link: 'tel:+15551234567',
-      },
-      {
-        id: 3,
-        title: '123 Digital Street, Tech City, TC 12345',
-        icon: undefined,
-        link: 'https://maps.google.com',
-      },
-    ],
-    contactOpenHours: {
-      id: 1,
-      title: 'Business Hours',
-      subtitle:
-        'Monday - Friday: 9:00 AM - 6:00 PM\nSaturday: 10:00 AM - 4:00 PM\nSunday: Closed\n\nWe typically respond to inquiries within 24 hours during business days.',
-    },
-    contactStayConnect: {
-      id: 1,
-      title: 'Stay Connected',
-      Social: [
-        {
-          id: 1,
-          title: 'Follow us on LinkedIn',
-          icon: undefined,
-          link: 'https://linkedin.com',
-        },
-        {
-          id: 2,
-          title: 'Follow us on Twitter',
-          icon: undefined,
-          link: 'https://twitter.com',
-        },
-      ],
-    },
-    contactFaq: {
-      id: 1,
-      title: 'Frequently Asked Questions',
-      subtitle:
-        'Have questions? Check out our comprehensive FAQ section for quick answers to common inquiries.',
-      background: undefined,
-      icon: undefined,
-      button_text: BUTTON_LABELS.VIEW_FAQ,
-      button_link: ROUTES.FAQ,
-    },
-  };
-
   // Use fallback data if API data is not available
-  const effectiveContactData = contactData || fallbackContactData;
+  const effectiveContactData = contactData || FALLBACK_CONTACT_DATA;
 
   if (isLoading) {
     return (

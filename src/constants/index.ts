@@ -3,6 +3,9 @@
  * Only includes constants that are actually used in the codebase
  */
 
+// Re-export fallback data constants
+export * from './fallback';
+
 // Re-export used constants from styles
 export {
   BACKGROUNDS,

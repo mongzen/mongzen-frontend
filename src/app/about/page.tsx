@@ -69,7 +69,7 @@ export default function About() {
       {/* Intro Section */}
       {aboutData?.intro && (
         <section className="border-x-0 sm:border-x border-dark-15">
-          <div className="mx-auto border border-dark-15">
+          <div className="mx-auto">
             <div className="flex flex-col lg:flex-row px-4 sm:px-8 lg:px-[150px] py-12 sm:py-16 lg:py-[100px] items-center gap-8 lg:gap-[100px]">
               {/* Section Header */}
               <div className="flex flex-col justify-center flex-1">

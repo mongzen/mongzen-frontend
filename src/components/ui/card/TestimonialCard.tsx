@@ -1,9 +1,9 @@
 'use client';
 
 import { Icon, PortableTextBlock } from '@/types';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { formatImageUrl } from '../../../utils/imageUtils';
 
 interface TestimonialCardProps {
   icon?: Icon;
