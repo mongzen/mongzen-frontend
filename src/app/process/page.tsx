@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 import {
   ContactSection,
   LoadingSpinner,
@@ -104,7 +107,7 @@ export default function Process() {
 
                 {/* Services Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                  {category.services?.map((service, serviceIndex) => (
+                  {category.services?.map((service, serviceIndex: number) => (
                     <ServiceCard
                       key={service.id}
                       icon={service.icon}
@@ -138,7 +141,7 @@ export default function Process() {
           <div className="mx-auto">
             {/* Process Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 border-b border-dark-15">
-              {processData.processList.map((process, processIndex) => (
+              {processData.processList.map((process, processIndex: number) => (
                 <ProcessCard
                   key={process.id}
                   title={process.title}

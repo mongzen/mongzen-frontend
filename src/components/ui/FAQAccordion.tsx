@@ -1,6 +1,6 @@
 'use client';
 
-import { FAQItem } from '@/types/api';
+import { FAQItem } from '@/types';
 import clsx from 'clsx';
 import FAQAccordionItemCard from './card/FAQAccordionItemCard';
 

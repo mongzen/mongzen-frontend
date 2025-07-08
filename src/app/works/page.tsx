@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 import {
   LoadingSpinner,
   PageHeader,
@@ -87,7 +90,7 @@ export default function Works() {
 
             {/* Works Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 border-b border-dark-15">
-              {workData.workList.map((work, workIndex) => (
+              {workData.workList.map((work, workIndex: number) => (
                 <WorkCard
                   key={work.id}
                   title={work.title}

@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 import {
   ButtonBlur,
   ContactSection,
@@ -128,7 +131,7 @@ export default function Home() {
             backgroundImage={formatImageUrl(homeData?.servicesBanner.url)}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-            {homeData?.services.map((service, index) => (
+            {homeData?.services.map((service, index: number) => (
               <ServiceCard
                 key={service.id}
                 title={service.title}
@@ -166,7 +169,7 @@ export default function Home() {
             backgroundImage={formatImageUrl(homeData?.whyChooseBanner?.url)}
           />
           <div className="grid grid-cols-1 md:grid-cols-2">
-            {homeData?.whyChooseFeaturesList.map((service, index) => (
+            {homeData?.whyChooseFeaturesList.map((service, index: number) => (
               <WhyChooseCard
                 key={service.id}
                 title={service.title}
@@ -201,7 +204,7 @@ export default function Home() {
             backgroundImage={formatImageUrl(homeData?.testimonialsBanner?.url)}
           />
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            {homeData?.testimonialsList.map((testimonial, index) => (
+            {homeData?.testimonialsList.map((testimonial, index: number) => (
               <TestimonialCard
                 key={testimonial.id}
                 title={testimonial.quote}
