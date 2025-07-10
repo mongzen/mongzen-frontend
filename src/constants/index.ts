@@ -61,11 +61,33 @@ export const ENV_VARS = {
  * Default Values
  */
 export const DEFAULTS = {
-  API_URL: 'http://localhost:1337',
+  API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337',
   STRAPI_API_BASE: '/api',
   TIMEOUT: 10000, // 10 seconds
   PORT: 3000,
   BACKUP_PORT: 3001,
+} as const;
+
+/**
+ * API Configuration
+ */
+export const API_CONFIG = {
+  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337',
+  STRAPI_API_BASE: '/api',
+  TIMEOUT: 10000,
+
+  // Build full API endpoint
+  getEndpoint: (path: string) => {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
+    const apiBase = '/api';
+    return `${baseUrl}${apiBase}${path}`;
+  },
+
+  // Get media URL
+  getMediaUrl: (path: string) => {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337';
+    return `${baseUrl}${path}`;
+  },
 } as const;
 
 /**

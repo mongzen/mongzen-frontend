@@ -15,6 +15,7 @@ import {
   WhyChooseCard,
   WipeButton,
 } from '@/components/ui';
+import { DEFAULTS } from '@/constants';
 import { useGlobal, useHomePage } from '@/hooks/useApi';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
@@ -41,7 +42,7 @@ export default function Home() {
           <p className="text-neutral-20 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
-              {process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337'}
+              {process.env.NEXT_PUBLIC_API_URL || DEFAULTS.API_URL}
             </code>
           </p>
           <WipeButton

@@ -16,7 +16,6 @@ import {
 import {
   BUTTON_LABELS,
   DEFAULTS,
-  ENV_VARS,
   ERROR_MESSAGES,
   LOADING_MESSAGES,
 } from '@/constants';
@@ -66,7 +65,7 @@ export default function ContactPage() {
           <p className="text-neutral-20 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
-              {process.env[ENV_VARS.API_URL] || DEFAULTS.API_URL}
+              {process.env.NEXT_PUBLIC_API_URL || DEFAULTS.API_URL}
             </code>
           </p>
           <WipeButton

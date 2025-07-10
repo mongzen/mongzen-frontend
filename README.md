@@ -81,8 +81,7 @@ src/
    Edit `.env.local` with your configuration:
 
    ```env
-   NEXT_PUBLIC_STRAPI_URL=http://localhost:1337
-   NEXT_PUBLIC_API_URL=http://localhost:1337/api
+   NEXT_PUBLIC_API_URL=http://localhost:1337
    NODE_ENV=development
    ```
 
@@ -168,7 +167,6 @@ For the CI/CD pipeline to work, add these secrets to your GitHub repository:
 VERCEL_TOKEN=your_vercel_token
 VERCEL_ORG_ID=your_vercel_org_id
 VERCEL_PROJECT_ID=your_vercel_project_id
-NEXT_PUBLIC_STRAPI_URL=your_strapi_url
 NEXT_PUBLIC_API_URL=your_strapi_api_url
 ```
 

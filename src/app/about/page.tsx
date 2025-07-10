@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 import {
   LoadingSpinner,
   PageHeader,
@@ -7,6 +10,7 @@ import {
   ServiceCard,
   WipeButton,
 } from '@/components/ui';
+import { DEFAULTS } from '@/constants';
 import { useAboutPage, useGlobal } from '@/hooks/useApi';
 import { formatImageUrl, isUnoptimizedImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
@@ -34,7 +38,7 @@ export default function About() {
           <p className="text-neutral-20 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
-              {process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337'}
+              {process.env.NEXT_PUBLIC_API_URL || DEFAULTS.API_URL}
             </code>
           </p>
           <WipeButton
