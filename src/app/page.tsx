@@ -246,7 +246,7 @@ export default function Home() {
           <PageHeader
             title={
               homeData?.ctaSection.title ||
-              'Thank you for your Interest in Digital Agency.'
+              'Thank you for your Interest in Mongzen.'
             }
             subtitle={homeData?.ctaSection.subtitle}
             icon={formatImageUrl(homeData?.ctaSection.icon?.url)}

@@ -4,24 +4,24 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Digital Agency - Transform Your Business',
+  title: 'Mongzen - Transform Your Business',
   description:
     'We create digital experiences that help businesses grow and connect with their audience in meaningful ways.',
   keywords: [
-    'digital agency',
+    'mongzen',
     'web development',
     'mobile apps',
     'UI/UX design',
     'digital marketing',
   ],
-  authors: [{ name: 'Digital Agency Team' }],
+  authors: [{ name: 'Mongzen Team' }],
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
     apple: '/favicon.svg',
   },
   openGraph: {
-    title: 'Digital Agency - Transform Your Business',
+    title: 'Mongzen - Transform Your Business',
     description:
       'We create digital experiences that help businesses grow and connect with their audience in meaningful ways.',
     type: 'website',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Digital Agency - Transform Your Business',
+    title: 'Mongzen - Transform Your Business',
     description:
       'We create digital experiences that help businesses grow and connect with their audience in meaningful ways.',
   },

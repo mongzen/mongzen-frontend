@@ -30,7 +30,7 @@ export function Header() {
               <Link href={'/'}>
                 <Image
                   src="/logo.svg"
-                  alt="Digital Agency Logo"
+                  alt="Mongzen Logo"
                   width={200}
                   height={56}
                   className="w-[200px] h-[56px]"

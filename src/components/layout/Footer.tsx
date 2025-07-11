@@ -32,7 +32,7 @@ export function Footer() {
           <Link href={'/'} className="block">
             <Image
               src="/logo.svg"
-              alt="Digital Agency Logo"
+              alt="Mongzen Logo"
               width={200}
               height={56}
               className="w-[150px] h-[42px] sm:w-[180px] sm:h-[50px] lg:w-[200px] lg:h-[56px]"

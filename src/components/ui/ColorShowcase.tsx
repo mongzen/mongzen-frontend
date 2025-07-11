@@ -225,7 +225,7 @@ const ColorShowcase: React.FC = () => {
           className="text-4xl font-bold mb-4"
           style={{ color: 'var(--color-neutral-70)' }}
         >
-          Digital Agency Color Palette
+          Mongzen Color Palette
         </h2>
         <p className="text-lg" style={{ color: 'var(--color-neutral-40)' }}>
           Electric, vibrant colors for modern digital experiences

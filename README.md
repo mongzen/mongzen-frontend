@@ -1,6 +1,6 @@
-# Digital Agency Frontend
+# Mongzen Frontend
 
-A modern Next.js frontend application for a digital agency, designed to work with a Strapi backend API.
+A modern Next.js frontend application for Mongzen, designed to work with a Strapi backend API.
 
 ## Features
 
