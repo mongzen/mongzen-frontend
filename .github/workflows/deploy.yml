@@ -112,27 +112,6 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy Project Artifacts to Vercel
-        id: deploy-prod
-        run: |
-          DEPLOYMENT_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
-          echo "deployment_url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
-
-      - name: Assign Custom Domain (if configured)
-        run: |
-          if [ ! -z "${{ secrets.CUSTOM_DOMAIN }}" ]; then
-            vercel domains add ${{ secrets.CUSTOM_DOMAIN }} --token=${{ secrets.VERCEL_TOKEN }}
-          fi
-
       - name: Generate Version Number
         id: version
         run: |
@@ -184,23 +163,50 @@ jobs:
           echo "🚀 New version: $VERSION"
           echo "📝 Commit message: $COMMIT_MSG"
 
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        id: deploy-prod
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "deployment_url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+
+      - name: Assign Custom Domain (if configured)
+        run: |
+          if [ ! -z "${{ secrets.CUSTOM_DOMAIN }}" ]; then
+            vercel domains add ${{ secrets.CUSTOM_DOMAIN }} --token=${{ secrets.VERCEL_TOKEN }}
+          fi
+
       - name: Create GitHub Release
         if: success()
         uses: actions/github-script@v7
         with:
           script: |
             // Get commit messages since last release
-            const { data: commits } = await github.rest.repos.compareCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              base: '${{ steps.version.outputs.latest_version }}' || 'HEAD~10',
-              head: context.sha
-            });
+            let changelog = '';
+            try {
+              const { data: commits } = await github.rest.repos.compareCommits({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                base: '${{ steps.version.outputs.latest_version }}' || 'HEAD~10',
+                head: context.sha
+              });
 
-            // Generate changelog
-            const changelog = commits.commits.map(commit => 
-              `- ${commit.commit.message.split('\n')[0]} (${commit.sha.slice(0,7)})`
-            ).join('\n');
+              // Generate changelog
+              changelog = commits.commits.map(commit => 
+                `- ${commit.commit.message.split('\n')[0]} (${commit.sha.slice(0,7)})`
+              ).join('\n');
+            } catch (error) {
+              console.log('Could not generate changelog:', error.message);
+              changelog = '- Initial release or changelog generation failed';
+            }
 
             // Create release body
             const releaseBody = `🚀 **Production Release v${{ steps.version.outputs.version }}**
@@ -236,6 +242,14 @@ jobs:
             console.log(`✅ Release created: ${release.html_url}`);
             console.log(`📦 Version: ${{ steps.version.outputs.version }}`);
             console.log(`🏷️ Tag: ${{ steps.version.outputs.tag_name }}`);
+
+      - name: Notify Deployment Success
+        if: success()
+        run: |
+          echo "🎉 Production deployment completed successfully!"
+          echo "🌐 Production URL: ${{ steps.deploy-prod.outputs.deployment_url }}"
+          echo "🏷️ Version: ${{ steps.version.outputs.tag_name }}"
+          echo "📦 Release: https://github.com/${{ github.repository }}/releases/tag/${{ steps.version.outputs.tag_name }}"
 
   # Required status check job that must pass for PR merge
   check-requirements:
