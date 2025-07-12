@@ -133,21 +133,49 @@ jobs:
             vercel domains add ${{ secrets.CUSTOM_DOMAIN }} --token=${{ secrets.VERCEL_TOKEN }}
           fi
 
-      - name: Create GitHub Release
-        if: success()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { data: release } = await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: `v${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${context.sha.slice(0,7)}`,
-              name: `Production Release - ${new Date().toISOString().slice(0,10)}`,
-              body: `🚀 **Production deployment successful!**\n\n✅ Deployment URL: ${{ steps.deploy-prod.outputs.deployment_url }}\n\n📦 Commit: ${context.sha}`,
-              draft: false,
-              prerelease: false
-            });
-            console.log(`Release created: ${release.html_url}`);
+      - name: Auto-increment patch version and create GitHub Release
+  if: success()
+  uses: actions/github-script@v7
+  with:
+    script: |
+      // ดึง tag ล่าสุด
+      const { data: tags } = await github.rest.repos.listTags({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        per_page: 1
+      });
+
+      let latestTag = tags.length > 0 ? tags[0].name : 'v0.0.0';
+      console.log(`Latest tag: ${latestTag}`);
+
+      // แปลง tag เป็นเลข version
+      const versionMatch = latestTag.match(/^v(\d+)\.(\d+)\.(\d+)$/);
+      let major = 0, minor = 0, patch = 0;
+
+      if (versionMatch) {
+        major = parseInt(versionMatch[1], 10);
+        minor = parseInt(versionMatch[2], 10);
+        patch = parseInt(versionMatch[3], 10);
+      }
+
+      // เพิ่ม patch version
+      patch += 1;
+
+      const newVersion = `v${major}.${minor}.${patch}`;
+      console.log(`New version: ${newVersion}`);
+
+      // สร้าง Release ใหม่
+      const { data: release } = await github.rest.repos.createRelease({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        tag_name: newVersion,
+        name: `Production Release ${newVersion}`,
+        body: `🚀 **Production deployment successful!**\n\n✅ Deployment URL: ${{ steps.deploy-prod.outputs.deployment_url }}\n\n📦 Commit: ${context.sha}`,
+        draft: false,
+        prerelease: false
+      });
+
+      console.log(`Release created: ${release.html_url}`);
 
   # Required status check job that must pass for PR merge
   check-requirements:
