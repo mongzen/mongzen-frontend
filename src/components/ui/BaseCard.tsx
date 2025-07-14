@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Base Card Component
  * A reusable card component that can be extended for different use cases

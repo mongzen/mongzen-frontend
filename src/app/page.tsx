@@ -230,12 +230,12 @@ export default function Home() {
       <section className="border-x-0 sm:border-x border-b border-dark-15">
         <div className="mx-auto">
           <PageHeader
-            title={homeData?.faqTitle || 'Frequently Asked Questions'}
-            subtitle={homeData?.faqSubtitle}
+            title={globalData?.faqBanner?.title || 'Frequently Asked Questions'}
+            subtitle={globalData?.faqBanner?.subtitle}
             backgroundImage={formatImageUrl(homeData?.faqBanner?.url)}
           />
-          {homeData?.faqItems && (
-            <FAQAccordion items={homeData.faqItems} maxItems={8} />
+          {globalData?.faqList && (
+            <FAQAccordion items={globalData?.faqList} maxItems={8} />
           )}
         </div>
       </section>
@@ -245,13 +245,13 @@ export default function Home() {
         <div className="mx-auto">
           <PageHeader
             title={
-              homeData?.ctaSection.title ||
+              globalData?.ProjectCTA.title ||
               'Thank you for your Interest in Mongzen.'
             }
-            subtitle={homeData?.ctaSection.subtitle}
-            icon={formatImageUrl(homeData?.ctaSection.icon?.url)}
+            subtitle={globalData?.ProjectCTA.subtitle}
+            icon={formatImageUrl(globalData?.ProjectCTA.icon?.url)}
             backgroundImage={formatImageUrl(
-              homeData?.ctaSection.ctaBanner?.url
+              globalData?.ProjectCTA.background?.url
             )}
             className="h-[400px] sm:h-[500px] lg:h-[597px]"
           >
@@ -268,7 +268,7 @@ export default function Home() {
                   }
                 }}
               >
-                Contact
+                {globalData?.ProjectCTA.button_text || 'Contact Us'}
               </WipeButton>
             </div>
           </PageHeader>

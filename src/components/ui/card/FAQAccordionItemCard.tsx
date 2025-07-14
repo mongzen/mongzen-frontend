@@ -1,5 +1,6 @@
 import { Icon } from '@/components/ui';
-import { FAQItem, PortableTextBlock } from '@/types';
+import PortableText from '@/components/ui/PortableText';
+import { FAQItem } from '@/types';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
@@ -8,39 +9,6 @@ interface FAQAccordionItemProps {
   isLastInColumn?: boolean;
   className?: string;
 }
-
-const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
-  return (
-    <div className="flex flex-col items-start gap-4">
-      {value.map((block, index) => {
-        if (block.type === 'heading') {
-          return (
-            <h3
-              key={index}
-              className={clsx(
-                'text-primary-80 text-[28px] font-medium leading-[150%]',
-                `text-${block.level}`
-              )}
-            >
-              {block.children.map((child, childIndex) => (
-                <span key={childIndex}>{child.text}</span>
-              ))}
-            </h3>
-          );
-        } else if (block.type === 'paragraph') {
-          return (
-            <p key={index}>
-              {block.children.map((child, childIndex) => (
-                <span key={childIndex}>{child.text}</span>
-              ))}
-            </p>
-          );
-        }
-        return null;
-      })}
-    </div>
-  );
-};
 
 const FAQAccordionItemCard: React.FC<FAQAccordionItemProps> = ({
   faq,
@@ -147,7 +115,7 @@ const FAQAccordionItemCard: React.FC<FAQAccordionItemProps> = ({
               ref={contentRef}
               className={clsx('transition-all duration-300')}
             >
-              <p
+              <div
                 className={clsx(
                   'text-xs sm:text-sm lg:text-base leading-relaxed transition-all duration-300',
                   isOpen
@@ -159,7 +127,7 @@ const FAQAccordionItemCard: React.FC<FAQAccordionItemProps> = ({
                 {faq.answerContent && faq.answerContent.length > 0 && (
                   <PortableText value={faq.answerContent} />
                 )}
-              </p>
+              </div>
             </div>
           </div>
         </div>

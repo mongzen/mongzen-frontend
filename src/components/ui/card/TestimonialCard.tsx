@@ -34,11 +34,11 @@ const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
           );
         } else if (block.type === 'paragraph') {
           return (
-            <p key={index}>
+            <div key={index}>
               {block.children.map((child, childIndex) => (
                 <span key={childIndex}>{child.text}</span>
               ))}
-            </p>
+            </div>
           );
         }
         return null;
