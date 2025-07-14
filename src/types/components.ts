@@ -58,6 +58,7 @@ export interface FAQItem {
   number: string;
   question: string;
   answer: string;
+  answerContent?: PortableTextBlock[];
   isDefaultOpen?: boolean | null;
 }
 
