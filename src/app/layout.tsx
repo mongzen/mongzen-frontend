@@ -2,17 +2,27 @@ import { Footer, Header } from '@/components/layout';
 import { barlow, inter } from '@/lib/fonts';
 import type { Metadata } from 'next';
 import './globals.css';
+import BaseProvider from './provider/BaseProvider';
 
 export const metadata: Metadata = {
-  title: 'Mongzen - Transform Your Business',
+  title: 'Full-Stack Web & App Developer | CMS, React, Web3, GameFi | MongZen',
   description:
-    'We create digital experiences that help businesses grow and connect with their audience in meaningful ways.',
+    'We build scalable, client-editable websites using WordPress, ConcreteCMS, and Bootstrap—perfect for corporate sites, landing pages, and multilingual platforms.',
   keywords: [
-    'mongzen',
     'web development',
-    'mobile apps',
-    'UI/UX design',
-    'digital marketing',
+    'app development',
+    'CMS development',
+    'React development',
+    'Web3 development',
+    'GameFi development',
+    'WordPress',
+    'ConcreteCMS',
+    'Bootstrap',
+    'corporate websites',
+    'landing pages',
+    'multilingual websites',
+    'client-editable websites',
+    'full-stack development',
   ],
   authors: [{ name: 'Mongzen Team' }],
   icons: {
@@ -21,17 +31,19 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   openGraph: {
-    title: 'Mongzen - Transform Your Business',
+    title:
+      'Full-Stack Web & App Developer | CMS, React, Web3, GameFi | MongZen',
     description:
-      'We create digital experiences that help businesses grow and connect with their audience in meaningful ways.',
+      'We build scalable, client-editable websites using WordPress, ConcreteCMS, and Bootstrap—perfect for corporate sites, landing pages, and multilingual platforms.',
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mongzen - Transform Your Business',
+    title:
+      'Full-Stack Web & App Developer | CMS, React, Web3, GameFi | MongZen',
     description:
-      'We create digital experiences that help businesses grow and connect with their audience in meaningful ways.',
+      'We build scalable, client-editable websites using WordPress, ConcreteCMS, and Bootstrap—perfect for corporate sites, landing pages, and multilingual platforms.',
   },
 };
 
@@ -45,9 +57,13 @@ export default function RootLayout({
       <body
         className={`${barlow.variable} ${inter.variable} antialiased bg-dark-10 text-neutral-0`}
       >
-        <Header />
-        <main className="max-w-[1596px] flex flex-col mx-auto">{children}</main>
-        <Footer />
+        <BaseProvider>
+          <Header />
+          <main className="max-w-[1596px] flex flex-col mx-auto">
+            {children}
+          </main>
+          <Footer />
+        </BaseProvider>
       </body>
     </html>
   );

@@ -8,7 +8,7 @@ import {
   ServicePage,
   WorkPage,
 } from '@/types';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 export interface UseApiState<T> {
   data: T | null;
@@ -17,323 +17,99 @@ export interface UseApiState<T> {
 }
 
 export function useHomePage(): UseApiState<HomePage> {
-  const [state, setState] = useState<UseApiState<HomePage>>({
-    data: null,
-    loading: true,
-    error: null,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['homePage'],
+    queryFn: () => apiService.getHomePage(),
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchHomePage = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }));
-        const response = await apiService.getHomePage();
-
-        if (isMounted) {
-          setState({
-            data: response.data,
-            loading: false,
-            error: null,
-          });
-        }
-      } catch (error) {
-        if (isMounted) {
-          setState({
-            data: null,
-            loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to fetch home page',
-          });
-        }
-      }
-    };
-
-    fetchHomePage();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return state;
+  return {
+    data: data?.data || null,
+    loading: isLoading,
+    error: error instanceof Error ? error.message : null,
+  };
 }
 
 export function useServicePage(): UseApiState<ServicePage> {
-  const [state, setState] = useState<UseApiState<ServicePage>>({
-    data: null,
-    loading: true,
-    error: null,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['servicePage'],
+    queryFn: () => apiService.getServicePage(),
+    staleTime: 5 * 60 * 1000,
   });
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchServicePage = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }));
-        const response = await apiService.getServicePage();
-
-        if (isMounted) {
-          setState({
-            data: response.data,
-            loading: false,
-            error: null,
-          });
-        }
-      } catch (error) {
-        if (isMounted) {
-          setState({
-            data: null,
-            loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to fetch service page',
-          });
-        }
-      }
-    };
-
-    fetchServicePage();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return state;
+  return {
+    data: data?.data || null,
+    loading: isLoading,
+    error: error instanceof Error ? error.message : null,
+  };
 }
 
 export function useProcessPage(): UseApiState<ProcessPage> {
-  const [state, setState] = useState<UseApiState<ProcessPage>>({
-    data: null,
-    loading: true,
-    error: null,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['processPage'],
+    queryFn: () => apiService.getProcessPage(),
+    staleTime: 5 * 60 * 1000,
   });
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchProcessPage = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }));
-        const response = await apiService.getProcessPage();
-
-        if (isMounted) {
-          setState({
-            data: response.data,
-            loading: false,
-            error: null,
-          });
-        }
-      } catch (error) {
-        if (isMounted) {
-          setState({
-            data: null,
-            loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to fetch process page',
-          });
-        }
-      }
-    };
-
-    fetchProcessPage();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return state;
+  return {
+    data: data?.data || null,
+    loading: isLoading,
+    error: error instanceof Error ? error.message : null,
+  };
 }
 
 export function useAboutPage(): UseApiState<AboutPage> {
-  const [state, setState] = useState<UseApiState<AboutPage>>({
-    data: null,
-    loading: true,
-    error: null,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['aboutPage'],
+    queryFn: () => apiService.getAboutPage(),
+    staleTime: 5 * 60 * 1000,
   });
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchAboutPage = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }));
-        const response = await apiService.getAboutPage();
-
-        if (isMounted) {
-          setState({
-            data: response.data,
-            loading: false,
-            error: null,
-          });
-        }
-      } catch (error) {
-        if (isMounted) {
-          setState({
-            data: null,
-            loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to fetch about page',
-          });
-        }
-      }
-    };
-
-    fetchAboutPage();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return state;
+  return {
+    data: data?.data || null,
+    loading: isLoading,
+    error: error instanceof Error ? error.message : null,
+  };
 }
 
 export function useWorkPage(): UseApiState<WorkPage> {
-  const [state, setState] = useState<UseApiState<WorkPage>>({
-    data: null,
-    loading: true,
-    error: null,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['workPage'],
+    queryFn: () => apiService.getWorkPage(),
+    staleTime: 5 * 60 * 1000,
   });
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchWorkPage = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }));
-        const response = await apiService.getWorkPage();
-
-        if (isMounted) {
-          setState({
-            data: response.data,
-            loading: false,
-            error: null,
-          });
-        }
-      } catch (error) {
-        if (isMounted) {
-          setState({
-            data: null,
-            loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to fetch work page',
-          });
-        }
-      }
-    };
-
-    fetchWorkPage();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return state;
+  return {
+    data: data?.data || null,
+    loading: isLoading,
+    error: error instanceof Error ? error.message : null,
+  };
 }
 
 export function useGlobal(): UseApiState<GlobalSettings> {
-  const [state, setState] = useState<UseApiState<GlobalSettings>>({
-    data: null,
-    loading: true,
-    error: null,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['global'],
+    queryFn: () => apiService.getGlobal(),
+    staleTime: 5 * 60 * 1000,
   });
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchGlobal = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }));
-        const response = await apiService.getGlobal();
-
-        if (isMounted) {
-          setState({
-            data: response.data,
-            loading: false,
-            error: null,
-          });
-        }
-      } catch (error) {
-        if (isMounted) {
-          setState({
-            data: null,
-            loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to fetch global settings',
-          });
-        }
-      }
-    };
-
-    fetchGlobal();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return state;
+  return {
+    data: data?.data || null,
+    loading: isLoading,
+    error: error instanceof Error ? error.message : null,
+  };
 }
 
 export function useContactPage(): UseApiState<ContactPage> {
-  const [state, setState] = useState<UseApiState<ContactPage>>({
-    data: null,
-    loading: true,
-    error: null,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['contactPage'],
+    queryFn: () => apiService.getContactPage(),
+    staleTime: 5 * 60 * 1000,
   });
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchContactPage = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }));
-        const response = await apiService.getContactPage();
-
-        if (isMounted) {
-          setState({
-            data: response.data,
-            loading: false,
-            error: null,
-          });
-        }
-      } catch (error) {
-        if (isMounted) {
-          setState({
-            data: null,
-            loading: false,
-            error:
-              error instanceof Error
-                ? error.message
-                : 'Failed to fetch contact page',
-          });
-        }
-      }
-    };
-
-    fetchContactPage();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  return state;
+  return {
+    data: data?.data || null,
+    loading: isLoading,
+    error: error instanceof Error ? error.message : null,
+  };
 }
