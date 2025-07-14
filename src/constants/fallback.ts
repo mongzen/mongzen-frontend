@@ -39,9 +39,9 @@ export const FALLBACK_CONTACT_DATA: ContactPage = {
   contactList: [
     {
       id: 1,
-      title: 'hello@digitalagency.com',
+      title: 'mongzen.2025@gmail.com',
       icon: undefined,
-      link: 'mailto:hello@digitalagency.com',
+      link: 'mailto:mongzen.2025@gmail.com',
     },
     {
       id: 2,
@@ -97,7 +97,7 @@ export const FALLBACK_CONTACT_DATA: ContactPage = {
  * Reusable contact details
  */
 export const CONTACT_INFO = {
-  EMAIL: 'hello@digitalagency.com',
+  EMAIL: 'mongzen.2025@gmail.com',
   PHONE: '+1 (555) 123-4567',
   ADDRESS: '123 Digital Street, Tech City, TC 12345',
   BUSINESS_HOURS: {

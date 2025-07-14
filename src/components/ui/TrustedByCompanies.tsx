@@ -163,7 +163,7 @@ export const TrustedByCompanies: React.FC<TrustedByCompaniesProps> = ({
                   <Image
                     src={formatImageUrl(company.logo.url)}
                     alt={`${company.name} logo`}
-                    className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-50 sm:opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                    className="max-w-full max-h-full object-contain group-hover:opacity-100 transition-opacity duration-300"
                     width={company.logo.width || 100}
                     height={company.logo.height || 50}
                     sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, (max-width: 1024px) 180px, (max-width: 1280px) 220px, 250px"

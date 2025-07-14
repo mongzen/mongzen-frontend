@@ -99,7 +99,7 @@ export function Footer() {
         <div className="flex items-center gap-2 sm:gap-[10px] min-w-0">
           <EnvelopeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
           <span className="text-contact text-sm sm:text-base truncate">
-            hello@digitalagency.com
+            mongzen.2025@gmail.com
           </span>
         </div>
         <div className="flex items-center gap-2 sm:gap-[10px] min-w-0">

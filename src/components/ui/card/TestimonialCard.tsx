@@ -11,6 +11,7 @@ interface TestimonialCardProps {
   authorName?: string; // Optional author name prop
   authorRole?: string; // Optional author role prop
   className?: string;
+  websiteUrl?: string; // Optional website URL prop
 }
 
 const PortableText = ({ value }: { value: PortableTextBlock[] }) => {
@@ -52,6 +53,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
   authorName,
   authorRole,
   className = '',
+  websiteUrl,
 }) => {
   return (
     <div
@@ -72,11 +74,11 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </div>
 
       {/* Author Info Card */}
-      <div className="rounded-[8px] border-dark-15 border bg-dark-10/20 p-4 sm:p-5 flex items-center gap-3 sm:gap-4 w-full min-h-[80px] sm:min-h-[90px] lg:min-h-[103px]">
-        {/* Author Photo */}
-        {icon && (
+      {authorName && icon && (
+        <div className="rounded-[8px] border-dark-15 border bg-dark-10/20 p-4 sm:p-5 flex items-center gap-3 sm:gap-4 w-full min-h-[80px] sm:min-h-[90px] lg:min-h-[103px]">
+          {/* Author Photo */}
           <div
-            className="w-12 h-12 sm:w-14 sm:h-14 lg:w-15 lg:h-15 rounded-[8px] lg:rounded-[10px] flex items-center justify-center border overflow-hidden shrink-0"
+            className="w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-[8px] lg:rounded-[10px] flex items-center justify-center border overflow-hidden shrink-0"
             style={{
               border: '1px solid #2E2E2E',
               background:
@@ -92,28 +94,30 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
               unoptimized
             />
           </div>
-        )}
 
-        {/* Author Details & CTA */}
-        <div className="flex justify-between items-center gap-3 sm:gap-4 w-full min-w-0">
-          <div className="flex flex-col flex-1 min-w-0">
-            {authorName && (
-              <span className="font-medium text-neutral-0 text-sm sm:text-base truncate">
-                {authorName}
-              </span>
-            )}
-            {authorRole && (
-              <span className="text-neutral-20 text-xs sm:text-sm truncate">
-                {authorRole}
-              </span>
+          {/* Author Details & CTA */}
+          <div className="flex justify-between items-center gap-3 sm:gap-4 w-full min-w-0">
+            <div className="flex flex-col flex-1 min-w-0">
+              {authorName && (
+                <span className="font-medium text-neutral-0 text-sm sm:text-base truncate">
+                  {authorName}
+                </span>
+              )}
+              {authorRole && (
+                <span className="text-neutral-20 text-xs sm:text-sm truncate">
+                  {authorRole}
+                </span>
+              )}
+            </div>
+            {websiteUrl && (
+              <button className="flex items-center justify-center px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-dark-15 hover:bg-dark-20 rounded-lg transition-all duration-300 group min-h-6 font-medium text-neutral-15 text-xs sm:text-sm lg:text-base shrink-0">
+                <span className="hidden sm:inline">Open Website</span>
+                <span className="sm:hidden">Open</span>
+              </button>
             )}
           </div>
-          <button className="flex items-center justify-center px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-dark-15 hover:bg-dark-20 rounded-lg transition-all duration-300 group min-h-6 font-medium text-neutral-15 text-xs sm:text-sm lg:text-base shrink-0">
-            <span className="hidden sm:inline">Open Website</span>
-            <span className="sm:hidden">Open</span>
-          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

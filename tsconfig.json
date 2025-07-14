@@ -32,7 +32,8 @@
       "@/lib/*": ["./src/lib/*"],
       "@/app/*": ["./src/app/*"],
       "@/styles/*": ["./src/styles/*"],
-      "@/public/*": ["./public/*"]
+      "@/public/*": ["./public/*"],
+      "@/provider/*": ["./src/provider/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
