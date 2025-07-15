@@ -12,12 +12,16 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'your-strapi-backend.com',
-        pathname: '/uploads/**',
+        hostname: 'tremendous-confidence-db98bf7d24.media.strapiapp.com',
+        pathname: '/**',
       },
     ],
     // Alternative older syntax (if above doesn't work)
-    domains: ['localhost:1337', 'your-strapi-backend.com'],
+    domains: [
+      'localhost:1337',
+      'your-strapi-backend.com',
+      'tremendous-confidence-db98bf7d24.media.strapiapp.com',
+    ],
   },
 };
 

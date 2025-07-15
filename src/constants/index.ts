@@ -163,3 +163,12 @@ export type RoutePath = keyof typeof ROUTES;
 export type ButtonLabel = keyof typeof BUTTON_LABELS;
 export type ErrorMessage = keyof typeof ERROR_MESSAGES;
 export type LoadingMessage = keyof typeof LOADING_MESSAGES;
+
+export const CACHE_TIME_1_MONTH = 1000 * 60 * 60 * 24 * 30;
+export const CACHE_TIME_1_WEEK = 1000 * 60 * 60 * 24 * 7;
+export const CACHE_TIME_3_DAYS = 1000 * 60 * 60 * 24 * 3;
+export const CACHE_TIME_24_HOURS = 1000 * 60 * 60 * 24;
+export const CACHE_TIME_1_HOUR = 1000 * 60 * 60;
+export const CACHE_TIME_30_MINUTES = 1000 * 60 * 30;
+export const CACHE_TIME_10_MINUTES = 1000 * 60 * 10;
+export const FIVE_SECONDS = 5000;

@@ -1,11 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/**
- * Base Card Component
- * A reusable card component that can be extended for different use cases
- */
-
-'use client';
-
 import { Icon, PortableTextBlock } from '@/types';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
@@ -19,7 +11,6 @@ export interface BaseCardProps {
   description?: string | PortableTextBlock[];
   className?: string;
   aspectRatio?: number;
-  onClick?: () => void;
   href?: string;
   external?: boolean;
 }
@@ -39,7 +30,6 @@ export interface CardContentProps {
 
 export interface CardActionProps {
   text: string;
-  onClick?: () => void;
   href?: string;
   external?: boolean;
   variant?: 'primary' | 'secondary' | 'ghost';
@@ -127,7 +117,6 @@ export const CardContent: React.FC<CardContentProps> = ({
  */
 export const CardAction: React.FC<CardActionProps> = ({
   text,
-  onClick,
   href,
   external = false,
   variant = 'secondary',
@@ -146,19 +135,7 @@ export const CardAction: React.FC<CardActionProps> = ({
     className
   );
 
-  const handleClick = () => {
-    if (onClick) {
-      onClick();
-    } else if (href) {
-      if (external) {
-        window.open(href, '_blank', 'noopener noreferrer');
-      } else {
-        window.location.href = href;
-      }
-    }
-  };
-
-  if (href && !onClick) {
+  if (href) {
     const Component = external ? 'a' : Link;
     const linkProps = external
       ? { href, target: '_blank', rel: 'noopener noreferrer' }
@@ -171,11 +148,7 @@ export const CardAction: React.FC<CardActionProps> = ({
     );
   }
 
-  return (
-    <button onClick={handleClick} className={baseClasses}>
-      {text}
-    </button>
-  );
+  return <button className={baseClasses}>{text}</button>;
 };
 
 /**
@@ -184,15 +157,8 @@ export const CardAction: React.FC<CardActionProps> = ({
  */
 export const BaseCard: React.FC<
   BaseCardProps & { children?: React.ReactNode }
-> = ({
-  className = '',
-  aspectRatio,
-  onClick,
-  href,
-  external = false,
-  children,
-}) => {
-  const shouldNavigate = (href && !onClick) || onClick;
+> = ({ className = '', aspectRatio, href, children }) => {
+  const shouldNavigate = href;
 
   const cardClasses = clsx(
     'p-6 sm:p-8 md:p-10 lg:p-[50px] flex flex-col',
@@ -202,54 +168,17 @@ export const BaseCard: React.FC<
     className
   );
 
-  const handleClick = () => {
-    if (onClick) {
-      onClick();
-    } else if (href) {
-      if (external) {
-        window.open(href, '_blank', 'noopener noreferrer');
-      } else {
-        window.location.href = href;
-      }
-    }
-  };
-
   const cardStyle = aspectRatio ? { aspectRatio } : {};
 
   // Always use div to avoid nested anchor issues
   // Handle navigation through onClick instead of wrapping in Link
 
-  const handleCardClick = (e: React.MouseEvent) => {
-    // Prevent navigation if the click is on an interactive element
-    const target = e.target as HTMLElement;
-    const isInteractive = target.closest(
-      'a, button, [role="button"], input, select, textarea'
-    );
-
-    if (isInteractive) {
-      return;
-    }
-
-    handleClick();
-  };
-
   return (
     <div
-      onClick={shouldNavigate ? handleCardClick : undefined}
       className={cardClasses}
       style={cardStyle}
       role={shouldNavigate ? 'button' : undefined}
       tabIndex={shouldNavigate ? 0 : undefined}
-      onKeyDown={
-        shouldNavigate
-          ? (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleCardClick(e as any);
-              }
-            }
-          : undefined
-      }
     >
       {children}
     </div>

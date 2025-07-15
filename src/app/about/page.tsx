@@ -1,53 +1,40 @@
-'use client';
-
-// Force dynamic rendering to avoid static generation issues
-export const dynamic = 'force-dynamic';
-
 import {
-  LoadingSpinner,
   PageHeader,
   ProcessCard,
   ServiceCard,
   WipeButton,
 } from '@/components/ui';
 import { DEFAULTS } from '@/constants';
-import { useAboutPage, useGlobal } from '@/hooks/useApi';
-import { formatImageUrl, isUnoptimizedImageUrl } from '@/utils/imageUtils';
+import { getAboutPage, getGlobalSettings } from '@/services/apiServer';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function About() {
-  const { data: aboutData, loading, error } = useAboutPage();
-  const { data: globalData, loading: globalLoading } = useGlobal();
+export default async function About() {
+  const resGlobalData = await getGlobalSettings();
+  const globalData = resGlobalData?.data;
+  const resAboutData = await getAboutPage();
+  const aboutData = resAboutData?.data;
 
-  if (loading || globalLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center flex-col">
-        <LoadingSpinner size="lg" />
-        <p className="mt-4 text-neutral-20">Loading about...</p>
-      </div>
-    );
-  }
+  const error = !globalData && !aboutData;
 
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col">
         <div className="text-center">
-          <p className="text-danger-50 mb-4">Error loading about: {error}</p>
+          <p className="text-danger-50 mb-4">Error loading works: {error}</p>
           <p className="text-neutral-20 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
               {process.env.NEXT_PUBLIC_API_URL || DEFAULTS.API_URL}
             </code>
           </p>
-          <WipeButton
-            variant="filled"
-            color="danger"
-            onClick={() => window.location.reload()}
-          >
-            Try Again
-          </WipeButton>
+          <Link href="/works">
+            <WipeButton variant="filled" color="danger">
+              Try Again
+            </WipeButton>
+          </Link>
         </div>
       </div>
     );
@@ -99,10 +86,6 @@ export default function About() {
                     alt={aboutData.introImage.name || 'About Image'}
                     fill
                     className="object-cover"
-                    // mix-blend-overlay
-                    unoptimized={isUnoptimizedImageUrl(
-                      formatImageUrl(aboutData.introImage.url)
-                    )}
                     priority
                   />
                 </div>
@@ -208,9 +191,6 @@ export default function About() {
                       width={200}
                       height={200}
                       className="object-cover"
-                      unoptimized={isUnoptimizedImageUrl(
-                        formatImageUrl(globalData.footerCTA.icon.url)
-                      )}
                     />
                   )}
                 </div>

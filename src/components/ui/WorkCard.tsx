@@ -1,7 +1,5 @@
-'use client';
-
 import { Icon } from '@/types';
-import { formatImageUrl, isUnoptimizedImageUrl } from '@/utils/imageUtils';
+import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,7 +10,6 @@ interface WorkCardProps {
   name: string;
   description: string;
   link?: string;
-  onClick?: () => void;
   className?: string;
   aspectRatio?: number;
 }
@@ -23,17 +20,8 @@ export const WorkCard: React.FC<WorkCardProps> = ({
   name,
   description,
   link,
-  onClick,
   className = '',
 }) => {
-  const handleClick = () => {
-    if (onClick) {
-      onClick();
-    } else if (link) {
-      window.open(link, '_blank');
-    }
-  };
-
   const CardContent = () => (
     <div
       className={clsx(
@@ -58,8 +46,6 @@ export const WorkCard: React.FC<WorkCardProps> = ({
               width={image.width || 700}
               height={image.height || 423}
               className="w-full h-full object-cover max-w-full"
-              unoptimized={isUnoptimizedImageUrl(formatImageUrl(image.url))}
-              priority
             />
           </div>
         )}
@@ -106,7 +92,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({
     </div>
   );
 
-  if (link && !onClick) {
+  if (link) {
     return (
       <Link
         href={link}
@@ -120,7 +106,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({
   }
 
   return (
-    <div onClick={handleClick} className="block border-b border-dark-15">
+    <div className="block border-b border-dark-15">
       <CardContent />
     </div>
   );

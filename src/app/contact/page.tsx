@@ -1,80 +1,42 @@
-'use client';
-
-// Force dynamic rendering to avoid static generation issues
-export const dynamic = 'force-dynamic';
-
 import {
   ButtonContact,
   ContactSection,
   FAQAccordion,
-  LoadingSpinner,
   OpenHours,
   PageHeader,
   StayConnectLinks,
   WipeButton,
 } from '@/components/ui';
-import {
-  BUTTON_LABELS,
-  DEFAULTS,
-  ERROR_MESSAGES,
-  LOADING_MESSAGES,
-} from '@/constants';
-import { FALLBACK_CONTACT_DATA } from '@/constants/fallback';
-import { useContactPage, useGlobal } from '@/hooks/useApi';
-import { formatImageUrl, isUnoptimizedImageUrl } from '@/utils/imageUtils';
+import { DEFAULTS } from '@/constants';
+import { getContactPage, getGlobalSettings } from '@/services/apiServer';
+import { formatImageUrl } from '@/utils/imageUtils';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function ContactPage() {
-  const {
-    data: contactData,
-    loading: contactLoading,
-    error: contactError,
-  } = useContactPage();
+export default async function ContactPage() {
+  const resGlobalData = await getGlobalSettings();
+  const globalData = resGlobalData?.data;
+  const resContactData = await getContactPage();
+  const contactData = resContactData?.data;
 
-  const {
-    data: globalData,
-    loading: globalLoading,
-    error: globalError,
-  } = useGlobal();
-
-  const isLoading = contactLoading || globalLoading;
-  const error = contactError || globalError;
-
-  // Use fallback data if API data is not available
-  const effectiveContactData = contactData || FALLBACK_CONTACT_DATA;
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center flex-col">
-        <LoadingSpinner size="lg" />
-        <p className="mt-4 text-neutral-20">
-          {LOADING_MESSAGES.LOADING_CONTACT}
-        </p>
-      </div>
-    );
-  }
+  const error = !globalData && !contactData;
 
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col">
         <div className="text-center">
-          <p className="text-danger-50 mb-4">
-            {ERROR_MESSAGES.FAILED_TO_FETCH_CONTACT}: {error}
-          </p>
+          <p className="text-danger-50 mb-4">Error loading works: {error}</p>
           <p className="text-neutral-20 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
               {process.env.NEXT_PUBLIC_API_URL || DEFAULTS.API_URL}
             </code>
           </p>
-          <WipeButton
-            variant="filled"
-            color="danger"
-            onClick={() => window.location.reload()}
-          >
-            {BUTTON_LABELS.TRY_AGAIN}
-          </WipeButton>
+          <Link href="/works">
+            <WipeButton variant="filled" color="danger">
+              Try Again
+            </WipeButton>
+          </Link>
         </div>
       </div>
     );
@@ -84,17 +46,16 @@ export default function ContactPage() {
     <div className="min-h-screen">
       {/* Section Banner */}
       <section className="border-0 sm:border-x border-dark-15">
-        {effectiveContactData?.SectionBanner && (
+        {contactData?.SectionBanner && (
           <PageHeader
-            title={effectiveContactData?.SectionBanner.title || 'Contact Us'}
+            title={contactData?.SectionBanner.title || 'Contact Us'}
             subtitle={
-              effectiveContactData?.SectionBanner.subtitle ||
-              'Get in Touch with Us'
+              contactData?.SectionBanner.subtitle || 'Get in Touch with Us'
             }
             backgroundImage={formatImageUrl(
-              effectiveContactData?.SectionBanner.background?.url
+              contactData?.SectionBanner.background?.url
             )}
-            icon={formatImageUrl(effectiveContactData?.SectionBanner.icon?.url)}
+            icon={formatImageUrl(contactData?.SectionBanner.icon?.url)}
           />
         )}
       </section>
@@ -104,9 +65,9 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact List */}
-            {effectiveContactData?.contactList &&
-              effectiveContactData.contactList.length > 0 &&
-              effectiveContactData.contactList.map((contact) => (
+            {contactData?.contactList &&
+              contactData.contactList.length > 0 &&
+              contactData.contactList.map((contact) => (
                 <ButtonContact key={contact.id} data={contact} />
               ))}
           </div>
@@ -162,9 +123,6 @@ export default function ContactPage() {
                       width={200}
                       height={200}
                       className="object-cover"
-                      unoptimized={isUnoptimizedImageUrl(
-                        formatImageUrl(globalData.footerCTA.icon.url)
-                      )}
                     />
                   )}
                 </div>

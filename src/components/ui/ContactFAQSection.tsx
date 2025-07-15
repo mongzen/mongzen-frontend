@@ -1,9 +1,8 @@
-'use client';
-
 import { WipeButton } from '@/components/ui';
 import { SectionTitleSubtitle } from '@/types';
 import clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ContactFAQSectionProps {
   data: SectionTitleSubtitle;
@@ -58,21 +57,16 @@ export function ContactFAQSection({ data, className }: ContactFAQSectionProps) {
         )}
 
         {button_text && button_link && (
-          <WipeButton
-            onClick={() => {
-              if (button_link.startsWith('http')) {
-                window.open(button_link, '_blank');
-              } else {
-                window.location.href = button_link;
-              }
-            }}
-            variant="outline"
-            color="accent"
-            size="lg"
-            className="inline-flex"
-          >
-            {button_text}
-          </WipeButton>
+          <Link href={button_link}>
+            <WipeButton
+              variant="outline"
+              color="accent"
+              size="lg"
+              className="inline-flex"
+            >
+              {button_text}
+            </WipeButton>
+          </Link>
         )}
       </div>
     </section>

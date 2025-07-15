@@ -1,5 +1,3 @@
-'use client';
-
 import { Icon, PortableTextBlock } from '@/types';
 import clsx from 'clsx';
 import { BaseCard, CardAction, CardContent, CardIcon } from './BaseCard';
@@ -10,7 +8,6 @@ interface ServiceCardProps {
   description: string | PortableTextBlock[];
   buttonText?: string;
   buttonHref?: string;
-  onClick?: () => void;
   className?: string;
   aspectRatio?: number;
 }
@@ -21,7 +18,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
   buttonText,
   buttonHref,
-  onClick,
   className = '',
   aspectRatio = 532 / 577,
 }) => {
@@ -29,7 +25,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
     <BaseCard
       className={clsx('justify-between', className)}
       aspectRatio={aspectRatio}
-      onClick={onClick}
       href={buttonHref}
     >
       {/* Icon Section */}
@@ -50,12 +45,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       {/* Action Button */}
       {buttonText && (
         <div className="mt-6">
-          <CardAction
-            text={buttonText}
-            onClick={onClick}
-            href={buttonHref}
-            variant="secondary"
-          />
+          <CardAction text={buttonText} href={buttonHref} variant="secondary" />
         </div>
       )}
     </BaseCard>

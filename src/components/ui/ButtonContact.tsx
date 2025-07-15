@@ -1,5 +1,3 @@
-'use client';
-
 import {
   BACKGROUNDS,
   BORDERS,
@@ -13,6 +11,7 @@ import { ButtonContact as ButtonContactType } from '@/types';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ButtonContactProps {
   data: ButtonContactType;
@@ -22,35 +21,21 @@ interface ButtonContactProps {
 export function ButtonContact({ data, className }: ButtonContactProps) {
   const { title, icon, link } = data;
 
-  const handleClick = () => {
-    if (link) {
-      if (
-        link.startsWith('mailto:') ||
-        link.startsWith('tel:') ||
-        link.startsWith('http')
-      ) {
-        window.open(link, '_blank');
-      } else {
-        // Assume it's an internal route
-        window.location.href = link;
-      }
-    }
+  const isExternalLink =
+    link &&
+    (link.startsWith('mailto:') ||
+      link.startsWith('tel:') ||
+      link.startsWith('http'));
+
+  const getActionText = () => {
+    if (!link) return 'contact';
+    if (link.startsWith('mailto:')) return 'send email';
+    if (link.startsWith('tel:')) return 'call';
+    return 'visit';
   };
 
-  return (
-    <button
-      onClick={handleClick}
-      className={clsx(
-        COMPONENT_STYLES.CARD_BASE,
-        COMPONENT_STYLES.CARD_HOVER,
-        STATES.GROUP,
-        TRANSITIONS.ALL,
-        TRANSITIONS.DURATION_200,
-        'flex items-center gap-4 text-left w-full',
-        SPACING.PADDING.MD,
-        className
-      )}
-    >
+  const buttonContent = (
+    <>
       {icon && (
         <div
           className={clsx(
@@ -94,14 +79,43 @@ export function ButtonContact({ data, className }: ButtonContactProps) {
             TRANSITIONS.DURATION_200
           )}
         >
-          Click to{' '}
-          {link.startsWith('mailto:')
-            ? 'send email'
-            : link.startsWith('tel:')
-              ? 'call'
-              : 'visit'}
+          Click to {getActionText()}
         </p>
       </div>
-    </button>
+    </>
+  );
+
+  const baseClassName = clsx(
+    COMPONENT_STYLES.CARD_BASE,
+    COMPONENT_STYLES.CARD_HOVER,
+    STATES.GROUP,
+    TRANSITIONS.ALL,
+    TRANSITIONS.DURATION_200,
+    'flex items-center gap-4 text-left w-full',
+    SPACING.PADDING.MD,
+    className
+  );
+
+  if (!link) {
+    return <div className={baseClassName}>{buttonContent}</div>;
+  }
+
+  if (isExternalLink) {
+    return (
+      <Link
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={baseClassName}
+      >
+        {buttonContent}
+      </Link>
+    );
+  }
+
+  return (
+    <Link href={link} className={baseClassName}>
+      {buttonContent}
+    </Link>
   );
 }

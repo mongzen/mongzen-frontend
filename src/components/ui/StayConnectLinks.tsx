@@ -1,5 +1,3 @@
-'use client';
-
 import { StayConnect } from '@/types/components';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';

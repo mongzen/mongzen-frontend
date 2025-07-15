@@ -1,5 +1,3 @@
-'use client';
-
 import { OpenHours as OpenHoursType } from '@/types';
 import clsx from 'clsx';
 

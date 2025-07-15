@@ -1,53 +1,39 @@
-'use client';
-
-// Force dynamic rendering to avoid static generation issues
-export const dynamic = 'force-dynamic';
-
 import {
   ContactSection,
-  LoadingSpinner,
   PageHeader,
   ProcessCard,
   ServiceCard,
   WipeButton,
 } from '@/components/ui';
 import { DEFAULTS } from '@/constants';
-import { useGlobal, useProcessPage } from '@/hooks/useApi';
+import { getGlobalSettings, getProcessPage } from '@/services/apiServer';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Link from 'next/link';
 
-export default function Process() {
-  const { data: processData, loading, error } = useProcessPage();
-  const { data: globalData, loading: globalLoading } = useGlobal();
-
-  if (loading || globalLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center flex-col">
-        <LoadingSpinner size="lg" />
-        <p className="mt-4 text-neutral-20">Loading process...</p>
-      </div>
-    );
-  }
+export default async function Process() {
+  const resGlobalData = await getGlobalSettings();
+  const globalData = resGlobalData?.data || null;
+  const resProcessData = await getProcessPage();
+  const processData = resProcessData?.data || null;
+  const error = !globalData && !processData;
 
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col">
         <div className="text-center">
-          <p className="text-danger-50 mb-4">Error loading process: {error}</p>
+          <p className="text-danger-50 mb-4">Error loading works: {error}</p>
           <p className="text-neutral-20 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
               {process.env.NEXT_PUBLIC_API_URL || DEFAULTS.API_URL}
             </code>
           </p>
-          <WipeButton
-            variant="filled"
-            color="danger"
-            onClick={() => window.location.reload()}
-          >
-            Try Again
-          </WipeButton>
+          <Link href="/works">
+            <WipeButton variant="filled" color="danger">
+              Try Again
+            </WipeButton>
+          </Link>
         </div>
       </div>
     );

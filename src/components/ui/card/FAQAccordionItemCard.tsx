@@ -1,3 +1,5 @@
+'use client';
+
 import { Icon } from '@/components/ui';
 import PortableText from '@/components/ui/PortableText';
 import { FAQItem } from '@/types';

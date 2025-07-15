@@ -1,5 +1,3 @@
-'use client';
-
 import { Icon, PortableTextBlock } from '@/types';
 import clsx from 'clsx';
 import { BaseCard, CardContent, CardIcon } from '../BaseCard';

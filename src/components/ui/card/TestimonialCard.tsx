@@ -1,5 +1,3 @@
-'use client';
-
 import { Icon, PortableTextBlock } from '@/types';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
@@ -91,7 +89,6 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
               width={icon.width || 60}
               height={icon.height || 60}
               className="aspect-square object-cover w-full h-full"
-              unoptimized
             />
           </div>
 

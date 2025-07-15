@@ -8,15 +8,15 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 export function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const pathname = usePathname();
 
   const navigation = [
     { name: 'Home', href: '/', icon: 'HomeIcon' },
+    { name: 'About', href: '/about', icon: 'UserIcon' },
     { name: 'Services', href: '/service', icon: 'CogIcon' },
     { name: 'Works', href: '/works', icon: 'RocketLaunchIcon' },
     { name: 'Process', href: '/process', icon: 'ArrowPathIcon' },
-    { name: 'About', href: '/about', icon: 'UserIcon' },
     { name: 'Contact', href: '/contact', icon: 'EnvelopeIcon' },
   ];
 

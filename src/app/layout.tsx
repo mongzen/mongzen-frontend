@@ -1,5 +1,6 @@
 import { Footer, Header } from '@/components/layout';
 import { barlow, inter } from '@/lib/fonts';
+import { getGlobalSettings } from '@/services/apiServer';
 import type { Metadata } from 'next';
 import './globals.css';
 import BaseProvider from './provider/BaseProvider';
@@ -47,11 +48,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const resGlobalData = await getGlobalSettings();
+  const globalData = resGlobalData?.data || null;
   return (
     <html lang="en">
       <body
@@ -62,7 +65,7 @@ export default function RootLayout({
           <main className="max-w-[1596px] flex flex-col mx-auto">
             {children}
           </main>
-          <Footer />
+          <Footer data={globalData} />
         </BaseProvider>
       </body>
     </html>

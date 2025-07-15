@@ -1,22 +1,24 @@
-'use client';
-
 import { StayConnectLinks } from '@/components/ui';
-import { useGlobal } from '@/hooks/useApi';
+import { GlobalSettings } from '@/types';
 import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
-export function Footer() {
-  const pathname = usePathname();
-  const { data: globalData } = useGlobal();
+interface FooterProps {
+  data: GlobalSettings | null;
+}
+
+export function Footer(props: FooterProps) {
+  const globalData = props.data;
+  // const pathname = usePathname();
 
   const navigation = [
     { name: 'Home', href: '/', icon: 'HomeIcon' },
     { name: 'About', href: '/about', icon: 'UserIcon' },
-    { name: 'Services', href: '/services', icon: 'CogIcon' },
-    { name: 'Projects', href: '/projects', icon: 'RocketLaunchIcon' },
+    { name: 'Services', href: '/service', icon: 'CogIcon' },
+    { name: 'Works', href: '/works', icon: 'RocketLaunchIcon' },
+    { name: 'Process', href: '/process', icon: 'ArrowPathIcon' },
     { name: 'Contact', href: '/contact', icon: 'EnvelopeIcon' },
   ];
 
@@ -44,16 +46,16 @@ export function Footer() {
         {/* Mobile/Tablet Navigation */}
         <nav className="flex lg:hidden flex-wrap items-center justify-center gap-4 sm:gap-6">
           {navigation.map((item) => {
-            const isActive = pathname === item.href;
+            // const isActive = pathname === item.href;
             return (
               <Link
                 key={item.name}
                 href={item.href}
                 className={clsx(
-                  'flex items-center justify-center text-sm sm:text-base font-medium transition-all duration-300 px-3 py-2 rounded-lg',
-                  isActive
-                    ? 'text-white bg-primary/10'
-                    : 'text-dark-90 hover:text-white hover:bg-dark-15'
+                  'flex items-center justify-center text-sm sm:text-base font-medium transition-all duration-300 px-3 py-2 rounded-lg'
+                  // isActive
+                  //   ? 'text-white bg-primary/10'
+                  //   : 'text-dark-90 hover:text-white hover:bg-dark-15'
                 )}
               >
                 <span>{item.name}</span>
@@ -65,16 +67,16 @@ export function Footer() {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-[30px]">
           {navigation.map((item) => {
-            const isActive = pathname === item.href;
+            // const isActive = pathname === item.href;
             return (
               <Link
                 key={item.name}
                 href={item.href}
                 className={clsx(
-                  'flex items-center justify-center text-lg font-medium transition-all duration-300 group relative overflow-hidden px-4 py-2 rounded-lg',
-                  isActive
-                    ? 'text-white bg-primary/10'
-                    : 'text-dark-90 hover:text-white hover:bg-dark-15'
+                  'flex items-center justify-center text-lg font-medium transition-all duration-300 group relative overflow-hidden px-4 py-2 rounded-lg'
+                  // isActive
+                  //   ? 'text-white bg-primary/10'
+                  //   : 'text-dark-90 hover:text-white hover:bg-dark-15'
                 )}
               >
                 <span className="relative z-10">{item.name}</span>

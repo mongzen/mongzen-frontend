@@ -1,8 +1,6 @@
-'use client';
-
+import FAQAccordionItemCard from '@/components/ui/card/FAQAccordionItemCard';
 import { FAQItem } from '@/types';
 import clsx from 'clsx';
-import FAQAccordionItemCard from './card/FAQAccordionItemCard';
 
 interface FAQAccordionProps {
   items: FAQItem[];

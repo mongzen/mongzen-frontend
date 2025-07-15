@@ -1,13 +1,7 @@
-'use client';
-
-// Force dynamic rendering to avoid static generation issues
-export const dynamic = 'force-dynamic';
-
 import {
   ButtonBlur,
   ContactSection,
   FAQAccordion,
-  LoadingSpinner,
   PageHeader,
   ServiceCard,
   TestimonialCard,
@@ -16,42 +10,35 @@ import {
   WipeButton,
 } from '@/components/ui';
 import { DEFAULTS } from '@/constants';
-import { useGlobal, useHomePage } from '@/hooks/useApi';
+import { getGlobalSettings, getHomepage } from '@/services/apiServer';
 import { formatImageUrl } from '@/utils/imageUtils';
 import clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 
-export default function Home() {
-  const { data: homeData, loading, error } = useHomePage();
-  const { data: globalData, loading: globalLoading } = useGlobal();
-
-  if (loading || globalLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center flex-col">
-        <LoadingSpinner size="lg" />
-        <p className="mt-4 text-neutral-20">Loading homepage content...</p>
-      </div>
-    );
-  }
+export default async function Home() {
+  const resHomeData = await getHomepage();
+  const homeData = resHomeData?.data || null;
+  const resGlobalData = await getGlobalSettings();
+  const globalData = resGlobalData?.data || null;
+  const error = !homeData || !globalData;
 
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col">
         <div className="text-center">
-          <p className="text-danger-50 mb-4">Error loading homepage: {error}</p>
+          <p className="text-danger-50 mb-4">Error loading homepage</p>
           <p className="text-neutral-20 mb-4">
             Make sure your backend is running on{' '}
             <code className="bg-neutral-50/20 px-2 py-1 rounded text-primary-50">
               {process.env.NEXT_PUBLIC_API_URL || DEFAULTS.API_URL}
             </code>
           </p>
-          <WipeButton
-            variant="filled"
-            color="danger"
-            onClick={() => window.location.reload()}
-          >
-            Try Again
-          </WipeButton>
+          <Link href="/">
+            <WipeButton variant="filled" color="danger">
+              Try Again
+            </WipeButton>
+          </Link>
         </div>
       </div>
     );
@@ -91,20 +78,16 @@ export default function Home() {
             >
               Our Works
             </ButtonBlur>
-            <WipeButton
-              variant="filled"
-              color="primary"
-              size="lg"
-              className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
-              onClick={() => {
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              Contact
-            </WipeButton>
+            <Link href="/contact">
+              <WipeButton
+                variant="filled"
+                color="primary"
+                size="lg"
+                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto min-w-[160px]"
+              >
+                Contact
+              </WipeButton>
+            </Link>
           </div>
         </div>
       </section>
@@ -263,18 +246,17 @@ export default function Home() {
                 color="primary"
                 size="lg"
                 className="min-w-[160px]"
-                onClick={() => {
-                  const contactSection = document.getElementById('contact');
-                  if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
+                // onClick={() => {
+                //   const contactSection = document.getElementById('contact');
+                //   if (contactSection) {
+                //     contactSection.scrollIntoView({ behavior: 'smooth' });
+                //   }
+                // }}
               >
                 {globalData?.ProjectCTA.button_text || 'Contact Us'}
               </WipeButton>
             </div>
           </PageHeader>
-          {/* Contact Section */}
           <ContactSection contactForm={globalData?.contactForm} />
         </div>
       </section>

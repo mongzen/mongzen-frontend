@@ -1,9 +1,6 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-
 'use client';
 
-import { Checkbox, LoadingSpinner, RangeSlider } from '@/components/ui';
-import { useGlobal } from '@/hooks/useApi';
+import { Checkbox, RangeSlider } from '@/components/ui';
 import { ContactFormData, apiService } from '@/services/api';
 import { ContactForm } from '@/types';
 import { isValidEmail, sanitizeInput } from '@/utils';
@@ -29,15 +26,14 @@ interface ExtendedContactFormData extends ContactFormData {
 }
 
 export function ContactSection({ className, contactForm }: ContactFormProps) {
-  const { loading: formLoading } = useGlobal();
   const [formState, setFormState] = useState<FormState>('idle');
   const [responseMessage, setResponseMessage] = useState<string>('');
 
   // Fallback data when API is not available
   const fallbackData = {
     id: 1,
-    fullNamePlaceholder: 'Full Name',
-    emailPlaceholder: 'Email Address',
+    fullNamePlaceholder: 'Full Name (Mock Data)',
+    emailPlaceholder: 'Email Address (Mock Data)',
     questionLabel: 'Why are you contacting us?',
     budgetLabel: 'Your Budget',
     budgetMin: 1000,
@@ -145,19 +141,19 @@ export function ContactSection({ className, contactForm }: ContactFormProps) {
     reset();
   };
 
-  if (formLoading) {
-    return (
-      <section
-        id="contact"
-        className={clsx(
-          'relative text-white overflow-hidden min-h-[400px] flex items-center justify-center',
-          className
-        )}
-      >
-        <LoadingSpinner size="lg" />
-      </section>
-    );
-  }
+  // if (formLoading) {
+  //   return (
+  //     <section
+  //       id="contact"
+  //       className={clsx(
+  //         'relative text-white overflow-hidden min-h-[400px] flex items-center justify-center',
+  //         className
+  //       )}
+  //     >
+  //       <LoadingSpinner size="lg" />
+  //     </section>
+  //   );
+  // }
 
   return (
     <section
