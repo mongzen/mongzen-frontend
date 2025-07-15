@@ -130,7 +130,9 @@ export function ContactSection({ className, contactForm }: ContactFormProps) {
     } catch (error: unknown) {
       setFormState('error');
       setResponseMessage(
-        error instanceof Error ? error.message : 'Something went wrong. Please try again.'
+        error instanceof Error
+          ? error.message
+          : 'Something went wrong. Please try again.'
       );
     }
   };
