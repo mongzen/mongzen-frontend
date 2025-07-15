@@ -84,11 +84,11 @@ export function ContactSection({ className, contactForm }: ContactFormProps) {
   });
 
   // Helper function to extract text from rich text
-  const extractTextFromRichText = (richText: any[]): string => {
+  const extractTextFromRichText = (richText: unknown[]): string => {
     if (!richText || !Array.isArray(richText)) return '';
     return richText
       .map(
-        (block) =>
+        (block: any) =>
           block.children?.map((child: any) => child.text).join(' ') || ''
       )
       .join(' ');
@@ -127,10 +127,10 @@ export function ContactSection({ className, contactForm }: ContactFormProps) {
       setFormState('success');
       setResponseMessage(response.message);
       reset(); // Clear form on success
-    } catch (error: any) {
+    } catch (error: unknown) {
       setFormState('error');
       setResponseMessage(
-        error.message || 'Something went wrong. Please try again.'
+        error instanceof Error ? error.message : 'Something went wrong. Please try again.'
       );
     }
   };
