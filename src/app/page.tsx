@@ -232,7 +232,9 @@ export default function Home() {
           <PageHeader
             title={globalData?.faqBanner?.title || 'Frequently Asked Questions'}
             subtitle={globalData?.faqBanner?.subtitle}
-            backgroundImage={formatImageUrl(homeData?.faqBanner?.url)}
+            backgroundImage={formatImageUrl(
+              globalData?.faqBanner?.background?.url
+            )}
           />
           {globalData?.faqList && (
             <FAQAccordion items={globalData?.faqList} maxItems={8} />
