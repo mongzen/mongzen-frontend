@@ -18,6 +18,5 @@ export { RangeSlider } from './RangeSlider';
 export { ServiceCard } from './ServiceCard';
 export { StayConnectLinks } from './StayConnectLinks';
 export { TrustedByCompanies } from './TrustedByCompanies';
-export { default as TypographyShowcase } from './TypographyShowcase';
 export { WipeButton } from './WipeButton';
 export { WorkCard } from './WorkCard';
