@@ -12,6 +12,8 @@ export default async function Works() {
   const workData = resWorkData?.data;
   const error = !globalData && !workData;
 
+  console.error('Error fetching data:', workData);
+
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col">

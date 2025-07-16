@@ -101,10 +101,9 @@ export default async function Service() {
                       buttonText={service.linkText}
                       buttonHref={service.linkUrl}
                       description={service.description}
-                      aspectRatio={3 / 2}
                       className={clsx(
                         'border-dark-15',
-                        '[&>div>h3]:!text-[20px] [&>div>h3]:!mb-0 max-h-[280px] overflow-hidden',
+                        '[&>div>h3]:!text-[20px] [&>div>h3]:!mb-0 min-h-[280px] overflow-hidden',
                         // Mobile: all cards have bottom border except last
                         serviceIndex < category.services.length - 1 &&
                           'border-b md:border-b-0',
