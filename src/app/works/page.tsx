@@ -72,7 +72,7 @@ export default async function Works() {
 
           {/* Works Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 border-b border-dark-15">
-            {workData?.workList.map((work, workIndex: number) => (
+            {workData?.workList?.map((work, workIndex: number) => (
               <WorkCard
                 key={work.id}
                 title={work.title}

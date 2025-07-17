@@ -38,6 +38,14 @@ export const metadata: Metadata = {
       'We build scalable, client-editable websites using WordPress, ConcreteCMS, and Bootstrap—perfect for corporate sites, landing pages, and multilingual platforms.',
     type: 'website',
     locale: 'en_US',
+    images: [
+      {
+        url: 'share_thumbnail.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Mongzen',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -45,6 +53,9 @@ export const metadata: Metadata = {
       'Full-Stack Web & App Developer | CMS, React, Web3, GameFi | MongZen',
     description:
       'We build scalable, client-editable websites using WordPress, ConcreteCMS, and Bootstrap—perfect for corporate sites, landing pages, and multilingual platforms.',
+    images: ['share_thumbnail.jpg'],
+    creator: '@mongzen',
+    site: '@mongzen',
   },
 };
 
