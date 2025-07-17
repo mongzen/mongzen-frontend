@@ -1,6 +1,7 @@
 import { Footer, Header } from '@/components/layout';
 import { barlow, inter } from '@/lib/fonts';
 import { getGlobalSettings } from '@/services/apiServer';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import './globals.css';
 import BaseProvider from './provider/BaseProvider';
@@ -72,6 +73,7 @@ export default async function RootLayout({
         className={`${barlow.variable} ${inter.variable} antialiased bg-dark-10 text-neutral-0`}
       >
         <BaseProvider>
+          <SpeedInsights />
           <Header />
           <main className="max-w-[1596px] flex flex-col mx-auto">
             {children}
