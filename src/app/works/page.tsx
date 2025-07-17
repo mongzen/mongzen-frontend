@@ -12,8 +12,6 @@ export default async function Works() {
   const workData = resWorkData?.data;
   const error = !globalData && !workData;
 
-  console.error('Error fetching data:', workData);
-
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col">
@@ -53,50 +51,48 @@ export default async function Works() {
       </section>
 
       {/* Our Works Section */}
-      {workData?.OurWorks && (
-        <section className="border-x-0 sm:border-x border-dark-15">
-          <div className="mx-auto">
-            {/* Section Header */}
-            <div className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12 space-y-3.5 border-b border-dark-15">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-0 mb-4 sm:mb-6">
-                {workData.OurWorks.title}
-              </h2>
-              {workData.OurWorks.description && (
-                <p className="text-base sm:text-lg text-dark-90 leading-relaxed">
-                  {workData.OurWorks.description}
-                </p>
-              )}
-              <div className="flex items-center">
-                <span className="rounded-lg bg-dark-15 flex py-3 px-3.5 justify-center items-center">
-                  {workData.OurWorks.intro_cta}
-                </span>
-              </div>
-            </div>
-
-            {/* Works Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 border-b border-dark-15">
-              {workData.workList.map((work, workIndex: number) => (
-                <WorkCard
-                  key={work.id}
-                  title={work.title}
-                  name={work.name}
-                  image={work.image}
-                  link={work.link}
-                  description={work.description}
-                  className={clsx(
-                    'border-dark-15',
-                    // Mobile: all cards have bottom border except last
-                    workIndex < workData.workList.length - 1 &&
-                      'border-b md:border-b-0',
-                    // Tablet: right card has left border
-                    workIndex % 2 === 1 && 'md:border-l'
-                  )}
-                />
-              ))}
+      <section className="border-x-0 sm:border-x border-dark-15">
+        <div className="mx-auto">
+          {/* Section Header */}
+          <div className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12 space-y-3.5 border-b border-dark-15">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-0 mb-4 sm:mb-6">
+              {workData?.OurWorks?.title}
+            </h2>
+            {workData?.OurWorks?.description && (
+              <p className="text-base sm:text-lg text-dark-90 leading-relaxed">
+                {workData?.OurWorks?.description}
+              </p>
+            )}
+            <div className="flex items-center">
+              <span className="rounded-lg bg-dark-15 flex py-3 px-3.5 justify-center items-center">
+                {workData?.OurWorks?.intro_cta}
+              </span>
             </div>
           </div>
-        </section>
-      )}
+
+          {/* Works Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 border-b border-dark-15">
+            {workData?.workList.map((work, workIndex: number) => (
+              <WorkCard
+                key={work.id}
+                title={work.title}
+                name={work.name}
+                image={work.image}
+                link={work.link}
+                description={work.description}
+                className={clsx(
+                  'border-dark-15',
+                  // Mobile: all cards have bottom border except last
+                  workIndex < workData.workList.length - 1 &&
+                    'border-b md:border-b-0',
+                  // Tablet: right card has left border
+                  workIndex % 2 === 1 && 'md:border-l'
+                )}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       {globalData?.ProjectCTA && (
