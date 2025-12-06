@@ -13,24 +13,22 @@ export const contentType = 'image/png';
 // Image generation
 export default function AppleIcon() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 72,
-          background: '#1a1a1a',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#9eff00',
-          fontWeight: 'bold',
-          borderRadius: '20%',
-        }}
-      >
-        DA
-      </div>
-    ),
+    <div
+      style={{
+        fontSize: 72,
+        background: '#1a1a1a',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#9eff00',
+        fontWeight: 'bold',
+        borderRadius: '20%',
+      }}
+    >
+      DA
+    </div>,
     {
       ...size,
     }

@@ -2,8 +2,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import React from 'react';
 
-interface ButtonBlurProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonBlurProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   children: React.ReactNode;
