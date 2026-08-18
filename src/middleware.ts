@@ -17,7 +17,10 @@ function isAuthorized(request: NextRequest): boolean {
   }
 
   const base64Credentials = authHeader.slice('Basic '.length);
-  const [suppliedUser, suppliedPassword] = Buffer.from(base64Credentials, 'base64')
+  const [suppliedUser, suppliedPassword] = Buffer.from(
+    base64Credentials,
+    'base64'
+  )
     .toString('utf-8')
     .split(':');
 
